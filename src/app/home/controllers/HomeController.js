@@ -5,9 +5,24 @@ import Home from "../containers/Home";
 class HomeController {
     constructor({ location }, context) {
         console.log(location);
+
+        const a = {};
+        Object.defineProperty(a, 'name', {
+            enumerable: true,
+            get() {
+                console.log('asdf');
+                return 1;
+            }
+        });
+
+        for (var key in a) {
+            console.log(key);
+        }
+        console.log(a.name);
     }
 
-    pgOnInit() {
+    onInit() {
+        console.log('init');
         // fetch remote data here!
     }
 
