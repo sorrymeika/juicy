@@ -251,7 +251,7 @@ module.exports = function (webpackEnv) {
       splitChunks: {
         chunks: 'all',
         name: true,
-        minSize: 500 * 1024
+        minSize: 100 * 1024
       },
       // Keep the runtime chunk separated to enable long term caching
       // https://twitter.com/wSokra/status/969679223278505985
@@ -275,6 +275,8 @@ module.exports = function (webpackEnv) {
         .map(ext => `.${ext}`)
         .filter(ext => useTypeScript || !ext.includes('ts')),
       alias: {
+        'react': 'preact/compat',
+        'react-dom': 'preact/compat',
         // Support React Native Web
         // https://www.smashingmagazine.com/2016/08/a-glimpse-into-the-future-with-react-native-for-web/
         'react-native': 'react-native-web',
@@ -324,7 +326,11 @@ module.exports = function (webpackEnv) {
         {
           test: /\.(js|mjs|jsx|ts|tsx)$/,
           include: paths.appSrc,
-          loader: require.resolve('snowball/webpack-extentions/snowball-loader')
+          loader: require.resolve('snowball/webpack-extentions/snowball-loader'),
+          options: {
+            modules: {
+            },
+          },
         },
         {
           // "oneOf" will traverse all following loaders until one will
@@ -377,7 +383,10 @@ module.exports = function (webpackEnv) {
 
             {
               test: /\.(js|mjs|jsx|ts|tsx)$/,
-              include: require('path').resolve(paths.appPath, '../snowball'),
+              include: [
+                path.resolve(paths.appPath, '../snowball'),
+                path.resolve(paths.appPath, '../sn-app'),
+              ],
               loader: require.resolve('babel-loader'),
               options: {
                 "presets": [

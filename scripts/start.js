@@ -16,10 +16,13 @@ require('../config/env');
 
 
 const fs = require('fs');
-
-if (!fs.existsSync('./node_modules/snowball')) {
-  require('child_process').execSync('ln -s ../../snowball/src ./node_modules/snowball');
-}
+const ln = (packageName) => {
+  if (!fs.existsSync('./node_modules/' + packageName)) {
+    require('child_process').execSync('ln -s ../../' + packageName + '/src ./node_modules/' + packageName);
+  }
+};
+ln('snowball');
+ln('sn-app');
 
 const chalk = require('react-dev-utils/chalk');
 const webpack = require('webpack');

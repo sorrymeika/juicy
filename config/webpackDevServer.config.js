@@ -7,6 +7,8 @@ const ignoredFiles = require('react-dev-utils/ignoredFiles');
 const paths = require('./paths');
 const fs = require('fs');
 
+const httpProxy = require('snowball/node-libs/http-proxy');
+
 const protocol = process.env.HTTPS === 'true' ? 'https' : 'http';
 const host = process.env.HOST || '0.0.0.0';
 
@@ -87,6 +89,9 @@ module.exports = function (proxy, allowedHost) {
         // This registers user provided middleware for proxy reasons
         require(paths.proxySetup)(app);
       }
+
+      app.use("/auth_server", httpProxy("localhost", 7001, (url) => url));
+      app.use("/market_server", httpProxy("localhost", 7002, (url) => url));
 
       // This lets us fetch source contents from webpack for the error overlay
       app.use(evalSourceMapMiddleware(server));

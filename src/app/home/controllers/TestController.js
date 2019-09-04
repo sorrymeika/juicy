@@ -1,8 +1,8 @@
 import { controller, injectable } from "snowball/app";
-import Home from "../containers/Home";
+import Test from "../containers/Test";
 
-@controller(Home)
-class HomeController {
+@controller(Test)
+class TestController {
     constructor({ location }, context) {
         console.log(location);
     }
@@ -13,8 +13,8 @@ class HomeController {
 
     @injectable
     onButtonClick() {
-        this.ctx.navigation.forward('/test');
+        this.ctx.navigation.forward('/');
     }
 }
 
-export default HomeController;
+export default TestController;
