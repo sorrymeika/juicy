@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { ViewModel } from "snowball/vm";
+import { ViewModel, util } from "snowball";
 
 class BrickBase extends Component {
     constructor(props) {
@@ -10,12 +10,12 @@ class BrickBase extends Component {
             brick
         } = props;
 
-        console.log(props);
-
         const data = brick.data ? JSON.parse(brick.data) : {};
         const brickProps = brick.props ? JSON.parse(brick.props) : {};
 
-        this.prevData = brick.data;
+        this._prevData = brick.data;
+
+        util.style('brick_' + template.id, template.css);
 
         this.model = new ViewModel({
             el: template.html,
@@ -26,6 +26,7 @@ class BrickBase extends Component {
             delegate: this
         });
         this.initialize && this.initialize(data);
+        this.processData && this.model.set(this.processData(data));
         this.model.nextTick(() => {
             this.onLoad && this.onLoad(data);
         });
@@ -39,13 +40,14 @@ class BrickBase extends Component {
     }
 
     shouldComponentUpdate(nextProps) {
-        if (this.prevData !== nextProps.brick.data) {
+        if (this._prevData !== nextProps.brick.data) {
             const data = nextProps.brick.data ? JSON.parse(nextProps.brick.data) : {};
-            this.prevData = nextProps.brick.data;
+            this._prevData = nextProps.brick.data;
             this.model.set({
                 data
             });
             this.onUpdate && this.onUpdate(data);
+            this.processData && this.model.set(this.processData(data));
         }
         return false;
     }
@@ -57,7 +59,10 @@ class BrickBase extends Component {
 
     render() {
         return (
-            <div ref={this._initRef}></div>
+            <div
+                ref={this._initRef}
+                className="of_h clearfix ps_r"
+            ></div>
         );
     }
 }

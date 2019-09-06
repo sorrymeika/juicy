@@ -1,0 +1,1 @@
+export { createBrickFactory } from "./factories";

@@ -1,19 +1,20 @@
 import { controller, injectable } from "snowball/app";
 import Home from "../containers/Home";
+import PageService from "../../../domain/services/PageService";
+import PageViewService from "../services/PageViewService";
 
 @controller(Home)
 class HomeController {
+    @injectable pageViewService: PageViewService;
+
     constructor({ location }, context) {
-        console.log(location);
+        this.pageViewService = new PageViewService({
+            pageService: new PageService()
+        });
     }
 
     onInit() {
-        // fetch remote data here!
-    }
-
-    @injectable
-    onButtonClick() {
-        this.ctx.navigation.forward('/test');
+        this.pageViewService.initWithKeyName('home');
     }
 }
 

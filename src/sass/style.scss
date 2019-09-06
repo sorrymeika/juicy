@@ -1,2 +1,13 @@
 @import "~snowball/sass/variables.scss";
+@import "~snowball/sass/reset.scss";
 @import "~snowball/sass/app.scss";
+
+@import "iconfont/iconfont.css";
+
+/* 默认样式 */
+.app_def_mb { margin-bottom: .08rem; }
+
+/* 搜索 */
+.app_search { height: 30px; border-radius: 15px; background: #fff; overflow: hidden; padding-left: 8px; margin-left: 10px; margin-right: 10px; }
+.app_search .icon-search { color: #999; font-size: 18px; }
+.app_search input { display: block; border: 0; height: 100%; padding-left: 5px; color: #333; font-size: 12px; }

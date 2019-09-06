@@ -1,0 +1,19 @@
+<style>
+.br_slider { position: relative; }
+.br_slider_item { width: 100%; position: absolute; left: 0; top: 0; }
+</style>
+<sn-slider props="{{ dots: true, loop: true, autoLoop: 3000, imagelazyload: true, data:images, className: (data.bottomMargin?' app_def_mb':'') }}"></sn-slider>
+<script>
+    var template = {
+        type: 2,
+        data: [{
+            images: [{
+                id: 1,
+                src: 'https://dummyimage.com/600x400'
+            }, {
+                id: 2,
+                src: 'https://dummyimage.com/600x400'
+            }]
+        }]
+    };
+</script>

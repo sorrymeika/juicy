@@ -1,13 +1,25 @@
 import React from "react";
-import TestButton from "../components/TestButton";
+import { MainScrollView } from "snowball/components";
 
-function Home({ onButtonClick }) {
-    console.log('home');
+function Search() {
+    return (
+        <div className="app_search flex fx_1">
+            <i className="iconfont icon-search"></i>
+            <input type="input" className="fx_1" />
+        </div>
+    );
+}
+
+function Home({ bricks }) {
+    console.log('home', bricks);
     return (
         <div>
-            <TestButton></TestButton>
-            Home
-            <button onClick={onButtonClick}>Click me to `Test`!</button>
+            <header className="app-header">
+                <Search></Search>
+            </header>
+            <MainScrollView>
+                Home
+            </MainScrollView>
         </div>
     );
 }

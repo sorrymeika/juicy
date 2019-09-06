@@ -2,7 +2,7 @@ import "./sass/style.scss";
 
 import { env as mainEnv } from "snowball";
 import { createApplication } from "snowball/app";
-import { Server } from "sn-app";
+import { Server, Sfs } from "sn-app";
 
 import * as appEnv from "./env";
 import router from "./app/router";
@@ -20,15 +20,15 @@ const projects = {
 };
 
 const authServer = new Server({
-    baseUri: '/auth_server'
+    baseUrl: '/auth_server'
 });
 
 const marketServer = new Server({
-    baseUri: '/market_server'
+    baseUrl: '/market_server'
 });
 
 const tradeServer = new Server({
-    baseUri: '/trade_server'
+    baseUrl: '/trade_server'
 });
 
 createApplication({
@@ -37,9 +37,12 @@ createApplication({
     extend() {
         return {
             env,
-            authServer,
-            marketServer,
-            tradeServer
+            sfs: new Sfs(env.SFS_URL),
+            server: {
+                auth: authServer,
+                market: marketServer,
+                trade: tradeServer,
+            }
         };
     }
 }, document.getElementById('root'), () => {
