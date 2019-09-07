@@ -1,0 +1,93 @@
+<style>
+.br_nav_ball { width: 100%; position: relative; padding-bottom: 10px }
+.br_nav_ball_con { width: 100%; }
+.br_nav_ball_item { float: left; width: .745rem; text-align: center; padding-top: 5px; }
+.br_nav_ball_item > img { width: 48px; height: 48px; }
+.br_nav_ball_item > p { font-size: 10px; color: #666; }
+.br_nav_ball_rows1 { height: 72px; overflow: hidden; }
+.br_nav_ball_rows1 .br_nav_ball_con { height: 80px; }
+.br_nav_ball_scroller { position: absolute; left: 50%; width: 45px; margin-left: -25px; height: 3px; background: #ddd; border-radius: 1.5px; bottom: 5px; }
+.br_nav_ball_scroller_bar { width: 20px; height: 3px; border-radius: 1.5px; background: #ff4500; }
+</style>
+<div class="br_nav_ball {(data.bottomMargin?' app_def_mb':'')}">
+    <div class="br_nav_ball_rows{rows} ">
+        <div class="br_nav_ball_con J_Con" sn-scroll="delegate.onScroll()">
+            <ul class="clearfix" sn-style="width:{width}%">
+                <li class="br_nav_ball_item" sn-repeat="item in images" app-link="{item.link}">
+                    <img sn-src="{item.src}" />
+                    <p>{item.text}</p>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="br_nav_ball_scroller J_Scroller" sn-style="display:{width<=100?'none':'block'}">
+        <div class="br_nav_ball_scroller_bar J_ScrollerBar">
+        </div>
+    </div>
+</div>
+<script>
+    var template = {
+        type: 3,
+        data: [{
+            rows: 1,
+            images: [{
+                id: 1,
+                text: '分类',
+                src: 'https://dummyimage.com/96x96'
+            }, {
+                id: 2,
+                text: '分类1',
+                src: 'https://dummyimage.com/96x96'
+            }, {
+                id: 3,
+                text: '分类2',
+                src: 'https://dummyimage.com/96x96'
+            }, {
+                id: 4,
+                text: '分类3',
+                src: 'https://dummyimage.com/96x96'
+            }, {
+                id: 5,
+                text: '分类4',
+                src: 'https://dummyimage.com/96x96'
+            }, {
+                id: 6,
+                text: '分类5',
+                src: 'https://dummyimage.com/96x96'
+            }]
+        }, {
+            rows: 2,
+            images: [{
+                id: 1,
+                src: 'https://dummyimage.com/96x96'
+            }, {
+                id: 2,
+                src: 'https://dummyimage.com/96x96'
+            }, {
+                id: 1,
+                text: '分类',
+                src: 'https://dummyimage.com/96x96'
+            }, {
+                id: 2,
+                text: '分类1',
+                src: 'https://dummyimage.com/96x96'
+            }, {
+                id: 3,
+                text: '分类2',
+                src: 'https://dummyimage.com/96x96'
+            }, {
+                id: 4,
+                text: '分类3',
+                src: 'https://dummyimage.com/96x96'
+            }, {
+                id: 5,
+                text: '分类4',
+                src: 'https://dummyimage.com/96x96'
+            }, {
+                id: 6,
+                text: '分类5',
+                src: 'https://dummyimage.com/96x96'
+            }]
+        }]
+    };
+</script>

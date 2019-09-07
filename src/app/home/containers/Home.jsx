@@ -10,8 +10,8 @@ function Search() {
     );
 }
 
-function Home({ bricks }) {
-    console.log('home', bricks);
+function Home({ bricks, ctx }) {
+    console.log('home', bricks, ctx);
     return (
         <div>
             <header className="app-header">

@@ -1,7 +1,5 @@
 import { BrickBase } from "../core/BrickBase";
-import { inject } from "snowball/app";
 
-@inject('ctx')
 class Images extends BrickBase {
     processData(data) {
         return {

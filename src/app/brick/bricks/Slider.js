@@ -1,7 +1,9 @@
 import { BrickBase } from "../core/BrickBase";
-import { inject } from "snowball/app";
+import { registerComponent } from "snowball";
+import { SliderComponent } from "snowball/widget";
 
-@inject('ctx')
+registerComponent('slider', SliderComponent);
+
 class Slider extends BrickBase {
     processData(data) {
         return {

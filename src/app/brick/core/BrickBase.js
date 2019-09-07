@@ -20,6 +20,7 @@ class BrickBase extends Component {
         this.model = new ViewModel({
             el: template.html,
             attributes: {
+                env: this.props.ctx.env,
                 data,
                 props: brickProps
             },

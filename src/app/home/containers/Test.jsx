@@ -1,6 +1,9 @@
 import React from "react";
+import { MainScrollView } from "snowball/components";
 
 import imageHTML from '../mocks/images.html';
+import sliderHTML from '../mocks/slider.html';
+import navBallHTML from '../mocks/nav-ball.html';
 import { createBrickFactory } from "../../brick";
 
 let templateId = 0;
@@ -42,15 +45,17 @@ function parseTemplates(htmls) {
     return htmls.reduce((res, html) => res.concat(parseTemplate(html)), []);
 }
 
-export default function Test() {
+export default function Test({ ctx }) {
     return (
-        <div>
+        <MainScrollView>
             {
                 parseTemplates([
-                    imageHTML
+                    sliderHTML,
+                    navBallHTML,
+                    imageHTML,
                 ])
-                    .map((props) => React.createElement(createBrickFactory(props.template.type), props))
+                    .map((props) => React.createElement(createBrickFactory(props.template.type), { ...props, ctx }))
             }
-        </div>
+        </MainScrollView>
     );
 }
