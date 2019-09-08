@@ -6,4 +6,10 @@ export default class PageService extends Service {
             keyName
         });
     }
+
+    getPageById(pageId) {
+        return this.ctx.server.market.post("/page/getPageById", {
+            pageId
+        });
+    }
 }

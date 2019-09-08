@@ -27,16 +27,16 @@ function parseTemplate(html) {
         });
 
     return data.map((item) => ({
-        template: {
-            id: ++templateId,
-            type,
-            css,
-            html
-        },
         brick: {
             id: ++brickId,
             data: JSON.stringify(item),
-            props: '{}'
+            props: '{}',
+            template: {
+                id: ++templateId,
+                type,
+                css,
+                html
+            },
         }
     }));
 }
@@ -54,7 +54,7 @@ export default function Test({ ctx }) {
                     navBallHTML,
                     imageHTML,
                 ])
-                    .map((props) => React.createElement(createBrickFactory(props.template.type), { ...props, ctx }))
+                    .map((props) => React.createElement(createBrickFactory(props.brick.template.type), { ...props, ctx }))
             }
         </MainScrollView>
     );

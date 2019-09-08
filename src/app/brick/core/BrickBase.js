@@ -6,10 +6,11 @@ class BrickBase extends Component {
         super(props);
 
         const {
-            template,
+            pageData,
             brick
         } = props;
 
+        const template = brick.template;
         const data = brick.data ? JSON.parse(brick.data) : {};
         const brickProps = brick.props ? JSON.parse(brick.props) : {};
 
@@ -21,6 +22,7 @@ class BrickBase extends Component {
             el: template.html,
             attributes: {
                 env: this.props.ctx.env,
+                pageData,
                 data,
                 props: brickProps
             },
@@ -49,6 +51,11 @@ class BrickBase extends Component {
             });
             this.onUpdate && this.onUpdate(data);
             this.processData && this.model.set(this.processData(data));
+        }
+        if (this.props.pageData !== nextProps.pageData) {
+            this.model.set({
+                pageData: nextProps.pageData
+            });
         }
         return false;
     }

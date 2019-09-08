@@ -1,18 +1,9 @@
-import { controller, injectable } from "snowball/app";
+import { controller } from "snowball/app";
 import Home from "../containers/Home";
-import PageService from "../../../domain/services/PageService";
-import PageViewService from "../services/PageViewService";
+import PageViewController from "./PageViewController";
 
 @controller(Home)
-class HomeController {
-    @injectable pageViewService: PageViewService;
-
-    constructor({ location }, context) {
-        this.pageViewService = new PageViewService({
-            pageService: new PageService()
-        });
-    }
-
+class HomeController extends PageViewController {
     onInit() {
         this.pageViewService.initWithKeyName('home');
     }
