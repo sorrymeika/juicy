@@ -196,6 +196,7 @@ module.exports = function (webpackEnv) {
             },
             compress: {
               ecma: 5,
+              reduce_funcs: false,
               warnings: false,
               // Disabled because of an issue with Uglify breaking seemingly valid code:
               // https://github.com/facebook/create-react-app/issues/2376
@@ -323,15 +324,7 @@ module.exports = function (webpackEnv) {
           ],
           include: paths.appSrc,
         },
-        {
-          test: /\.(js|mjs|jsx|ts|tsx)$/,
-          include: paths.appSrc,
-          loader: require.resolve('snowball/webpack-extentions/snowball-loader'),
-          options: {
-            modules: {
-            },
-          },
-        },
+
         {
           // "oneOf" will traverse all following loaders until one will
           // match the requirements. When no loader matches it will fall
@@ -526,7 +519,17 @@ module.exports = function (webpackEnv) {
             // Make sure to add the new loader(s) before the "file" loader.
           ],
         },
+        {
+          test: /\.(js|mjs|jsx|ts|tsx)$/,
+          include: paths.appSrc,
+          loader: require.resolve('snowball/webpack-extentions/snowball-loader'),
+          options: {
+            modules: {
+            },
+          },
+        },
       ],
+
     },
     plugins: [
       // Generates an `index.html` file with the <script> injected.

@@ -2,7 +2,7 @@ import "./sass/style.scss";
 
 import { env as mainEnv } from "snowball";
 import { createApplication } from "snowball/app";
-import { Server, Sfs } from "sn-app";
+import { Server, Sfs, appExtentions } from "sn-app";
 
 import * as appEnv from "./env";
 import router from "./app/router";
@@ -12,39 +12,28 @@ const env = {
     ...appEnv
 };
 
-window.SNOWBALL_MAIN_APP = {
-    env
-};
-
 const projects = {
 };
 
-const authServer = new Server({
-    baseUrl: '/auth_server'
-});
-
-const marketServer = new Server({
-    baseUrl: '/market_server'
-});
-
-const tradeServer = new Server({
-    baseUrl: '/trade_server'
-});
-
-createApplication({
+const app = createApplication({
     projects,
     routes: router,
-    extend() {
+    extend(ctx) {
+        const extentions = appExtentions(ctx);
+        extentions.initDomEventHooks(document.body);
+
         return {
             env,
             sfs: new Sfs(env.SFS_URL),
             server: {
-                auth: authServer,
-                market: marketServer,
-                trade: tradeServer,
+                auth: new Server({ baseUrl: '/auth_server' }),
+                market: new Server({ baseUrl: '/market_server' }),
+                trade: new Server({ baseUrl: '/trade_server' })
             }
         };
     }
-}, document.getElementById('root'), () => {
+}, document.getElementById('root'), (ctx) => {
     console.log('application start!');
 });
+
+window.SNOWBALL_MAIN_APP = app;

@@ -11,3 +11,91 @@
 .app_search { height: 30px; border-radius: 15px; background: #fff; overflow: hidden; padding-left: 8px; margin-left: 10px; margin-right: 10px; }
 .app_search .icon-search { color: #999; font-size: 18px; }
 .app_search input { display: block; border: 0; height: 100%; padding-left: 5px; color: #333; font-size: 12px; }
+
+.app-button { color: #fff; background-color: #f23030; height: 30px; border-radius: 15px; padding: 0 10px; }
+.app-button-solid { color: #f23030; border: 1px solid #f23030; background-color: #fff; height: 30px; border-radius: 15px; padding: 0 10px; }
+.app-button-solid.small, .app-button.small { height: 24px; border-radius: 12px; }
+
+/*
+业务缩写:
+
+公共组件
+.app_ {}
+
+首页
+.ho_ {}
+
+商详页
+.it_ {}
+*/
+
+.it_pictures_more { position: absolute; right: -60px; top: 50%; transform: translateY(-50%); z-index: 100; }
+.it_pictures_more .text { width: 20px; }
+.it_pictures_more .iconfont { width: 20px; height: 20px; border: 2px solid #666; border-radius: 50%; font-weight: bold; color: #666; }
+.it_pictures_view_more { color: #fff; right: -60px; }
+.it_pictures_view_more .iconfont { color: #fff; border-color: #fff; }
+
+.it_money { background: #fff; padding: 8px 10px; }
+.it_money_price { color: #f23030; font-weight: bold; }
+.it_money_price .price { vertical-align: bottom; }
+.it_money_price .price i { font-size: 18px; vertical-align: bottom; line-height: 21px; }
+.it_money_price .price em { font-size: 12px; vertical-align: bottom; }
+.it_money_price .price::before { content: '￥'; font-size: 12px; vertical-align: bottom; }
+.it_money_sales { font-size: 11px; color: #999; }
+
+.it_title { background: #fff; padding: 5px 0 10px 10px; }
+.it_title .tit { font-size: 14px; }
+.it_title .fav { padding-left: 10px; padding-right: 10px; margin-left: 10px; }
+.it_title .fav::after { border-color: #eee; top: 10%; bottom: -90%; }
+.it_title .fav .iconfont { font-size: 19px; }
+.it_title .fav p { font-size: 9px; font-weight: 200; }
+
+.it_infobar { background-color: #fff; padding-left: 10px; padding-right: 10px; font-size: 13px; }
+.it_infobar_hd { padding-right: 10px; color: #999; font-size: 12px; }
+
+.it_postinfo { margin-top: 10px; @extend .it_infobar; padding: 10px; }
+.it_postinfo .postinfo { padding-top: 10px; }
+.it_postinfo .hd { @extend .it_infobar_hd; }
+
+.it_serv_tags { padding: 6px 10px 1px 10px; background: #fff; font-size: 10px; font-weight: 200; }
+.it_serv_tags li { float: left; margin-right: 10px; padding-bottom: 5px; }
+.it_serv_tags .iconfont { font-size: 12px; color: #f23030; font-weight: 600; margin-right: 4px; }
+
+.it_spec_select { height: 42px; margin-top: 10px; @extend .it_infobar; }
+.it_spec_select .hd { @extend .it_infobar_hd; }
+
+.it_props { height: 42px; @extend .it_infobar; }
+.it_props::after { left: 10px; border-color: #eee; }
+
+.it_comments { margin-top: 10px; @extend .it_infobar; }
+.it_comments::after { border-color: #eee; }
+.it_comments_hd { height: 42px; }
+.it_comments_hd .more { font-size: 12px; color: #f23030; }
+
+.it_qa { @extend .it_infobar; }
+.it_qa_hd { height: 42px; }
+.it_qa_nodata { padding-bottom: 15px; }
+.it_qa_nodata .con { color: #999; font-size: 12px; }
+
+.it_shop { @extend .it_infobar; margin-top: 10px; padding: 10px; }
+.it_shop_base .logo { height: 48px; width: 48px; }
+.it_shop_base .name { margin-left: 8px; }
+.it_shop_base .btns button { margin-left: 8px; }
+.it_shop_serv { font-size: 12px; color: #999; padding: 10px 0 0 0; }
+.it_shop_serv i { font-size: 10px; border-radius: 50%; background: #eee; display: inline-block; width: 12px; height: 12px; line-height: 11px; text-align: center; }
+
+.it_shop_recommends { @extend .it_infobar; margin-top: 10px; padding: 0; }
+.it_shop_recommends_hd { height: 42px; padding: 0 10px; }
+.it_shop_recommends_hd .more { color: #999; font-size: 12px; }
+.it_shop_recommends_items { padding-left: 10px; }
+.it_shop_recommends_item { float: left; width: 33%; padding: 0px 5px 10px 0; }
+.it_shop_recommends_item .img { width: 1.15rem; height: 1.1rem; display: block; border-radius: 4px; }
+.it_shop_recommends_item .title { height: 36px; line-height: 18px; display: block; font-size: 12px; margin: 5px 0; }
+.it_shop_recommends_item .price { color: #f23030; height: 20px; }
+.it_shop_recommends_item .price::before { content: '￥'; font-size: 13px; }
+.it_shop_recommends_item .price span { font-size: 16px; }
+
+.it_detail_tit { font-size: 13px; height: 30px; }
+.it_detail_tit .bd_b:first-child { margin-left: 40px; }
+.it_detail_tit .bd_b:last-child { margin-right: 40px; }
+.it_detail_tit .tit { padding: 0 10px; }

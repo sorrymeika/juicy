@@ -1,0 +1,53 @@
+<style>
+.br_products { width: 3.75rem; padding-left: .025rem; }
+.br_products_item { width: 1.72rem; float: left; margin-left: .08rem; margin-bottom: .08rem; background: #fff; border-radius: 4px; }
+.br_products_item > img { width: 1.72rem; height: 1.72rem; border-top-left-radius: 4px; border-top-right-radius: 4px; }
+.br_products_item .price { color: #f23030; }
+.br_products_item .price:before { content: '￥'; font-size: 11px; vertical-align: bottom; }
+.br_products_item .price > span { font-size: 16px; vertical-align: bottom; }
+.br_products_item .price > em { font-size: 11px; vertical-align: bottom; }
+.br_products_item .title { padding: 8px 10px 0px 10px; font-size: 14px; height: 48px; }
+.br_products_item .sell { padding: 8px 10px 8px 10px }
+.br_products_item .sell .discount { font-size: 11px; margin-left: 10px; color: #999; }
+</style>
+<div class="br_products clearfix br_products_col{cols}{(data.bottomMargin?' app_def_mb':'')}">
+    <div class="br_products_item" sn-repeat="item in products" app-link="/item/{item.id}">
+        <img sn-src="{item.src}" />
+        <div class="title to_e2">{item.title}</div>
+        <div class="sales" sn-if="{data.showSales}">已售{item.sales}</div>
+        <div class="sell flex">
+            <p class="price"><span>{item.priceIntegerPart}</span><em>.{item.priceDecimalPart}</em></p>
+            <div class="discount" sn-if="{item.discount}">{item.discount}</div>
+        </div>
+    </div>
+</div>
+<script>
+    var template = {
+        type: 5,
+        data: [{
+            cols: 1,
+            type: 2,
+            products: [{
+                id: 1
+            }]
+        }, {
+            cols: 2,
+            type: 2,
+            products: [{
+                id: 1,
+            }, {
+                id: 2,
+            }]
+        }, {
+            cols: 3,
+            type: 2,
+            products: [{
+                id: 1,
+            }, {
+                id: 2,
+            }, {
+                id: 3,
+            }]
+        }]
+    };
+</script>

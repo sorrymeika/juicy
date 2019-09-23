@@ -1,9 +1,12 @@
 import React, { Component } from "react";
 import { ViewModel, util } from "snowball";
+import { PageContext } from "snowball/app";
 
 class BrickBase extends Component {
-    constructor(props) {
-        super(props);
+    static contextType = PageContext;
+
+    constructor(props, context) {
+        super(props, context);
 
         const {
             pageData,
@@ -29,7 +32,7 @@ class BrickBase extends Component {
             delegate: this
         });
         this.initialize && this.initialize(data);
-        this.processData && this.model.set(this.processData(data));
+        this._processData(data);
         this.model.nextTick(() => {
             this.onLoad && this.onLoad(data);
         });
@@ -50,7 +53,7 @@ class BrickBase extends Component {
                 data
             });
             this.onUpdate && this.onUpdate(data);
-            this.processData && this.model.set(this.processData(data));
+            this._processData(data);
         }
         if (this.props.pageData !== nextProps.pageData) {
             this.model.set({
@@ -58,6 +61,19 @@ class BrickBase extends Component {
             });
         }
         return false;
+    }
+
+    _processData(data) {
+        if (this.processData) {
+            const result = this.processData(data);
+            if (util.isThenable(result)) {
+                result.then((res) => {
+                    this.model.set(res);
+                });
+            } else {
+                this.model.set(result);
+            }
+        }
     }
 
     componentWillUnmount() {

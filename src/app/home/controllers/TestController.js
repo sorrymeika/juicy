@@ -1,12 +1,9 @@
 import { controller, injectable } from "snowball/app";
 import Test from "../containers/Test";
+import PageViewController from "./PageViewController";
 
 @controller(Test)
-class TestController {
-    constructor({ location }, context) {
-        console.log(location);
-    }
-
+class TestController extends PageViewController {
     onInit() {
         // fetch remote data here!
     }

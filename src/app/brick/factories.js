@@ -3,6 +3,7 @@ import { TEMPLATE_TYPES } from "./core/TEMPLATE_TYPES";
 import { Images } from "./bricks/Images";
 import { Slider } from "./bricks/Slider";
 import { NavBall } from "./bricks/NavBall";
+import Products from "./bricks/Products";
 
 export function createBrickFactory(type) {
     switch (type) {
@@ -12,6 +13,8 @@ export function createBrickFactory(type) {
             return Slider;
         case TEMPLATE_TYPES.NAV_BALL:
             return NavBall;
+        case TEMPLATE_TYPES.PRODUCTS:
+            return Products;
     }
     return null;
 }
