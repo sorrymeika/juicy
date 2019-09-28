@@ -14,11 +14,13 @@ import QA from '../components/QA';
 import ShopInfo from '../components/ShopInfo';
 import ShopRecommends from '../components/ShopRecommends';
 import Detail from '../components/Detail';
+import Footer from '../components/Footer';
 
 export default function Item(props) {
     return (
         <div>
-            <MainScrollView>
+            <Footer></Footer>
+            <MainScrollView className="it_main">
                 <Pictures></Pictures>
                 <Money></Money>
                 <Title></Title>
