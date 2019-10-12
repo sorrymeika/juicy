@@ -22,6 +22,9 @@ $app_bgc: #f4f4f4;
 .app-button-solid { color: #f23030; border: 1px solid #f23030; background-color: #fff; height: 30px; border-radius: 15px; padding: 0 10px; }
 .app-button-solid.small, .app-button.small { height: 24px; border-radius: 12px; }
 
+.app-button-gradient { width: 100%; display: block; height: 36px; border-radius: 20px; text-align: center; background-image: linear-gradient(90deg,#ff4700,#f23030); color: #fff; font-size: 14px; }
+
+
 .app-check { display: inline-block; width: 16px; height: 16px; border: 1px solid #999; border-radius: 8px; line-height: 14px; }
 .app-check i { margin-left: -1px; }
 .app-check i::before { visibility: hidden; font-weight: bold; color: #999; }
@@ -30,17 +33,26 @@ $app_bgc: #f4f4f4;
 .app-check.disabled { background: #ddd; border-color: #999; }
 .app-check.disabled i::before { color: #999; }
 
+.app-choose-number input { border: 0; background-color: #f7f7f7; height: 30px; width: 50px; margin: 0 1px; padding-left: 5px; padding-right: 5px; text-align: center; }
+.app-choose-number .minus, .app-choose-number .plus { background-color: #f7f7f7; height: 30px; width: 30px; color: #999; font-size: 16px; }
+.app-choose-number .minus { border-top-left-radius: 4px; border-bottom-left-radius: 4px; }
+.app-choose-number .plus { border-top-right-radius: 4px; border-bottom-right-radius: 4px; }
+
 .app_form_item { @extend .flex; padding: 12px 10px; background-color: #fff; }
 .app_form_item::after { border-color: #eee; }
 .app_form_label { font-size: 13px; width: 65px; }
 .app_form_input { flex: 1; font-size: 13px; color: #000; }
 .app_form_input input[type=text], .app_form_input input:not(type), .app_form_input textarea { display: block; width: 100%; border: 0; color: #000; font-size: 13px; }
 
+
 /*
 业务缩写:
 
 公共组件
 .app_ {}
+
+登录
+.lo_ {}
 
 首页
 .ho_ {}
@@ -54,6 +66,16 @@ $app_bgc: #f4f4f4;
 地址列表
 .adl_ {}
 */
+
+/* 登录 */
+.lo_header::after { border: none; }
+.lo_form_item { padding: 10px 5px; margin: 15px; }
+.lo_form_item input { border: 0; font-size: 13px; width: 100%; }
+.lo_form_item .verify_code_btn { border: 0; font-size: 13px; color: #f23030; }
+.lo_form_item::after { border-color: #f23030; }
+
+.lo_login_footer { margin: 35px 15px 0 15px; }
+.lo_login_btn { @extend .app-button-gradient; }
 
 /* 商详页 */
 .it_main .app-scroller-container { padding-bottom: 10px; }
@@ -92,6 +114,33 @@ $app_bgc: #f4f4f4;
 
 .it_spec_select { height: 42px; margin-top: 10px; @extend .it_infobar; }
 .it_spec_select .hd { @extend .it_infobar_hd; }
+
+.it_spec_select_modal_info { padding: 10px; }
+.it_spec_select_modal_info .logo { width: 90px; height: 90px; }
+.it_spec_select_modal_info .info { margin-left: 10px; }
+.it_spec_select_modal_info .price { font-size: 16px; color: #f23030; padding-bottom: 10px; }
+.it_spec_select_modal_info .price::before { content: '￥'; font-size: 12px; }
+.it_spec_select_modal_info .select { font-size: 13px; }
+.it_spec_select_modal_info .select .label { font-size: 13px; color: #999; padding-right: 6px; }
+.it_spec_select_modal_info .icon-close { position: absolute; right: 0px; top: 0px; padding: 10px; font-size: 16px; }
+.it_spec_select_modal_props { padding: 0 0 10px 0; }
+.it_spec_select_modal_props_hd { padding: 10px 0 0 10px; font-size: 13px; }
+.it_spec_select_modal_props_item { display: inline-block; height: 30px; font-size: 12px; padding: 0 10px; border-radius: 10px; color: #333; background-color: #f7f7f7; margin: 10px 0 0 10px; }
+.it_spec_select_modal_props_item.curr { background: linear-gradient(-41deg,#ff4f18,#ff2000 24%,#f10000); color: #fff; }
+.it_spec_select_modal_num { padding: 10px 10px 0 0; }
+.it_spec_select_modal_num .label { font-size: 13px; color: #333; padding: 0 0 0 10px; }
+.it_spec_select_modal_ft { height: 45px; padding: 0 5px; }
+.it_spec_select_modal_ft button { height: 35px; background-color: #f23030; color: #fff; font-size: 13px; border-radius: 35px; margin: 0 5px; }
+.it_spec_select_modal_ft button.btn_cart { background-color: #ffa001; }
+
+.it_spu_props_modal_hd { height: 40px; font-size: 14px; }
+.it_spu_props_modal_bd { padding: 0 10px; height: 400px; }
+.it_spu_props_modal_item { padding: 10px; font-size: 13px; }
+.it_spu_props_modal_item .label { font-size: 12px; color: #999; margin-right: 10px; width: 70px; }
+.it_spu_props_modal_item::after { border-color: #eee; }
+.it_spu_props_modal_item:last-child::after { border: none; }
+.it_spu_props_modal_ft { height: 45px; text-align: center; }
+.it_spu_props_modal_ok_btn { height: 35px; width: 80%; background-color: #f23030; color: #fff; margin-top: 5px; border-radius: 35px; }
 
 .it_props { height: 42px; @extend .it_infobar; }
 .it_props::after { left: 10px; border-color: #eee; }
@@ -132,7 +181,7 @@ $app_bgc: #f4f4f4;
 .it_detail_con img { display: block; width: 100%; }
 
 .it_footer { height: 50px; position: absolute; bottom: 0; background-color: #fff; z-index: 101; width: 100%; padding-left: 10px; }
-.it_footer .iconbtn { width: 50px; text-align: center; color: #666; }
+.it_footer .iconbtn { width: .5rem; text-align: center; color: #666; }
 .it_footer .iconbtn .iconfont { font-size: 18px; }
 .it_footer .iconbtn .name { font-size: 10px; margin-top: 3px; }
 .it_footer .btnwrap { height: 100%; }
@@ -244,3 +293,13 @@ $app_bgc: #f4f4f4;
 
 .adr_save { color: #f23030; font-size: 12px; }
 .adr_default { font-size: 13px; }
+
+/* 地址选择*/
+.adr_district_select_hd { height: 40px; }
+.adr_district_select_hd .icon-close { padding: 12px 8px; }
+.adr_district_select_result { height: 35px; font-size: 14px; padding-left: 10px; }
+.adr_district_select_result > div { margin-right: 15px; height: 35px; line-height: 35px; }
+.adr_district_select_result .curr { color: #f23030; border-bottom: 2px solid #f23030; }
+.adr_district_select_list { height: 400px; position: relative; }
+.adr_district_select_list_item { height: 35px; line-height: 30px; font-size: 13px; padding-left: 10px; }
+.adr_district_select_list_item.curr { color: #f23030 }

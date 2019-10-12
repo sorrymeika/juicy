@@ -179,12 +179,16 @@ class Pictures extends Component<PicturesProps, any> {
                                 style={{
                                     width: pictures.length * 100 + '%',
                                     transform: 'translate(' + this.state.x + 'px,0%) translateZ(0)',
-                                    webkitTransform: 'translate(' + this.state.x + 'px,0%) translateZ(0)'
+                                    WebkitTransform: 'translate(' + this.state.x + 'px,0%) translateZ(0)'
                                 }}
                             >
                                 {
                                     pictures.map((pic) => {
-                                        return <li className="flex_0" onClick={this.showPhotoViewer}><img alt="" className="w_1x dp_b img" src={pic} /></li>;
+                                        return <li
+                                            key={pic}
+                                            className="flex_0"
+                                            onClick={this.showPhotoViewer}
+                                        ><img alt="" className="w_1x dp_b img" src={pic} /></li>;
                                     })
                                 }
                                 <li className="it_pictures_more flex">

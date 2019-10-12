@@ -1,6 +1,9 @@
 import React from 'react';
 
-export default function Comments() {
+export default function Footer({
+    onAddToCart,
+    onBuyNow
+}) {
     return (
         <div className="it_footer bd_t flex">
             <div className="iconbtn">
@@ -16,10 +19,16 @@ export default function Comments() {
                 <p className="name">购物车</p>
             </div>
             <div className="fx_1 btnwrap ml_m">
-                <button className="btn_cart">加入购物车</button>
+                <button
+                    className="btn_cart"
+                    onClick={onAddToCart}
+                >加入购物车</button>
             </div>
             <div className="fx_1 btnwrap">
-                <button className="btn_buy">立即购买</button>
+                <button
+                    className="btn_buy"
+                    onClick={onBuyNow}
+                >立即购买</button>
             </div>
         </div>
     );

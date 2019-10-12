@@ -1,3 +1,4 @@
+import LoginController from "./user/controllers/LoginController";
 import HomeController from "./home/controllers/HomeController";
 import MarketController from "./home/controllers/MarketController";
 import ItemController from "./item/controllers/ItemController";
@@ -9,6 +10,7 @@ import AddressController from "./address/controllers/AddressController";
 
 export default {
     '/test': import("./home/controllers/TestController"),
+    '/login': LoginController,
     '/': HomeController,
     '/market/\\d+:id': MarketController,
     '/item/\\d+:id': ItemController,

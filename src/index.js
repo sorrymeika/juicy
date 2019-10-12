@@ -7,6 +7,8 @@ import { Server, Sfs, appExtentions } from "sn-app";
 import * as appEnv from "./env";
 import router from "./app/router";
 
+import UserService from "./domain/services/UserService";
+
 const env = {
     ...mainEnv,
     ...appEnv
@@ -26,9 +28,13 @@ const app = createApplication({
             env,
             sfs: new Sfs(env.SFS_URL),
             server: {
-                auth: new Server({ baseUrl: '/auth_server' }),
+                user: new Server({ baseUrl: '/user_server' }),
                 market: new Server({ baseUrl: '/market_server' }),
-                trade: new Server({ baseUrl: '/trade_server' })
+                trade: new Server({ baseUrl: '/trade_server' }),
+                base: new Server({ baseUrl: '/base_server' }),
+            },
+            services: {
+                user: UserService
             }
         };
     }

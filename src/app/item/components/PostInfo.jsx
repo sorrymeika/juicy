@@ -1,9 +1,10 @@
 import React from 'react';
+import { inject } from 'snowball/app';
 
-export default function PostInfo() {
+function PostInfo({ onPostClick }) {
     return (
         <div className="it_postinfo">
-            <div className="flex item">
+            <div className="flex item" onClick={onPostClick}>
                 <div className="hd">送至</div>
                 <div className="bd fx_1"><i className="iconfont icon-loc"></i> 上海市</div>
                 <div className="iconfont icon-more"></div>
@@ -15,3 +16,9 @@ export default function PostInfo() {
         </div>
     );
 }
+
+export default inject(({ itemService }) => {
+    return {
+        onPostClick: itemService.onPostClick.emit
+    };
+})(PostInfo);
