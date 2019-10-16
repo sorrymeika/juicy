@@ -1,10 +1,11 @@
 import React from "react";
+import { SfsImage } from 'sn-app';
 
 export default function Item({ sku }) {
     return (
         <div className="od_item dp_f ai_fs">
             <div className="flex">
-                <img alt="" className="img" />
+                <SfsImage src={sku.picture} className="img" />
             </div>
             <div className="con fx_1">
                 <div className="tit">{sku.title}</div>

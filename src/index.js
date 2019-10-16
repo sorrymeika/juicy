@@ -8,6 +8,9 @@ import * as appEnv from "./env";
 import router from "./app/router";
 
 import UserService from "./domain/services/UserService";
+import AddressService from "./domain/services/AddressService";
+import GlobalAddressService from "./domain/services/GlobalAddressService";
+import OrderAddressService from "./domain/services/OrderAddressService";
 
 const env = {
     ...mainEnv,
@@ -34,7 +37,10 @@ const app = createApplication({
                 base: new Server({ baseUrl: '/base_server' }),
             },
             services: {
-                user: UserService
+                user: UserService,
+                address: AddressService,
+                globalAddress: GlobalAddressService,
+                orderAddress: OrderAddressService,
             }
         };
     }

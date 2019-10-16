@@ -2,25 +2,10 @@ import React from 'react';
 import { Header, MainScrollView } from 'snowball/components';
 import ListItem from '../components/ListItem';
 
-export default function AddressList({ addressList }) {
-    addressList = [{
-        receiver: '孙路',
-        phoneNo: '187****0239',
-        countryId: 0,
-        countryName: '中国',
-        provinceId: 0,
-        provinceName: '上海',
-        detail: 'sl上海上海上海df上海jo'
-    }, {
-        receiver: '孙路',
-        phoneNo: '187****0239',
-        countryId: 0,
-        countryName: '中国',
-        provinceId: 0,
-        provinceName: '上海',
-        detail: 'sl上海上海上海df上海jo'
-    }];
-
+export default function AddressList({
+    addressList,
+    onEdit
+}) {
     return (
         <div className="adl_wrap">
             <Header
@@ -38,6 +23,7 @@ export default function AddressList({ addressList }) {
                         return (
                             <ListItem
                                 address={address}
+                                onEdit={onEdit}
                             ></ListItem>
                         );
                     })

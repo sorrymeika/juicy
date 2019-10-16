@@ -2,6 +2,13 @@ import { observable } from "snowball";
 import { Service } from "snowball/app";
 import { toast } from "snowball/widget";
 
+const SKU_SELECT_MODE = {
+    NONE: null,
+    BUY_NOW: 'buyNow',
+    ADD_TO_CART: 'addToCart'
+};
+
+
 export default class ItemService extends Service {
     @observable item = {};
     @observable seller = {};
@@ -10,10 +17,15 @@ export default class ItemService extends Service {
     @observable buyNum = 1;
     @observable currentSku = {};
 
+    @observable skuSelectMode = false;
     @observable isSpecSelectModalVisible = false;
 
     onPostClick = this.ctx.createEvent();
+
+    onClickSpec = this.ctx.createEvent();
+    onSpecChange = this.ctx.createEvent();
     onBuyNumChange = this.ctx.createEvent();
+    onCancelSelectSpec = this.ctx.createEvent();
 
     onAddToCart = this.ctx.createEvent();
     onBuyNow = this.ctx.createEvent();
@@ -23,19 +35,29 @@ export default class ItemService extends Service {
 
     constructor(
         productService,
-        addressSelectService
+        districtSelectService,
+        cartService
     ) {
         super();
 
-        this.addressSelectService = addressSelectService;
+        this.districtSelectService = districtSelectService;
         this.productService = productService;
+        this.cartService = cartService;
 
         this.onPostClick(() => {
-            this.addressSelectService.visible = true;
+            this.districtSelectService.visible = true;
+        });
+
+        this.onClickSpec(() => {
+            this.isSpecSelectModalVisible = true;
         });
 
         this.onBuyNumChange((num) => {
             this.buyNum = num;
+        });
+
+        this.onCancelSelectSpec(() => {
+            this.isSpecSelectModalVisible = false;
         });
 
         this.onAddToCart((sku) => {
@@ -43,7 +65,7 @@ export default class ItemService extends Service {
                 if (this.skus.length === 1) {
                     this.addToCart(this.currentSku);
                 } else {
-                    this.showSkuSelect();
+                    this.showSkuSelect(SKU_SELECT_MODE.ADD_TO_CART);
                 }
             } else {
                 this.addToCart(sku);
@@ -55,11 +77,15 @@ export default class ItemService extends Service {
                 if (this.skus.length === 1) {
                     this.buyNow(this.currentSku);
                 } else {
-                    this.showSkuSelect();
+                    this.showSkuSelect(SKU_SELECT_MODE.BUY_NOW);
                 }
             } else {
                 this.buyNow(sku);
             }
+        });
+
+        this.onCancelSkuSelect(() => {
+            this.skuSelectMode = SKU_SELECT_MODE.NONE;
         });
     }
 
@@ -72,20 +98,33 @@ export default class ItemService extends Service {
         this.currentSku = data.skus[0];
     }
 
-    showSkuSelect() {
+    showSkuSelect(mode) {
+        this.skuSelectMode = mode;
     }
 
-    addToCart(sku) {
+    async addToCart(sku) {
+        console.log(sku, this.buyNum);
         if (!sku || !sku.id) {
             toast.showToast('请选择一个商品!');
             return;
+        }
+
+        try {
+            await this.cartService.addSkuToCart(sku, this.buyNum);
+            this.skuSelectMode = SKU_SELECT_MODE.NONE;
+        } catch (e) {
+            toast.showToast(e.message);
         }
     }
 
     buyNow(sku) {
+        console.log(sku);
+
         if (!sku || !sku.id) {
             toast.showToast('请选择一个商品!');
             return;
         }
+
+        this.skuSelectMode = SKU_SELECT_MODE.NONE;
     }
 }

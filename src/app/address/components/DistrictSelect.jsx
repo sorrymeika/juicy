@@ -127,7 +127,9 @@ function DistrictSelect({
                                     return (
                                         <div
                                             key={district.id}
-                                            onClick={() => onDistrictChange(district)}
+                                            onClick={() => {
+                                                onDistrictChange(district);
+                                            }}
                                             className={"adr_district_select_list_item" + (district.areaCode == currentDistrictCode ? ' curr' : '')}
                                         >{district.name}</div>
                                     );
@@ -141,29 +143,29 @@ function DistrictSelect({
     );
 }
 
-export default inject(({ addressSelectService }) => (
-    addressSelectService
+export default inject(({ districtSelectService }) => (
+    districtSelectService
         ? {
-            visible: addressSelectService.visible,
-            provinces: addressSelectService.provinces,
-            cities: addressSelectService.cities,
-            districts: addressSelectService.districts,
+            visible: districtSelectService.visible,
+            provinces: districtSelectService.provinces,
+            cities: districtSelectService.cities,
+            districts: districtSelectService.districts,
 
-            currentTab: addressSelectService.currentTab,
+            currentTab: districtSelectService.currentTab,
 
-            currentProvinceCode: addressSelectService.currentProvinceCode,
-            currentProvinceName: addressSelectService.currentProvinceName,
-            currentCityCode: addressSelectService.currentCityCode,
-            currentCityName: addressSelectService.currentCityName,
-            currentDistrictCode: addressSelectService.currentDistrictCode,
-            currentDistrictName: addressSelectService.currentDistrictName,
+            currentProvinceCode: districtSelectService.currentProvinceCode,
+            currentProvinceName: districtSelectService.currentProvinceName,
+            currentCityCode: districtSelectService.currentCityCode,
+            currentCityName: districtSelectService.currentCityName,
+            currentDistrictCode: districtSelectService.currentDistrictCode,
+            currentDistrictName: districtSelectService.currentDistrictName,
 
-            onInit: addressSelectService.onInit.emit,
-            onCancel: addressSelectService.onCancel.emit,
-            onTabChange: addressSelectService.onTabChange.emit,
-            onProvinceChange: addressSelectService.onProvinceChange.emit,
-            onCityChange: addressSelectService.onCityChange.emit,
-            onDistrictChange: addressSelectService.onDistrictChange.emit
+            onInit: districtSelectService.onInit.emit,
+            onCancel: districtSelectService.onCancel.emit,
+            onTabChange: districtSelectService.onTabChange.emit,
+            onProvinceChange: districtSelectService.onProvinceChange.emit,
+            onCityChange: districtSelectService.onCityChange.emit,
+            onDistrictChange: districtSelectService.onDistrictChange.emit
         }
         : null
 ))(DistrictSelect);

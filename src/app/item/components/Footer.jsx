@@ -1,6 +1,7 @@
 import React from 'react';
+import { inject } from 'snowball/app';
 
-export default function Footer({
+function Footer({
     onAddToCart,
     onBuyNow
 }) {
@@ -21,15 +22,24 @@ export default function Footer({
             <div className="fx_1 btnwrap ml_m">
                 <button
                     className="btn_cart"
-                    onClick={onAddToCart}
+                    onClick={() => onAddToCart()}
                 >加入购物车</button>
             </div>
             <div className="fx_1 btnwrap">
                 <button
                     className="btn_buy"
-                    onClick={onBuyNow}
+                    onClick={() => onBuyNow()}
                 >立即购买</button>
             </div>
         </div>
     );
 }
+
+export default inject(({ itemService }) => (
+    itemService
+        ? {
+            onAddToCart: itemService.onAddToCart.emit,
+            onBuyNow: itemService.onBuyNow.emit
+        }
+        : {}
+))(Footer);

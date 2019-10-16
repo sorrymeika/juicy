@@ -218,6 +218,8 @@ $app_bgc: #f4f4f4;
 .ca_item .ft { margin-top: 10px; }
 .ca_item .price { font-size: 16px; color: #f23030; }
 .ca_item .price::before { content: '￥'; }
+.ca_item .app-choose-number .minus, .ca_item  .app-choose-number .plus { height: 25px; width: 25px; }
+.ca_item .app-choose-number input { height: 25px; width: 40px; }
 
 .ca_footer { height: 50px; position: absolute; bottom: 0; background-color: #fff; z-index: 101; width: 100%; padding-left: 10px; }
 .ca_footer_checkall { font-size: 12px; margin-left: 8px; color: #666; }
@@ -245,6 +247,12 @@ $app_bgc: #f4f4f4;
 .od_submit { height: 50px; width: 1.2rem; font-size: 16px; background-image: linear-gradient(90deg,#ff4700,#f23030); color: #fff; }
 
 .od_address { padding-left: 8px; padding-right: 8px; }
+.od_address_info { padding: 15px 0; }
+.od_address_info .icon-loc { padding-left: 8px; font-size: 24px; color: #f23030; }
+.od_address_info .name { font-size: 14px; }
+.od_address_info .mobile { font-size: 13px; padding-left: 8px; color: #999; }
+.od_address_info .detail { font-size: 12px; padding-top: 6px; }
+
 .od_no_address { height: 40px; font-size: 12px; padding-left: 8px; }
 .od_no_address .icon-add { font-size: 16px; line-height: 18px; color: #fff; width: 18px; height: 18px; text-align: center; border-radius: 1px; background: #f23030; margin-right: 8px; }
 
@@ -276,7 +284,7 @@ $app_bgc: #f4f4f4;
 .od_orderinfo_bar { font-size: 12px; padding: 6px 10px; }
 .od_orderinfo_bar .hd { padding-left: 10px; }
 .od_orderinfo_bar .bd { padding-left: 10px; }
-.od_orderinfo_bar .note { border: 0; }
+.od_orderinfo_bar .note { border: 0; font-size: 13px; margin-top: -2px; }
 
 /* 发票 */
 .iv_confirm { display: block; width: 90%; margin: 6px 5% 0 5%; height: 36px; border-radius: 20px; text-align: center; background-image: linear-gradient(90deg,#ff4700,#f23030); color: #fff; font-size: 14px; }

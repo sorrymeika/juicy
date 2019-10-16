@@ -1,27 +1,26 @@
 import React from "react";
 import CartStore from "./CartStore";
+import { inject } from "snowball/app";
 
-export default function CartList({ stores }) {
-    stores = [{
-        logo: '',
-        name: '店铺店铺'
-    }, {
-        logo: '',
-        name: '店铺店铺1'
-    }, {
-        logo: '',
-        name: '店铺店铺1'
-    }];
+function CartList({ sellers }) {
 
     return (
         <div>
             {
-                stores.map((store) => {
+                sellers.map((seller) => {
                     return (
-                        <CartStore store={store} skus={store.skus}></CartStore>
+                        <CartStore seller={seller} skus={seller.skus}></CartStore>
                     );
                 })
             }
         </div>
     );
 }
+
+export default inject(({ cartListService }) => (
+    cartListService
+        ? {
+            sellers: cartListService.sellers
+        }
+        : {}
+))(CartList);

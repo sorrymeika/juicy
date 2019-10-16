@@ -1,6 +1,4 @@
-import { Service } from "snowball/app";
-
-export default class AddressService extends Service {
+export default class AddressService {
     getProvinces() {
         return this.ctx.server.base.post('/address/getProvinces');
     }
@@ -27,5 +25,25 @@ export default class AddressService extends Service {
         return this.ctx.server.base.post('/address/getDistrictsByCityCode', {
             cityCode
         });
+    }
+
+    addUserAddress(data) {
+        return this.ctx.server.user.post('/userAddress/addUserAddress', data);
+    }
+
+    updateUserAddress(data) {
+        return this.ctx.server.user.post('/userAddress/updateUserAddress', data);
+    }
+
+    listUserAddress() {
+        return this.ctx.server.user.post('/userAddress/listUserAddress');
+    }
+
+    getDefaultAddress() {
+        return this.ctx.server.user.post('/userAddress/getDefaultAddress');
+    }
+
+    getUserAddressById(addressId) {
+        return this.ctx.server.user.post('/userAddress/getUserAddressById', { addressId });
     }
 }

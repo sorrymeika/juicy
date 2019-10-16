@@ -2,7 +2,7 @@ import React from "react";
 import { CheckBox } from "sn-app";
 import { SmallTag } from "snowball/components";
 
-function ListItem({ address, isDefault, selected = true }) {
+function ListItem({ address, selected, onEdit }) {
     return (
         <div className="adl_item flex bd_b">
             {
@@ -15,7 +15,7 @@ function ListItem({ address, isDefault, selected = true }) {
                     <div className="name">{address.receiver}</div>
                     <div className="mobile">{address.phoneNo}</div>
                     {
-                        !!isDefault && (
+                        !!address.isDefaultAddress && (
                             <SmallTag className="tag" text="默认" />
                         )
                     }
@@ -23,11 +23,13 @@ function ListItem({ address, isDefault, selected = true }) {
                 <div className="detail">
                     {address.provinceName}
                     {address.cityName}
+                    {address.districtName}
                     {address.detail}
                 </div>
             </div>
             <button
                 className="iconfont icon-edit"
+                onClick={() => onEdit(address)}
             ></button>
         </div>
     );

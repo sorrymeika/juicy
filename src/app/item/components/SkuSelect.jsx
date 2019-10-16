@@ -22,6 +22,7 @@ function SkuSelect({
 }
 
 export default inject(({ itemService }) => ({
+    visible: itemService.skuSelectMode != null,
     onCancel: itemService.onCancelSkuSelect.emit,
     onOk: itemService.onConfirmSku.emit,
 }))(SkuSelect);

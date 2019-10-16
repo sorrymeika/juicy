@@ -11,6 +11,7 @@ function SpecSelectModal({
     skus,
     footer,
     onCancel,
+    onSpecChange,
     onBuyNumChange
 }) {
     const spec = [currentSku.skuPropVal0, currentSku.skuPropVal1, currentSku.skuPropVal2, currentSku.skuPropVal3, currentSku.skuPropVal4].filter(prop => !!prop).join('，');
@@ -92,6 +93,7 @@ export default inject(({ itemService }) => (
             skus: itemService.skus,
             buyNum: itemService.buyNum,
             currentSku: itemService.currentSku,
+            onSpecChange: itemService.onBuyNumChange.emit,
             onBuyNumChange: itemService.onBuyNumChange.emit
         }
         : {}

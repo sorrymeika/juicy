@@ -1,22 +1,23 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { inject } from "snowball/app";
 import SpecSelectModal from './SpecSelectModal';
 
 function SpecSelect({
+    modalVisible,
     sku,
     buyNum,
+    onClickSpec,
+    onCancelSelectSpec,
     onAddToCart,
     onBuyNow
 }) {
     const spec = [sku.skuPropVal0, sku.skuPropVal1, sku.skuPropVal2, sku.skuPropVal3, sku.skuPropVal4].filter(prop => !!prop).join('，');
 
-    const [modalVisible, setModalVisible] = useState(false);
-
     return (
         <>
             <div
                 className="it_spec_select flex"
-                onClick={() => setModalVisible(true)}
+                onClick={onClickSpec}
             >
                 <p className="hd">已选</p>
                 <div className="fx_1">{spec ? spec + '，' : ''}{buyNum || 1}件</div>
@@ -24,7 +25,7 @@ function SpecSelect({
             </div>
             <SpecSelectModal
                 visible={modalVisible}
-                onCancel={() => setModalVisible(false)}
+                onCancel={() => onCancelSelectSpec(false)}
                 footer={
                     <>
                         <button
@@ -43,9 +44,11 @@ function SpecSelect({
 }
 
 export default inject(({ itemService }) => ({
-    visible: itemService.isSpecSelectModalVisible,
+    modalVisible: itemService.isSpecSelectModalVisible,
     sku: itemService.currentSku,
     buyNum: itemService.buyNum,
-    onAddToCart: itemService.onAddToCart,
-    onBuyNow: itemService.onBuyNow,
+    onClickSpec: itemService.onClickSpec.emit,
+    onCancelSelectSpec: itemService.onCancelSelectSpec.emit,
+    onAddToCart: itemService.onAddToCart.emit,
+    onBuyNow: itemService.onBuyNow.emit,
 }))(SpecSelect);

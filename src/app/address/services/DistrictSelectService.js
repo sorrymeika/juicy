@@ -22,22 +22,47 @@ export default class DistrictSelectService extends Service {
     onProvinceChange = this.ctx.createEvent();
     onCityChange = this.ctx.createEvent();
     onDistrictChange = this.ctx.createEvent();
+    onSelect = this.ctx.createEvent();
 
     constructor(addressService) {
         super();
 
         this.addressService = addressService;
 
-        this.onInit(() => this.init());
+        this.onInit.once(() => this.init());
+
         this.onTabChange((tab) => {
             this.currentTab = tab;
         });
+
         this.onCancel(() => {
             this.visible = false;
         });
-        this.onProvinceChange((province) => this.selectProvince(province.areaCode));
-        this.onCityChange((city) => this.selectCity(city.areaCode));
-        this.onDistrictChange((district) => this.selectDistrict(district.areaCode));
+
+        this.onProvinceChange((province) => {
+            this.selectProvince(province.areaCode);
+            this.selectCity('');
+            this.selectDistrict('');
+        });
+
+        this.onCityChange((city) => {
+            this.selectCity(city.areaCode);
+            this.selectDistrict('');
+        });
+
+        this.onDistrictChange((district) => {
+            this.selectDistrict(district.areaCode);
+            this.onSelect.emit([{
+                provinceCode: this.currentProvinceCode,
+                provinceName: this.currentProvinceName
+            }, {
+                cityCode: this.currentCityCode,
+                cityName: this.currentCityName
+            }, {
+                districtCode: district.areaCode,
+                districtName: district.name
+            }]);
+        });
     }
 
     async init() {
@@ -45,8 +70,20 @@ export default class DistrictSelectService extends Service {
         this.provinces = res.data;
     }
 
-    setSelectedAddress(provinceCode, cityCode, districtCode) {
+    show(provinceCode, cityCode, districtCode) {
+        this.visible = true;
+        this.onInit.emit();
+        this.setSelectedAddress(provinceCode, cityCode, districtCode);
+    }
+
+    hide() {
+        this.visible = false;
+    }
+
+    setSelectedAddress(provinceCode = '', cityCode = '', districtCode = '') {
         this.selectProvince(provinceCode);
+        this.selectCity(cityCode);
+        this.selectCity(districtCode);
         this.currentTab = districtCode ? 2 : cityCode ? 1 : 0;
     }
 
