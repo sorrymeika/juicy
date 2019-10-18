@@ -296,7 +296,11 @@ $app_bgc: #f4f4f4;
 .iv_list_hd { position: relative; }
 .iv_list_hd .tit { text-align: center; font-size: 14px; padding: 10px; }
 .iv_list_hd .icon-close { position: absolute; right: 0; top: 0; padding: 10px; }
-.iv_list_item { }
+.iv_list_item { margin: 10px; padding-bottom: 10px; }
+.iv_list_item::after { border-color: #eee; }
+.iv_list_item .tag { background: #f9dcdc; color: #f23030; height: 20px; padding: 0 6px; border-radius: 4px; margin: 2px 8px 0 0; }
+.iv_list_item .tit { font-size: 14px; }
+.iv_list_item .taxCode { font-size: 13px; color: #999; padding-top: 8px; }
 
 /* 地址列表 */
 .adl_new { font-size: 12px; }

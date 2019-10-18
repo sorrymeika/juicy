@@ -29,14 +29,19 @@ export default class InvoiceService extends Service {
             });
         });
 
+        this.onInit(() => this.init());
+
         this.onShowInvoiceSelector(() => {
             this.isInvoiceSelectorVisible = true;
         });
         this.onCloseInvoiceSelector(() => {
             this.isInvoiceSelectorVisible = false;
         });
+        this.onSelectInvoice((invoice) => {
+            this.data = invoice;
+            this.isInvoiceSelectorVisible = false;
+        });
 
-        this.onInit(() => this.init());
         this.onConfirm(() => this.confirm());
     }
 
@@ -78,8 +83,8 @@ export default class InvoiceService extends Service {
             type: this.data.type,
             titleType: this.data.titleType,
             title: this.data.title,
-            taxCode: this.data.taxCode,
-            phoneNo: this.data.phoneNo
+            taxCode: this.data.titleType == 2 ? this.data.taxCode : null,
+            phoneNo: this.data.type == 2 ? this.data.phoneNo : null
         };
 
         try {

@@ -14,6 +14,7 @@ function InvoiceListModal({
             visible={visible}
             animate={'up'}
             className="iv_list_modal"
+            onCancel={onClose}
         >
             <div className="iv_list">
                 <div className="iv_list_hd">
@@ -35,14 +36,20 @@ function InvoiceListModal({
                                         className="iv_list_item bd_b"
                                         onClick={() => onSelect(invoice)}
                                     >
-                                        <div>
+                                        <div className="clearfix">
                                             <SmallTag
-                                                className="tag"
+                                                className="tag fl_l"
                                                 text={invoice.type == 1 ? '纸质发票' : '电子发票'}
                                             />
-                                            <span className="tit">{invoice.title}</span>
+                                            <span className="tit">{invoice.titleType == 2 ? '企业' : '个人'}，{invoice.title}</span>
                                         </div>
-                                        <div className="taxCode">税号：{invoice.taxCode}</div>
+                                        {
+                                            invoice.titleType == 2
+                                                ? (
+                                                    <div className="taxCode">税号：{invoice.taxCode}</div>
+                                                )
+                                                : null
+                                        }
                                     </div>
                                 );
                             })
