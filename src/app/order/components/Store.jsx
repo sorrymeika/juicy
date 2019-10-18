@@ -19,9 +19,18 @@ export default function Store({ store, skus }) {
                 })
             }
             <div className="od_store_orderinfo">
-                <div className="od_orderinfo_bar flex" app-link="/invoice">
+                <div className="od_orderinfo_bar flex" app-link={"/invoice?sellerId=" + store.id}>
                     <div className="hd">发票</div>
-                    <div className="bd fx_1 ta_r">本次不开具发票</div>
+                    <div className="bd fx_1 ta_r to_e">{
+                        !store.invoice || store.invoice.type == 0
+                            ? '本次不开具发票'
+                            : ([
+                                store.invoice.type == 1 ? '纸质发票' : '电子发票',
+                                store.invoice.titleType == 1 ? '个人' : '公司',
+                                store.invoice.title,
+                                store.invoice.taxCode,
+                            ].filter(name => !!name).join('，'))
+                    }</div>
                     <div className="iconfont icon-arrow-right"></div>
                 </div>
                 {

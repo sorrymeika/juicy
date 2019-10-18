@@ -1,8 +1,8 @@
 import { injectable } from "snowball/app";
-import PageService from "../../../domain/services/PageService";
+import PageService from "../../../shared/services/PageService";
 import PageViewService from "../services/PageViewService";
 
-import ProductService from "../../../domain/services/ProductService";
+import ProductService from "../../../shared/services/ProductService";
 
 class PageViewController {
     @injectable pageViewService: PageViewService;

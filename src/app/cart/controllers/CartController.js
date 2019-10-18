@@ -1,7 +1,7 @@
 import { controller, injectable } from "snowball/app";
 import Cart from "../containers/Cart";
 import CartListService from "../services/CartListService";
-import CartService from "../../../domain/services/CartService";
+import CartService from "../../../shared/services/CartService";
 
 
 @controller(Cart)

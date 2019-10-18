@@ -44,6 +44,10 @@ $app_bgc: #f4f4f4;
 .app_form_input { flex: 1; font-size: 13px; color: #000; }
 .app_form_input input[type=text], .app_form_input input:not(type), .app_form_input textarea { display: block; width: 100%; border: 0; color: #000; font-size: 13px; }
 
+.app_tag_item { padding: 0 10px; border-radius: 15px; height: 30px; float: left; color: #333; line-height: 30px; margin-right: 8px; font-size: 14px; position: relative; }
+.app_tag_item::after { @include border(#ddd,30px); }
+.app_tag_item.curr { border: 1px solid #f23030; color: #f23030; }
+.app_tag_item.curr::after { border: 0; }
 
 /*
 业务缩写:
@@ -218,7 +222,7 @@ $app_bgc: #f4f4f4;
 .ca_item .ft { margin-top: 10px; }
 .ca_item .price { font-size: 16px; color: #f23030; }
 .ca_item .price::before { content: '￥'; }
-.ca_item .app-choose-number .minus, .ca_item  .app-choose-number .plus { height: 25px; width: 25px; }
+.ca_item .app-choose-number .minus, .ca_item .app-choose-number .plus { height: 25px; width: 25px; }
 .ca_item .app-choose-number input { height: 25px; width: 40px; }
 
 .ca_footer { height: 50px; position: absolute; bottom: 0; background-color: #fff; z-index: 101; width: 100%; padding-left: 10px; }
@@ -288,6 +292,11 @@ $app_bgc: #f4f4f4;
 
 /* 发票 */
 .iv_confirm { display: block; width: 90%; margin: 6px 5% 0 5%; height: 36px; border-radius: 20px; text-align: center; background-image: linear-gradient(90deg,#ff4700,#f23030); color: #fff; font-size: 14px; }
+.iv_wrap .app_form_label { width: 75px; padding-right: 10px; }
+.iv_list_hd { position: relative; }
+.iv_list_hd .tit { text-align: center; font-size: 14px; padding: 10px; }
+.iv_list_hd .icon-close { position: absolute; right: 0; top: 0; padding: 10px; }
+.iv_list_item { }
 
 /* 地址列表 */
 .adl_new { font-size: 12px; }

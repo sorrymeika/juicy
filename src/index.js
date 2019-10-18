@@ -7,10 +7,10 @@ import { Server, Sfs, appExtentions } from "sn-app";
 import * as appEnv from "./env";
 import router from "./app/router";
 
-import UserService from "./domain/services/UserService";
-import AddressService from "./domain/services/AddressService";
-import GlobalAddressService from "./domain/services/GlobalAddressService";
-import OrderAddressService from "./domain/services/OrderAddressService";
+import UserService from "./shared/services/UserService";
+import AddressService from "./shared/services/AddressService";
+import GlobalAddressService from "./shared/services/GlobalAddressService";
+import OrderService from "./shared/services/OrderService";
 
 const env = {
     ...mainEnv,
@@ -40,7 +40,7 @@ const app = createApplication({
                 user: UserService,
                 address: AddressService,
                 globalAddress: GlobalAddressService,
-                orderAddress: OrderAddressService,
+                order: OrderService,
             }
         };
     }

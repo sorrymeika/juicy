@@ -2,9 +2,9 @@ import { controller, injectable } from "snowball/app";
 import { ScrollView } from "snowball/components";
 import Item from "../containers/Item";
 import ItemService from "../services/ItemService";
-import ProductService from "../../../domain/services/ProductService";
+import ProductService from "../../../shared/services/ProductService";
 import DistrictSelectService from "../../address/services/DistrictSelectService";
-import CartService from "../../../domain/services/CartService";
+import CartService from "../../../shared/services/CartService";
 
 @controller(Item)
 class ItemController {

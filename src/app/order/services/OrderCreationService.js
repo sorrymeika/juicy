@@ -10,23 +10,43 @@ export default class OrderCreationService extends Service {
 
     onSubmit = this.ctx.createEvent();
 
-    get orderAddress() {
-        return this.orderAddressService.current;
-    }
+    @observable orderAddress;
 
-    constructor(orderService, orderAddressService) {
+    constructor(orderService, addressService) {
         super();
 
         this.orderService = orderService;
-        this.orderAddressService = orderAddressService;
+        this.addressService = addressService;
 
         this.onSubmit(() => {
             this.submit();
         });
+
+        this.ctx.autoDispose(
+            this.orderService.onAddressChange((data) => {
+                this.orderAddress = data;
+            })
+        );
+
+        this.ctx.autoDispose(
+            this.orderService.onInvoiceChange((data) => {
+                console.log(data);
+                const seller = this.sellers.find(seller => seller.id == data.sellerId);
+                if (seller) {
+                    seller.withMutations((sellerModel) => {
+                        sellerModel.set('invoice', data);
+                    });
+                }
+            })
+        );
     }
 
     init(skus) {
-        this.orderAddressService.pull();
+        this.addressService.getDefaultAddress()
+            .then((res) => {
+                this.orderAddress = res.data || null;
+            });
+
         this.orderService.getOrderBySkus(skus)
             .then(res => {
                 this.sellers = res.data;

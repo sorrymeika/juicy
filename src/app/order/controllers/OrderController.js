@@ -1,5 +1,4 @@
 import { controller, injectable } from "snowball/app";
-import OrderService from "../../../domain/services/OrderService";
 import OrderCreationService from "../services/OrderCreationService";
 import Order from "../containers/Order";
 
@@ -9,12 +8,12 @@ class OrderController {
 
     constructor(props) {
         const skus = JSON.parse(props.location.query.skus || '[]');
-        const orderAddressService = this.ctx.service.orderAddress;
+        const addressService = this.ctx.service.address;
 
         this.skus = skus;
         this.orderCreationService = new OrderCreationService(
-            new OrderService(),
-            orderAddressService
+            this.ctx.service.order,
+            addressService
         );
     }
 
