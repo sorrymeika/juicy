@@ -19,10 +19,11 @@ export default class CartListService extends Service {
     onCheckout = this.ctx.createEvent();
 
 
-    constructor(cartService) {
+    constructor(cartService, cartNumService) {
         super();
 
         this.cartService = cartService;
+        this.cartNumService = cartNumService;
 
         this.onInit.once(() => this.loadUserCart());
 
@@ -45,6 +46,7 @@ export default class CartListService extends Service {
         this.total = res.total;
         this.amount = res.amount;
         this.selectedCount = res.selectedCount;
+        this.cartNumService.total = this.total;
     }
 
     async selectItem(item) {

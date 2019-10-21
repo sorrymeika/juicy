@@ -17,6 +17,7 @@ export default class DistrictSelectService extends Service {
     @observable currentTab = 0;
 
     onInit = this.ctx.createEvent();
+    onLoad = this.ctx.createEvent();
     onCancel = this.ctx.createEvent();
     onTabChange = this.ctx.createEvent();
     onProvinceChange = this.ctx.createEvent();
@@ -68,22 +69,30 @@ export default class DistrictSelectService extends Service {
     async init() {
         const res = await this.addressService.getProvinces();
         this.provinces = res.data;
+        this.onLoad.emit();
+        this.loaded = true;
     }
 
     show(provinceCode, cityCode, districtCode) {
         this.visible = true;
         this.onInit.emit();
-        this.setSelectedAddress(provinceCode, cityCode, districtCode);
+        if (this.loaded) {
+            this.setSelectedAddress(provinceCode, cityCode, districtCode);
+        } else {
+            this.onLoad.once(() => {
+                this.setSelectedAddress(provinceCode, cityCode, districtCode);
+            });
+        }
     }
 
     hide() {
         this.visible = false;
     }
 
-    setSelectedAddress(provinceCode = '', cityCode = '', districtCode = '') {
-        this.selectProvince(provinceCode);
-        this.selectCity(cityCode);
-        this.selectCity(districtCode);
+    async setSelectedAddress(provinceCode = '', cityCode = '', districtCode = '') {
+        await this.selectProvince(provinceCode);
+        await this.selectCity(cityCode);
+        await this.selectDistrict(districtCode);
         this.currentTab = districtCode ? 2 : cityCode ? 1 : 0;
     }
 

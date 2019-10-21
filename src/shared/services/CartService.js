@@ -1,8 +1,10 @@
-import { Service } from "snowball/app";
-
-export default class CartService extends Service {
+export default class CartService {
     listUserCart() {
         return this.ctx.server.trade.post("/cart/listUserCart");
+    }
+
+    countCartTotalNum() {
+        return this.ctx.server.trade.post("/cart/countCartTotalNum");
     }
 
     addSkuToCart(sku, num) {

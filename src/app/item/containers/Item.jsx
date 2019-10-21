@@ -15,14 +15,12 @@ import ShopInfo from '../components/ShopInfo';
 import ShopRecommends from '../components/ShopRecommends';
 import Detail from '../components/Detail';
 import Footer from '../components/Footer';
-import DistrictSelect from '../../address/components/DistrictSelect';
 
 export default function Item(props) {
     return (
         <div>
             <Footer></Footer>
             <MainScrollView className="it_main">
-                <DistrictSelect></DistrictSelect>
                 <Pictures></Pictures>
                 <Money></Money>
                 <Title></Title>

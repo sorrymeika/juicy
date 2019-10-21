@@ -20,6 +20,10 @@ export default class ItemService extends Service {
     @observable skuSelectMode = false;
     @observable isSpecSelectModalVisible = false;
 
+    get cartNum() {
+        return this.cartNumService.total;
+    }
+
     onPostClick = this.ctx.createEvent();
 
     onClickSpec = this.ctx.createEvent();
@@ -35,17 +39,19 @@ export default class ItemService extends Service {
 
     constructor(
         productService,
-        districtSelectService,
-        cartService
+        addressSelectService,
+        cartService,
+        cartNumService
     ) {
         super();
 
-        this.districtSelectService = districtSelectService;
+        this.addressSelectService = addressSelectService;
         this.productService = productService;
         this.cartService = cartService;
+        this.cartNumService = cartNumService;
 
         this.onPostClick(() => {
-            this.districtSelectService.visible = true;
+            this.addressSelectService.visible = true;
         });
 
         this.onClickSpec(() => {
@@ -103,7 +109,6 @@ export default class ItemService extends Service {
     }
 
     async addToCart(sku) {
-        console.log(sku, this.buyNum);
         if (!sku || !sku.id) {
             toast.showToast('请选择一个商品!');
             return;
@@ -111,20 +116,20 @@ export default class ItemService extends Service {
 
         try {
             await this.cartService.addSkuToCart(sku, this.buyNum);
+            this.cartNumService.pull();
             this.skuSelectMode = SKU_SELECT_MODE.NONE;
+            toast.showToast('加车成功!');
         } catch (e) {
             toast.showToast(e.message);
         }
     }
 
     buyNow(sku) {
-        console.log(sku);
-
         if (!sku || !sku.id) {
             toast.showToast('请选择一个商品!');
             return;
         }
-
         this.skuSelectMode = SKU_SELECT_MODE.NONE;
+        this.ctx.navigation.forward("/order/create?skus=" + encodeURIComponent(JSON.stringify([{ skuId: sku.id, num: 1 }])));
     }
 }

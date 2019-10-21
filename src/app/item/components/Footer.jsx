@@ -2,6 +2,7 @@ import React from 'react';
 import { inject } from 'snowball/app';
 
 function Footer({
+    cartNum,
     onAddToCart,
     onBuyNow
 }) {
@@ -18,6 +19,7 @@ function Footer({
             <div className="iconbtn ps_r" app-link="/cart">
                 <p className="iconfont icon-cart1"></p>
                 <p className="name">购物车</p>
+                <div className="cartNum">{cartNum > 99 ? '99+' : cartNum}</div>
             </div>
             <div className="fx_1 btnwrap ml_m">
                 <button
@@ -38,6 +40,7 @@ function Footer({
 export default inject(({ itemService }) => (
     itemService
         ? {
+            cartNum: itemService.cartNum,
             onAddToCart: itemService.onAddToCart.emit,
             onBuyNow: itemService.onBuyNow.emit
         }

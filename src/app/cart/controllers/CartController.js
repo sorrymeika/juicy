@@ -1,7 +1,6 @@
 import { controller, injectable } from "snowball/app";
 import Cart from "../containers/Cart";
 import CartListService from "../services/CartListService";
-import CartService from "../../../shared/services/CartService";
 
 
 @controller(Cart)
@@ -10,7 +9,8 @@ class CartController {
 
     constructor() {
         this.cartListService = new CartListService(
-            new CartService()
+            this.ctx.service.cart,
+            this.ctx.service.cartNum
         );
     }
 
