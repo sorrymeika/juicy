@@ -10,10 +10,30 @@ export default class OrderService {
         });
     }
 
+    getOrderById(orderId) {
+        return this.ctx.server.trade.post("/order/getOrderById", {
+            orderId
+        });
+    }
+
+    listOrder(type, pageIndex, pageSize = 10) {
+        return this.ctx.server.trade.post("/order/listOrder", {
+            type,
+            pageIndex,
+            pageSize
+        });
+    }
+
     createOrder(sellerList, addressId) {
         return this.ctx.server.trade.post("/order/createOrder", {
             sellerList,
             addressId
+        });
+    }
+
+    cancelOrder(orderId) {
+        return this.ctx.server.trade.post("/order/cancelOrder", {
+            orderId
         });
     }
 }

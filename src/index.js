@@ -1,4 +1,5 @@
 import "./sass/style.scss";
+import "./sprity/sprite.scss";
 
 import { env as mainEnv } from "snowball";
 import { createApplication } from "snowball/app";

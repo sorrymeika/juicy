@@ -2,7 +2,7 @@ import React from 'react';
 import { SfsImage } from 'sn-app';
 import Item from './Item';
 
-export default function Store({ store, skus }) {
+export default function Store({ store, skus, onNoteChange }) {
     return (
         <div className="od_store app-card">
             <div className="od_store_tit flex">
@@ -49,8 +49,13 @@ export default function Store({ store, skus }) {
                 <div className="od_orderinfo_bar flex ai_fs">
                     <div className="hd">订单备注</div>
                     <textarea
+                        value={store.note}
                         className="bd fx_1 note"
                         placeholder="选填,请先和商家协商一致"
+                        onChange={(e) => onNoteChange({
+                            sellerId: store.id,
+                            note: e.target.value
+                        })}
                     ></textarea>
                 </div>
             </div>

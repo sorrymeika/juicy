@@ -1,9 +1,8 @@
 var fs = require('fs');
-var fse = require('../src/node-libs/fs');
+var fse = require('snowball/node-libs/fs');
 var path = require('path');
 
-var Canvas = require('canvas');
-var Image = Canvas.Image;
+var { Canvas, Image } = require('canvas');
 
 function combineImages(out, srcs, callback) {
   var count = 0;
@@ -199,8 +198,8 @@ var create = function (options, cb) {
 module.exports = create;
 
 create({
-  src: "./sprity/images",
-  out: "./sprity",
+  src: "./src/sprity/images",
+  out: "./src/sprity",
   style: "./sprite.scss"
 });
 

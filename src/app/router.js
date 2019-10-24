@@ -7,6 +7,9 @@ import OrderController from "./order/controllers/OrderController";
 import InvoiceController from "./order/controllers/InvoiceController";
 import AddressListController from "./address/controllers/AddressListController";
 import AddressController from "./address/controllers/AddressController";
+import OrderPayController from "./order/controllers/OrderPayController";
+import OrderInfoController from "./ordercenter/controllers/OrderInfoController";
+import OrderListController from "./ordercenter/controllers/OrderListController";
 
 export default {
     '/test': import("./home/controllers/TestController"),
@@ -16,6 +19,9 @@ export default {
     '/item/\\d+:id': ItemController,
     '/cart': CartController,
     '/order/create': OrderController,
+    '/pay/\\d+:tradeId': OrderPayController,
+    '/orderinfo/\\d+:tradeId': OrderInfoController,
+    '/orderlist(?:/\\d+:type)?': OrderListController,
     '/address/list': AddressListController,
     '/address/edit': AddressController,
     '/invoice': InvoiceController,

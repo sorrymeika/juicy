@@ -12,7 +12,7 @@ export default function Order() {
                 <div className="od_header_title">确认订单</div>
             </Header>
             <OrderFooter></OrderFooter>
-            <MainScrollView className="od_wrap">
+            <MainScrollView className="od_main">
                 <OrderAddress></OrderAddress>
                 <StoreList></StoreList>
                 <OrderInfo></OrderInfo>

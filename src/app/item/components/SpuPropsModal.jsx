@@ -10,7 +10,7 @@ export default function SpuPropsModal({ visible, brandName, spuProps, onCancel }
             <div className="it_spu_props_modal_hd flex ps_r jc_c ta_c">
                 <h4>产品参数</h4>
             </div>
-            <ScrollView className="it_spu_props_modal_bd">
+            <ScrollView className="it_spu_props_modal_bd" style={{ height: window.innerHeight - 200 }}>
                 <div className="it_spu_props_modal_item flex bd_b">
                     <p className="label">品牌</p>
                     <div className="val">{brandName}</div>

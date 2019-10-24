@@ -9,6 +9,7 @@ export default class OrderCreationService extends Service {
     @observable totalPostFee = 0;
 
     onSubmit = this.ctx.createEvent();
+    onNoteChange = this.ctx.createEvent();
 
     @observable orderAddress;
 
@@ -17,6 +18,15 @@ export default class OrderCreationService extends Service {
 
         this.orderService = orderService;
         this.addressService = addressService;
+
+        this.onNoteChange(({ sellerId, note }) => {
+            const seller = this.sellers.find(seller => seller.id == sellerId);
+            if (seller) {
+                seller.withMutations((sellerModel) => {
+                    sellerModel.set('note', note);
+                });
+            }
+        });
 
         this.onSubmit(() => {
             this.submit();
@@ -79,8 +89,9 @@ export default class OrderCreationService extends Service {
         console.log(sellerList, this.sellers, this.orderAddress);
 
         try {
-            // await this.orderService.createOrder(sellerList, this.orderAddress.id);
-            toast.showToast('创建订单成功！');
+            const res = await this.orderService.createOrder(sellerList, this.orderAddress.id);
+            toast.showToast('下单成功！');
+            this.ctx.navigation.replace(`/pay/${res.data.id}`);
         } catch (e) {
             toast.showToast(e.message);
         }

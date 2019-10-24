@@ -49,6 +49,9 @@ $app_bgc: #f4f4f4;
 .app_tag_item.curr { border: 1px solid #f23030; color: #f23030; }
 .app_tag_item.curr::after { border: 0; }
 
+.app-tab-head-cursor { background: #f23030; }
+.app-tab-head .curr .app-tab-title { color: #f23030; }
+
 /*
 业务缩写:
 
@@ -138,7 +141,7 @@ $app_bgc: #f4f4f4;
 .it_spec_select_modal_ft button.btn_cart { background-color: #ffa001; }
 
 .it_spu_props_modal_hd { height: 40px; font-size: 14px; }
-.it_spu_props_modal_bd { padding: 0 10px; height: 400px; }
+.it_spu_props_modal_bd { padding: 0 10px; }
 .it_spu_props_modal_item { padding: 10px; font-size: 13px; }
 .it_spu_props_modal_item .label { font-size: 12px; color: #999; margin-right: 10px; width: 70px; }
 .it_spu_props_modal_item::after { border-color: #eee; }
@@ -168,6 +171,7 @@ $app_bgc: #f4f4f4;
 
 .it_shop_recommends { @extend .it_infobar; margin-top: 10px; padding: 0; }
 .it_shop_recommends_hd { height: 42px; padding: 0 10px; }
+.it_shop_recommends_hd .tit { font-weight: bold; }
 .it_shop_recommends_hd .more { color: #999; font-size: 12px; }
 .it_shop_recommends_items { padding-left: 10px; }
 .it_shop_recommends_item { float: left; width: 33%; padding: 0px 5px 10px 0; }
@@ -177,11 +181,11 @@ $app_bgc: #f4f4f4;
 .it_shop_recommends_item .price::before { content: '￥'; font-size: 13px; }
 .it_shop_recommends_item .price span { font-size: 16px; }
 
-.it_detail_tit { font-size: 13px; height: 30px; }
+.it_detail_tit { font-size: 13px; height: 36px; }
 .it_detail_tit .bd_b:first-child { margin-left: 40px; }
 .it_detail_tit .bd_b:last-child { margin-right: 40px; }
-.it_detail_tit .tit { padding: 0 10px; }
-.it_detail_con { width: 100%; background: #fff; }
+.it_detail_tit .tit { padding: 0 10px; color: #000; font-weight: bold; }
+.it_detail_con { width: 100%; background: #fff; padding: 10px 6px; font-size: 14px; }
 .it_detail_con img { display: block; width: 100%; }
 
 .it_footer { height: 50px; position: absolute; bottom: 0; background-color: #fff; z-index: 101; width: 100%; padding-left: 10px; }
@@ -238,7 +242,7 @@ $app_bgc: #f4f4f4;
 
 /* 订单 */
 .od_wrap { background: $app_bgc; }
-.od_wrap .app-scroller-container { padding: 10px 0 0 0; }
+.od_main .app-scroller-container { padding: 10px 0 0 0; }
 
 .od_header { background: $app_bgc; }
 .od_header::after { display: none; }
@@ -327,8 +331,87 @@ $app_bgc: #f4f4f4;
 .adr_district_select_list_item { height: 35px; line-height: 30px; font-size: 13px; padding-left: 10px; }
 .adr_district_select_list_item.curr { color: #f23030 }
 
-.adr_address_select_item { padding: 10px 10px 10px 6px; font-size: 14px; margin-left: 6px; }
+.adr_address_select_item { padding: 14px 10px 14px 6px; font-size: 14px; margin-left: 6px; }
 .adr_address_select_item.selected { color: #f23030; font-weight: bold; }
 .adr_address_select_item::after { border-color: #eee; }
 .adr_address_select_item .con { padding-left: 5px; }
 .adr_address_select_ft { height: 50px; padding: 8px 10px; }
+
+/* 订单支付页(收银台) */
+.op_tips { margin-bottom: 10px; height: 35px; padding: 0 10px; font-size: 14px; background: #fdf0f0; }
+.op_tips .amount { color: #f23030; }
+.op_tips .amount::before { content: '￥'; font-size: 12px; }
+.op_countdown span { background: #000; color: #fff; border-radius: 2px; padding: 0 2px; font-size: 12px; margin: 0 1px; }
+.op_countdown span:first-child { margin-left: 5px; }
+.op_countdown span:last-child { margin-right: 5px; }
+.od_paytypes { padding: 10px 12px; }
+.od_paytypes_tit { font-size: 14px; font-weight: bold; }
+.od_paytypes_item { padding: 8px 0; }
+.od_paytypes_item .con { font-size: 14px; padding-left: 10px; }
+.od_paytypes_item .tip { font-size: 13px; color: #999; }
+.op_footer { position: absolute; bottom: 0; width: 100%; height: 50px; padding: 6px 10px; z-index: 101; }
+.op_footer + .app-main { bottom: 50px; }
+
+/* 订单列表 */
+.ol_tabs .app-tab-head { font-size: 12px; }
+
+/* 订单详情 */
+.oi_status { margin-bottom: 10px; padding: 10px; font-size: 14px; background: #fdf0f0; }
+.oi_status_name { font-size: 14px; font-weight: bold; }
+
+.oi_address { background-color: #fff; margin-bottom: 10px; padding-left: 8px; padding-right: 8px; }
+.oi_address_info { padding: 15px 0; }
+.oi_address_info .icon-loc { padding-left: 8px; font-size: 24px; color: #f23030; }
+.oi_address_info .name { font-size: 14px; }
+.oi_address_info .mobile { font-size: 13px; padding-left: 8px; color: #999; }
+.oi_address_info .detail { font-size: 12px; padding-top: 6px; }
+
+.oi_store { background-color: #fff; margin-bottom: 10px; }
+.oi_store_tit { height: 40px; padding: 0 10px; }
+.oi_store_tit .logo { display: block; width: 20px; height: 20px; }
+.oi_store_tit .name { font-size: 14px; margin-left: 6px; }
+
+.oi_item { padding: 4px 10px 8px 10px; }
+.oi_item img { width: 72px; height: 72px; display: block; margin-left: 8px; border-radius: 4px; }
+.oi_item .con { margin-left: 10px; position: relative; }
+.oi_item .con .tit { font-size: 12px; }
+
+.oi_item .spec { margin-top: 8px; display: inline-block; border-radius: 2px; color: #aaa; font-size: 11px; line-height: 16px; position: relative; }
+.oi_item .spec .name { max-height: 36px; }
+.oi_item .spec .icon-arrow-down { color: #aaa; position: absolute; right: 0px; top: 50%; margin-top: -9px; }
+.oi_item .price { font-size: 14px; color: #f23030; }
+.oi_item .price::before { content: '￥'; font-size: 12px; }
+.oi_item .num { color: #999; font-size: 12px; }
+.oi_item .buttons { text-align: right; }
+.oi_item .buttons button { font-size: 12px; height: 26px; position: relative; padding: 0 10px; margin-left: 8px; }
+.oi_item .buttons button::after { @include border(#ddd, 26px); }
+
+.oi_store_orderinfo { padding: 0 8px; }
+.oi_service { margin: 4px -8px 0 -8px; }
+.oi_service::after { border-color: #eee; }
+.oi_service_btn { width: 100%; height: 38px; font-size: 13px; }
+
+.oi_orderinfo_bar { font-size: 12px; padding: 3px 0px; }
+.oi_orderinfo_bar .hd { padding-left: 10px; }
+.oi_orderinfo_bar .bd { padding-left: 10px; }
+.oi_orderinfo_bar .note { margin-left: 6px; color: #999; }
+
+.oi_orderinfo { font-size: 13px; padding: 10px 15px; background: #fff; margin-bottom: 10px; }
+.oi_orderinfo_item { padding: 4px 0; }
+.oi_orderinfo_item > b { font-weight: 400; color: #000; display: inline-block; width: 70px; }
+.oi_orderinfo_item > span { color: #666; }
+.oi_orderinfo_item .price::before { content: '￥'; font-size: 12px; vertical-align: bottom; }
+.oi_total_pay { padding: 6px 15px 2px 15px; margin: 6px -15px 0 -15px; }
+.oi_total_pay::after { border-color: #eee; }
+.oi_total_pay .price { color: #f23030; font-weight: bold; font-size: 16px; }
+.oi_total_pay .price::before { content: '￥'; font-size: 12px; vertical-align: bottom; }
+
+.oi_footer { position: absolute; bottom: 0; width: 100%; height: 50px; z-index: 101; text-align: right; background-color: #fff; }
+.oi_footer ~ .app-main { bottom: 50px; }
+.oi_footer button { padding: 0 12px; height: 28px; margin: 0 10px 0 0; border-radius: 28px; min-width: 80px; position: relative; }
+.oi_footer button::after { @include border(#ccc, 28px); }
+
+.oi_footer .oi_submit {
+    background-image: linear-gradient(90deg,#ff4700,#f23030); color: #fff;
+    &::after { display: none; }
+}

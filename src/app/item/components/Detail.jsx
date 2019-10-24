@@ -1,6 +1,7 @@
 import React from 'react';
+import { inject } from 'snowball/app';
 
-export default function Detail({ detailHtml }) {
+function Detail({ detailHtml }) {
     return (
         <div className="it_detail">
             <div className="it_detail_tit ta_c flex"><p className="fx_1 bd_b"></p><p className="tit">商品详情</p><p className="fx_1 bd_b"></p></div>
@@ -13,3 +14,11 @@ export default function Detail({ detailHtml }) {
         </div>
     );
 }
+
+export default inject(({ itemService }) => (
+    itemService
+        ? {
+            detailHtml: itemService.detailHtml
+        }
+        : null
+))(Detail);

@@ -16,6 +16,8 @@ export default class ItemService extends Service {
     @observable skus = [];
     @observable buyNum = 1;
     @observable currentSku = {};
+    @observable detailHtml;
+    @observable detailVideo;
 
     @observable skuSelectMode = false;
     @observable isSpecSelectModalVisible = false;
@@ -102,6 +104,11 @@ export default class ItemService extends Service {
         this.skus = data.skus;
         this.spuProps = data.spuProps;
         this.currentSku = data.skus[0];
+
+        const detailRes = await this.productService.getDetailById(spuId);
+
+        this.detailHtml = detailRes.data.content;
+        this.detailVideo = detailRes.data.detailVideo;
     }
 
     showSkuSelect(mode) {
