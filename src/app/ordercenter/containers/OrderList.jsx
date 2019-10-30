@@ -1,60 +1,50 @@
 import React from 'react';
-import { Header, ScrollView, Tab } from 'snowball/components';
-import { inject } from 'snowball/app';
+import { Header, Tab } from 'snowball/components';
+import OrderList from '../components/OrderList';
 
-function OrderList({ orderList }) {
-    console.log(orderList);
-
+export default function OrderListPage({ orderList }) {
     const tabs = [{
         title: '全部',
-        content: (
-            <ScrollView>
-            </ScrollView>
-        )
+        type: 0,
     }, {
         title: '待付款',
-        content: (
-            <ScrollView>
-            </ScrollView>
-        )
+        type: 1,
     }, {
         title: '待收货',
-        content: (
-            <ScrollView>
-            </ScrollView>
-        )
+        type: 2,
     }, {
         title: '已完成',
-        content: (
-            <ScrollView>
-            </ScrollView>
-        )
+        type: 3
     }, {
         title: '已取消',
-        content: (
-            <ScrollView>
-            </ScrollView>
-        )
+        type: 4
     }];
 
     return (
         <>
             <Header
                 title="订单列表"
+                className="ol_header"
             ></Header>
             <Tab
                 className="ol_tabs app-main"
-                items={tabs}
-            ></Tab>
+            >
+                {
+                    tabs.map(({ title, type }) => {
+                        return (
+                            <Tab.Pane
+                                key={type}
+                                title={title}
+                                className="ol_orderlist"
+                            >
+                                <OrderList
+                                    type={type}
+                                ></OrderList>
+                            </Tab.Pane>
+                        );
+                    })
+                }
+            </Tab>
         </>
     );
 }
-
-export default inject(({ orderListService }) => (
-    orderListService
-        ? {
-            orderList: orderListService.orderList,
-            total: orderListService.total,
-        }
-        : null
-))(OrderList);

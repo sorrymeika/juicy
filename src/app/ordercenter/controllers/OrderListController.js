@@ -4,16 +4,15 @@ import OrderList from "../containers/OrderList";
 
 @controller(OrderList)
 class OrderListController {
-    @injectable orderListService: OrderListService;
+    @injectable orderListServices: OrderListService[] = {};
 
-    constructor(props) {
-        this.orderListService = new OrderListService(
+    @injectable orderListServiceFactory() {
+        return new OrderListService(
             this.ctx.service.order,
         );
     }
 
     onInit() {
-        this.orderListService.init(0);
     }
 }
 

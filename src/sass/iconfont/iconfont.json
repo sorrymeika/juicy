@@ -55,6 +55,13 @@
       "unicode_decimal": 59121
     },
     {
+      "icon_id": "7008965",
+      "name": "message",
+      "font_class": "message1",
+      "unicode": "e70c",
+      "unicode_decimal": 59148
+    },
+    {
       "icon_id": "7008971",
       "name": "more",
       "font_class": "more",
@@ -67,6 +74,20 @@
       "font_class": "right",
       "unicode": "e721",
       "unicode_decimal": 59169
+    },
+    {
+      "icon_id": "7009025",
+      "name": "tasklist",
+      "font_class": "bag",
+      "unicode": "e733",
+      "unicode_decimal": 59187
+    },
+    {
+      "icon_id": "7009058",
+      "name": "supply",
+      "font_class": "supply",
+      "unicode": "e760",
+      "unicode_decimal": 59232
     },
     {
       "icon_id": "8776692",
@@ -221,6 +242,48 @@
       "font_class": "bell",
       "unicode": "e60a",
       "unicode_decimal": 58890
+    },
+    {
+      "icon_id": "11372655",
+      "name": "地图",
+      "font_class": "map",
+      "unicode": "e8ad",
+      "unicode_decimal": 59565
+    },
+    {
+      "icon_id": "11372658",
+      "name": "订单",
+      "font_class": "order1",
+      "unicode": "e8ae",
+      "unicode_decimal": 59566
+    },
+    {
+      "icon_id": "11372715",
+      "name": "问卷",
+      "font_class": "order2",
+      "unicode": "e8bb",
+      "unicode_decimal": 59579
+    },
+    {
+      "icon_id": "11372722",
+      "name": "消息",
+      "font_class": "message2",
+      "unicode": "e8bd",
+      "unicode_decimal": 59581
+    },
+    {
+      "icon_id": "11372727",
+      "name": "银行卡",
+      "font_class": "card",
+      "unicode": "e8bf",
+      "unicode_decimal": 59583
+    },
+    {
+      "icon_id": "11372741",
+      "name": "娱乐宝",
+      "font_class": "money",
+      "unicode": "e8c2",
+      "unicode_decimal": 59586
     }
   ]
 }

@@ -1,3 +1,5 @@
+
+
 import { observable, util } from "snowball";
 import { Service } from "snowball/app";
 
@@ -9,10 +11,13 @@ export default class OrderListService extends Service {
     pageSize = 10;
     total = 0;
 
+    onInit = this.ctx.createEvent();
+
     constructor(orderService) {
         super();
 
         this.orderService = orderService;
+        this.onInit(type => this.init(type));
     }
 
     init(type) {

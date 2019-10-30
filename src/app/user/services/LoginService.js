@@ -14,9 +14,14 @@ export default class LoginService extends Service {
 
     async login(data) {
         const { account, verifyCode } = data;
-        const res = await this.ctx.service.user.login(account, verifyCode);
-        if (res.success) {
-            toast.showToast('登录成功!');
+        try {
+            const res = await this.ctx.service.user.login(account, verifyCode);
+            if (res.success) {
+                toast.showToast('登录成功!');
+                this.ctx.navigation.back();
+            }
+        } catch (e) {
+            toast.showToast(e.message);
         }
     }
 }

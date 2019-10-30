@@ -1,4 +1,16 @@
+import { observable } from "snowball";
+
 export default class UserService {
+    @observable userInfo = {};
+
+    loadUserInfo() {
+        return this.getUserInfo()
+            .then(res => {
+                this.userInfo = res.data;
+                return res;
+            });
+    }
+
     login(account, verifyCode) {
         return this.ctx.server.user.post('/user/login', {
             account,
