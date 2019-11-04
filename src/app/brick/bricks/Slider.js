@@ -7,7 +7,7 @@ registerComponent('slider', SliderComponent);
 class Slider extends BrickBase {
     processData(data) {
         return {
-            images: data.images.map((img) => ({
+            images: data.images && data.images.map((img) => ({
                 ...img,
                 src: this.props.ctx.sfs.completeUrl(img.src)
             }))

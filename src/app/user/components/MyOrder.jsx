@@ -3,34 +3,34 @@ import { inject } from 'snowball/app';
 
 function MyOrder() {
     return (
-        <div className="uc_myorder">
+        <div className="uc_myorder app-card">
             <div
-                className="flex"
+                className="uc_myorder_hd flex bd_b"
                 app-link="/orderlist"
             >
                 <h3 className="fx_2">我的订单</h3>
-                <a>查看全部订单</a>
+                <a className="more">查看全部订单</a>
                 <i className="iconfont icon-arrow-right"></i>
             </div>
-            <div className="flex">
-                <div className="fx_1">
+            <div className="flex uc_myorder_types">
+                <div className="uc_myorder_type fx_1">
                     <i className="iconfont icon-card"></i>
                     <p>待付款</p>
                 </div>
-                <div className="fx_1">
+                <div className="uc_myorder_type fx_1">
                     <i className="iconfont icon-supply"></i>
                     <p>待收货</p>
                 </div>
-                <div className="fx_1">
+                <div className="uc_myorder_type fx_1">
                     <i className="iconfont icon-message1"></i>
                     <p>待评价</p>
                 </div>
-                <div className="fx_1">
+                <div className="uc_myorder_type fx_1">
                     <i className="iconfont icon-money"></i>
                     <p>退换/售后</p>
                 </div>
                 <div
-                    className="fx_1"
+                    className="uc_myorder_type fx_1"
                     app-link="/orderlist"
                 >
                     <i className="iconfont icon-order1"></i>

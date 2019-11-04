@@ -147,6 +147,7 @@ module.exports = function (webpackEnv) {
       require.resolve('./polyfills'),
       // Finally, this is your app's code:
       require.resolve('snowball'),
+      require.resolve('sn-app'),
       paths.appIndexJs,
       // We include the app code last so that if there is a runtime error during
       // initialization, it doesn't blow up the WebpackDevServer client, and

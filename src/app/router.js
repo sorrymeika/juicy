@@ -18,6 +18,7 @@ import OrderInfoController from "./ordercenter/controllers/OrderInfoController";
 import OrderListController from "./ordercenter/controllers/OrderListController";
 
 import InvoiceController from "./order/controllers/InvoiceController";
+import PayResultController from "./order/controllers/PayResultController";
 
 
 export default {
@@ -34,6 +35,7 @@ export default {
     '/cart': CartController,
     '/order/create': OrderController,
     '/pay/\\d+:tradeId': OrderPayController,
+    '/payresult/\\d+:tradeId': PayResultController,
     '/orderinfo/\\d+:tradeId': OrderInfoController,
     '/orderlist(?:/\\d+:type)?': OrderListController,
     '/address/list': AddressListController,

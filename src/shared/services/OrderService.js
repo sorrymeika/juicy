@@ -36,4 +36,10 @@ export default class OrderService {
             orderId
         });
     }
+
+    simulatePay(tradeCode) {
+        return this.ctx.server.trade.post("/order/simulatePay", {
+            tradeCode
+        });
+    }
 }

@@ -100,8 +100,34 @@ $app_bgc: #f4f4f4;
 .uc_header .app-header-right button:first-child { padding-left: 10px; }
 .uc_header .app-header-right button:last-child { padding-right: 10px; }
 
+.uc_userinfo { padding: 0 10px 10px 10px; }
+.uc_userinfo_avatars { padding-right: 10px; }
+.uc_userinfo_avatars .avatars { width: 60px; height: 60px; display: block; border-radius: 6px; }
+.uc_userinfo_nickName { font-weight: bold; }
+
+.uc_myorder_hd { height: 40px; padding: 0 10px; font-size: 14px; }
+.uc_myorder_hd h3 { font-size: 14px; }
+.uc_myorder_hd .more { font-size: 12px; }
+.uc_myorder_types { padding: 10px 0; }
+.uc_myorder_type { text-align: center; }
+.uc_myorder_type .iconfont { font-size: 26px; display: block; width: 28px; height: 28px; margin: 0 auto; }
+.uc_myorder_type .icon-supply, .uc_myorder_type .icon-message1 { font-size: 28px; }
+.uc_myorder_type p { font-size: 12px; color: #666; padding-top: 4px; }
+
 /* 用户设置 */
-.us_to_edit {}
+.us_to_edit { padding: 10px 0 0 10px; background: #fff; }
+.us_avatars img { width: 60px; height: 60px; border-radius: 8px; display: block; }
+.us_userinfo { padding: 0 10px 10px 0; }
+.us_info { padding-left: 10px; }
+.us_address { padding-right: 10px; height: 40px; font-size: 13px; }
+
+/* 编辑用户资料 */
+.ue_save_btn { padding: 10px; font-size: 14px; color: #f23030; }
+.ue_avatars_upload { text-align: center; padding: 20px; }
+.ue_avatars_upload .avatars { width: 70px; height: 70px; margin-bottom: 10px; border-radius: 8px; }
+.us_nickName { font-size: 14px; padding-bottom: 8px; }
+.us_name { font-size: 13px; color: #999; }
+.us_edit_btn { border: 1px solid #f23030; border-radius: 2px; padding: 0 6px; color: #f23030; margin-right: 10px; }
 
 /* 商详页 */
 .it_main .app-scroller-container { padding-bottom: 10px; }
@@ -367,9 +393,21 @@ $app_bgc: #f4f4f4;
 .od_paytypes_tit { font-size: 14px; font-weight: bold; }
 .od_paytypes_item { padding: 8px 0; }
 .od_paytypes_item .con { font-size: 14px; padding-left: 10px; }
-.od_paytypes_item .tip { font-size: 13px; color: #999; }
+.od_paytypes_item .desc { font-size: 13px; color: #999; }
 .op_footer { position: absolute; bottom: 0; width: 100%; height: 50px; padding: 6px 10px; z-index: 101; }
 .op_footer + .app-main { bottom: 50px; }
+
+/* 订单支付结果页 */
+.opr_info { background: #fff; padding: 10px; text-align: center; }
+.opr_info .tip { font-size: 16px; padding: 15px; }
+.opr_info .icon-right { margin-right: 10px; border: 2px solid #0aae0a; color: #0aae0a; font-size: 20px; display: block; font-weight: bold; width: 28px; height: 28px; line-height: 25px; border-radius: 28px; }
+.opr_info .total { font-size: 14px; padding-bottom: 5px; color: #999; font-size: 12px; }
+.opr_info .total em { color: #f23030; font-size: 14px; }
+.opr_info .btns { text-align: center; padding: 10px; }
+.opr_info .btns button { height: 28px; width: 80px; margin: 0 6px; }
+.opr_info .btns .btn_order { color: #f23030; }
+.opr_info .btns .btn_order::after { border-color: #f23030; border-radius: 28px; }
+.opr_info .btns .btn_complete { border-radius: 28px; background-image: linear-gradient(90deg,#ff4700,#f23030); color: #fff; }
 
 /* 订单列表 */
 .ol_header::after { display: none; }

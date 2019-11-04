@@ -1,17 +1,20 @@
 import React from 'react';
 import { inject } from 'snowball/app';
 import { ImageUpload } from 'snowball/components';
-import { SfsImage } from 'sn-app';
+import { SfsImage, CheckBox } from 'sn-app';
 
 function UserEditForm({ userInfo, onFieldChange }) {
     return (
         <div>
-            <ImageUpload>
+            <ImageUpload
+                className="ue_avatars_upload"
+            >
                 <button>
                     <SfsImage
+                        className="avatars"
                         src={userInfo.avatars}
                     />
-                    <p>点击上传头像</p>
+                    <p className="cl_999">点击上传头像</p>
                 </button>
             </ImageUpload>
             <div className="app_form_item bd_b">
@@ -34,10 +37,22 @@ function UserEditForm({ userInfo, onFieldChange }) {
             </div>
             <div className="app_form_item">
                 <div className="app_form_label">性别</div>
-                <div className="app_form_input">
-                    {userInfo.gender}
+                <div className="app_form_input flex">
+                    <div
+                        className="flex"
+                        onClick={() => onFieldChange('gender', 1)}
+                    >
+                        <CheckBox checked={userInfo.gender === 1}></CheckBox>
+                        <div className="ml_s">男</div>
+                    </div>
+                    <div
+                        className="flex ml_l"
+                        onClick={() => onFieldChange('gender', 0)}
+                    >
+                        <CheckBox checked={userInfo.gender === 0}></CheckBox>
+                        <div className="ml_s">女</div>
+                    </div>
                 </div>
-                <i className="iconfont icon-arrow-right"></i>
             </div>
         </div>
     );
@@ -46,7 +61,8 @@ function UserEditForm({ userInfo, onFieldChange }) {
 export default inject(({ userEditService }) => {
     return userEditService
         ? {
-            userInfo: userEditService.userInfo
+            userInfo: userEditService.userInfo,
+            onFieldChange: (name, value) => userEditService.onFieldChange.emit({ [name]: value })
         }
         : null;
 })(UserEditForm);

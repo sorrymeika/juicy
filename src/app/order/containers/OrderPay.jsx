@@ -4,8 +4,30 @@ import { Header, MainScrollView, CountDown } from 'snowball/components';
 import { CheckBox } from 'sn-app';
 import { inject } from 'snowball/app';
 
-function OrderPay({ orderInfo }) {
+function OrderPay({
+    currentPayType,
+    orderInfo,
+    onPayTypeChange,
+    onPay
+}) {
     const endTime = orderInfo.addDt ? new Date(orderInfo.addDt).getTime() + (1000 * 60 * 30) : 0;
+
+    const payTypes = [{
+        type: 1,
+        icon: 'icons-weipay',
+        name: '微信支付',
+        desc: '微信安全支付'
+    }, {
+        type: 2,
+        icon: 'icons-alipay',
+        name: '支付宝支付',
+        desc: '支付宝安全支付'
+    }, {
+        type: 3,
+        icon: 'icons-weipay',
+        name: '模拟支付',
+        desc: '模拟支付'
+    }];
 
     return (
         <div className="op_wrap">
@@ -17,11 +39,15 @@ function OrderPay({ orderInfo }) {
             >
             </Header>
             <footer className="op_footer">
-                <button className="app-button-gradient" disabled={util.getCurrentTime() >= endTime || orderInfo.payStatus != 0}>{orderInfo.payStatus == 1
-                    ? '订单已支付'
-                    : util.getCurrentTime() >= endTime || orderInfo.status == -5
-                        ? '订单已取消'
-                        : '立即支付'}</button>
+                <button
+                    className="app-button-gradient"
+                    disabled={util.getCurrentTime() >= endTime || orderInfo.payStatus != 0}
+                    onClick={onPay}
+                >{orderInfo.payStatus == 1
+                        ? '订单已支付'
+                        : util.getCurrentTime() >= endTime || orderInfo.status == -5
+                            ? '订单已取消'
+                            : '立即支付'}</button>
             </footer>
             <MainScrollView>
                 <div className="op_tips flex">
@@ -37,22 +63,24 @@ function OrderPay({ orderInfo }) {
                 <div className="od_paytypes app-card">
                     <div className="od_paytypes_tit">支付方式</div>
                     <ul className="pt_s">
-                        <li className="flex od_paytypes_item">
-                            <i className="icons-weipay"></i>
-                            <div className="fx_1 con">
-                                <div>微信支付</div>
-                                <p className="tip">微信安全支付</p>
-                            </div>
-                            <CheckBox checked></CheckBox>
-                        </li>
-                        <li className="flex od_paytypes_item">
-                            <i className="icons-alipay"></i>
-                            <div className="fx_1 con">
-                                <div>支付宝支付</div>
-                                <p className="tip">支付宝安全支付</p>
-                            </div>
-                            <CheckBox></CheckBox>
-                        </li>
+                        {
+                            payTypes.map(item => {
+                                return (
+                                    <li
+                                        key={item.type}
+                                        className="flex od_paytypes_item"
+                                        onClick={() => onPayTypeChange(item.type)}
+                                    >
+                                        <i className={item.icon}></i>
+                                        <div className="fx_1 con">
+                                            <div>{item.name}</div>
+                                            <p className="desc">{item.desc}</p>
+                                        </div>
+                                        <CheckBox checked={currentPayType == item.type}></CheckBox>
+                                    </li>
+                                );
+                            })
+                        }
                     </ul>
                 </div>
             </MainScrollView>
@@ -63,7 +91,10 @@ function OrderPay({ orderInfo }) {
 export default inject(({ orderPayService }) => (
     orderPayService
         ? {
-            orderInfo: orderPayService.orderInfo
+            currentPayType: orderPayService.currentPayType,
+            orderInfo: orderPayService.orderInfo,
+            onPayTypeChange: orderPayService.onPayTypeChange.emit,
+            onPay: orderPayService.onPay.emit
         }
         : null
 ))(OrderPay);

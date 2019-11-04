@@ -1,15 +1,19 @@
 import React from 'react';
 import { Header, MainScrollView } from 'snowball/components';
 import UserEditForm from '../components/UserEditForm';
+import { inject } from 'snowball/app';
 
-export default function EditUserInfo() {
+function UserEdit({ onSave }) {
     return (
         <>
             <Header
                 title="编辑资料"
                 backText="取消"
                 buttons={
-                    <button>完成</button>
+                    <button
+                        className="ue_save_btn"
+                        onClick={onSave}
+                    >完成</button>
                 }
             ></Header>
             <MainScrollView>
@@ -18,3 +22,11 @@ export default function EditUserInfo() {
         </>
     );
 }
+
+export default inject(({ userEditService }) => {
+    return userEditService
+        ? {
+            onSave: userEditService.onSave.emit
+        }
+        : null;
+})(UserEdit);

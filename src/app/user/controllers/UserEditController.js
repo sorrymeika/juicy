@@ -1,5 +1,5 @@
 import { controller, injectable } from "snowball/app";
-import EditUserInfo from "../containers/EditUserInfo";
+import EditUserInfo from "../containers/UserEdit";
 import UserEditService from "../services/UserEditService";
 
 @controller(EditUserInfo)
