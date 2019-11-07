@@ -16,6 +16,12 @@ export default class OrderService {
         });
     }
 
+    getSellerOrderById(sellerOrderId) {
+        return this.ctx.server.trade.post("/order/getSellerOrderById", {
+            sellerOrderId
+        });
+    }
+
     listOrder(type, pageIndex, pageSize = 10) {
         return this.ctx.server.trade.post("/order/listOrder", {
             type,
@@ -31,9 +37,9 @@ export default class OrderService {
         });
     }
 
-    cancelOrder(orderId) {
+    cancelOrder(sellerOrderId) {
         return this.ctx.server.trade.post("/order/cancelOrder", {
-            orderId
+            sellerOrderId
         });
     }
 

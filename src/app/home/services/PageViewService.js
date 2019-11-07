@@ -32,11 +32,13 @@ export default class PageViewService extends Service {
             props: JSON.parse(page.props || '{}')
         };
 
-        this.bricks = page.bricks.map((brick) => {
-            return {
-                ...brick,
-                template: page.templates.find((tpl) => tpl.id == brick.templateId)
-            };
-        });
+        this.bricks = page.bricks
+            .sort((a, b) => a.sort - b.sort)
+            .map((brick) => {
+                return {
+                    ...brick,
+                    template: page.templates.find((tpl) => tpl.id == brick.templateId)
+                };
+            });
     }
 }

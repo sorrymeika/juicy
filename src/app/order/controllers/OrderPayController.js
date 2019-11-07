@@ -8,13 +8,14 @@ class OrderPayController {
 
     constructor(props) {
         this.tradeId = Number(props.location.params.tradeId);
+        this.sellerOrderId = Number(props.location.params.sellerOrderId) || 0;
         this.orderPayService = new OrderPayService(
             this.ctx.service.order,
         );
     }
 
     onInit() {
-        this.orderPayService.init(this.tradeId);
+        this.orderPayService.init(this.tradeId, this.sellerOrderId);
     }
 }
 

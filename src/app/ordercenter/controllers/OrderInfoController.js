@@ -7,14 +7,14 @@ class OrderInfoController {
     @injectable orderInfoService;
 
     constructor(props) {
-        this.tradeId = Number(props.location.params.tradeId);
+        this.sellerOrderId = Number(props.location.params.sellerOrderId);
         this.orderInfoService = new OrderInfoService(
             this.ctx.service.order,
         );
     }
 
     onInit() {
-        this.orderInfoService.init(this.tradeId);
+        this.orderInfoService.init(this.sellerOrderId);
     }
 }
 

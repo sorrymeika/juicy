@@ -36,22 +36,7 @@ export default class OrderListService extends Service {
             .then((res) => {
                 util.setServerTime(res.sysTime);
 
-                this.orderList = res.data.map(({ skus, sellerOrders, ...orderInfo }) => {
-                    return {
-                        orderInfo,
-                        sellerOrders: sellerOrders.map(sellerOrder => {
-                            const sellerOrderSkus = skus.filter(sku => sku.sellerId == sellerOrder.sellerId);
-                            return {
-                                ...sellerOrder,
-                                skus: sellerOrderSkus,
-                                total: sellerOrderSkus.reduce((total, sku) => {
-                                    return total + sku.num;
-                                }, 0)
-                            };
-                        })
-                    };
-                });
-
+                this.orderList = res.data;
                 this.total = res.total;
 
                 return res;

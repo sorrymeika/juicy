@@ -7,11 +7,15 @@ function CartList({ sellers }) {
     return (
         <div>
             {
-                sellers.map((seller) => {
-                    return (
-                        <CartStore seller={seller} skus={seller.skus}></CartStore>
-                    );
-                })
+                sellers && sellers.length
+                    ? sellers.map((seller) => {
+                        return (
+                            <CartStore seller={seller} skus={seller.skus}></CartStore>
+                        );
+                    })
+                    : (
+                        <div className="pd_m ta_c">暂无商品</div>
+                    )
             }
         </div>
     );

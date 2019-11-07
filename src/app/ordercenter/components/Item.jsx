@@ -6,7 +6,7 @@ export default function Item({ sku, buttons }) {
 
     return (
         <div className="oi_item">
-            <div className="dp_f ai_fs">
+            <div className="dp_f ai_fs" app-link={"/item/" + sku.spuId}>
                 <div className="flex">
                     <SfsImage src={sku.picture} className="img" />
                 </div>

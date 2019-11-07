@@ -34,11 +34,15 @@ export default {
     '/item/\\d+:id': ItemController,
     '/cart': CartController,
     '/order/create': OrderController,
-    '/pay/\\d+:tradeId': OrderPayController,
-    '/payresult/\\d+:tradeId': PayResultController,
-    '/orderinfo/\\d+:tradeId': OrderInfoController,
+
+    '/pay/\\d+:tradeId(?:/\\d+:sellerOrderId)?': OrderPayController,
+    '/payresult/\\d+:tradeId(?:/\\d+:sellerOrderId)?': PayResultController,
+
+    '/orderinfo/\\d+:sellerOrderId': OrderInfoController,
     '/orderlist(?:/\\d+:type)?': OrderListController,
+
     '/address/list': AddressListController,
     '/address/edit': AddressController,
+
     '/invoice': InvoiceController,
 };

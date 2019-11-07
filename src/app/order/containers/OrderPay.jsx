@@ -12,6 +12,8 @@ function OrderPay({
 }) {
     const endTime = orderInfo.addDt ? new Date(orderInfo.addDt).getTime() + (1000 * 60 * 30) : 0;
 
+    console.log(endTime);
+
     const payTypes = [{
         type: 1,
         icon: 'icons-weipay',
@@ -34,20 +36,22 @@ function OrderPay({
             <Header
                 title="收银台"
                 buttons={
-                    <button app-link="/order/list" className="pd_m">订单中心</button>
+                    <button app-link="/orderlist" className="pd_m">订单中心</button>
                 }
             >
             </Header>
             <footer className="op_footer">
                 <button
                     className="app-button-gradient"
-                    disabled={util.getCurrentTime() >= endTime || orderInfo.payStatus != 0}
+                    disabled={util.getCurrentTime() >= endTime || !orderInfo.payable}
                     onClick={onPay}
-                >{orderInfo.payStatus == 1
-                        ? '订单已支付'
-                        : util.getCurrentTime() >= endTime || orderInfo.status == -5
-                            ? '订单已取消'
-                            : '立即支付'}</button>
+                >{
+                        orderInfo.payStatus == 1
+                            ? '订单已支付'
+                            : util.getCurrentTime() >= endTime || !orderInfo.payable
+                                ? '订单不可支付'
+                                : '立即支付'
+                    }</button>
             </footer>
             <MainScrollView>
                 <div className="op_tips flex">
@@ -58,7 +62,7 @@ function OrderPay({
                             </>
                         )}</CountDown>
                         内完成支付</div>
-                    <div className="amount">12.00</div>
+                    <div className="amount">{(orderInfo.totalAmount + orderInfo.totalPostFee).toFixed(2)}</div>
                 </div>
                 <div className="od_paytypes app-card">
                     <div className="od_paytypes_tit">支付方式</div>

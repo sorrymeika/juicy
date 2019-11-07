@@ -16,8 +16,13 @@ export default class PayResultService extends Service {
         this.onComplete(() => this.complete());
     }
 
-    init(orderId) {
-        this.orderService.getOrderById(orderId)
+    init(tradeId, sellerOrderId) {
+        this.tradeId = tradeId;
+        this.sellerOrderId = sellerOrderId;
+
+        (sellerOrderId
+            ? this.orderService.getSellerOrderById(sellerOrderId)
+            : this.orderService.getOrderById(tradeId))
             .then(res => {
                 this.orderInfo = res.data.orderInfo;
 
@@ -31,7 +36,7 @@ export default class PayResultService extends Service {
     }
 
     gotoOrder() {
-        this.ctx.navigation.forward('/orderinfo/' + this.orderInfo.id);
+        this.ctx.navigation.forward(this.sellerOrderId ? '/orderinfo/' + this.sellerOrderId : '/orderlist');
     }
 
     complete() {

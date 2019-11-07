@@ -4,8 +4,6 @@ import { toast } from "snowball/widget";
 
 export default class OrderPayService extends Service {
     @observable orderInfo = {};
-    @observable addressInfo = {};
-    @observable sellerOrders = [];
     @observable error;
     @observable currentPayType = 1;
 
@@ -23,21 +21,20 @@ export default class OrderPayService extends Service {
         this.onPay(() => this.pay());
     }
 
-    init(orderId) {
-        this.orderService.getOrderById(orderId)
+    init(tradeId, sellerOrderId) {
+        this.tradeId = tradeId;
+        this.sellerOrderId = sellerOrderId;
+
+        (sellerOrderId
+            ? this.orderService.getSellerOrderById(sellerOrderId)
+            : this.orderService.getOrderById(tradeId))
             .then(res => {
                 util.setServerTime(res.sysTime);
                 this.orderInfo = res.data.orderInfo;
-                this.addressInfo = res.data.addressInfo;
-                this.sellerOrders = res.data.sellerOrders.map(sellerOrder => {
-                    return {
-                        ...sellerOrder,
-                        skus: res.data.skus.filter(sku => sku.sellerId == sellerOrder.sellerId)
-                    };
-                });
             })
             .catch(e => {
                 this.error = e;
+                toast.showToast(e.message);
             });
     }
 
@@ -50,9 +47,10 @@ export default class OrderPayService extends Service {
             toast.showToast('暂未开通，敬请期待！');
         } else if (this.currentPayType == 3) {
             // 模拟支付
-            this.orderService.simulatePay(this.orderInfo.code)
+            const tradeCode = this.orderInfo.code + (this.sellerOrderId ? '-' + this.sellerOrderId : '');
+            this.orderService.simulatePay(tradeCode)
                 .then(res => {
-                    this.ctx.navigation.forward('/payresult/' + this.orderInfo.id);
+                    this.ctx.navigation.forward('/payresult/' + this.tradeId + (this.sellerOrderId ? '/' + this.sellerOrderId : ''));
                 });
         }
     }

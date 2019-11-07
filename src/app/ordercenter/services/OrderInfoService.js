@@ -32,7 +32,6 @@ export default class OrderInfoService extends Service {
     @observable orderInfo = {};
     @observable addressInfo = {};
     @observable orderStatus = {};
-    @observable sellerOrders = [];
     @observable error;
 
     onToPay = this.ctx.createEvent();
@@ -43,16 +42,16 @@ export default class OrderInfoService extends Service {
 
         this.orderService = orderService;
 
-        this.onToPay((orderId) => this.toPay(orderId));
-        this.onCancelOrder((orderId) => this.cancelOrder(orderId));
+        this.onToPay((orderSellerId) => this.toPay(orderSellerId));
+        this.onCancelOrder((orderSellerId) => this.cancelOrder(orderSellerId));
     }
 
-    init(orderId) {
-        this.fetchOrder(orderId);
+    init(orderSellerId) {
+        this.loadOrder(orderSellerId);
     }
 
-    fetchOrder(orderId) {
-        this.orderService.getOrderById(orderId)
+    loadOrder(orderSellerId) {
+        this.orderService.getSellerOrderById(orderSellerId)
             .then(res => {
                 const { orderInfo } = res.data;
 
@@ -60,20 +59,10 @@ export default class OrderInfoService extends Service {
 
                 this.orderInfo = orderInfo;
                 this.addressInfo = res.data.addressInfo;
-                this.sellerOrders = res.data.sellerOrders.map(sellerOrder => {
-                    const skus = res.data.skus.filter(sku => sku.sellerId == sellerOrder.sellerId);
-                    return {
-                        ...sellerOrder,
-                        skus,
-                        total: skus.reduce((total, sku) => {
-                            return total + sku.num;
-                        }, 0)
-                    };
-                });
 
                 const waitingForPay = orderInfo.payStatus == 0 && orderInfo.status != -1;
                 const isCanceled = orderInfo.status == -1;
-                const isComplete = orderInfo.status == -4 || orderInfo.status == 4;
+                const isComplete = orderInfo.status == -4 || orderInfo.status == 4 || orderInfo.status == 9;
                 const cancelable = orderInfo.status == 0;
                 const waitingForReceipt = orderInfo.status == 1 || orderInfo.status == 2 || orderInfo.status == 3;
                 const isReceipted = orderInfo.status == 4;
@@ -94,15 +83,15 @@ export default class OrderInfoService extends Service {
             });
     }
 
-    toPay(orderId) {
-        this.ctx.navigation.forward('/pay/' + orderId);
+    toPay(orderSellerId) {
+        this.ctx.navigation.forward('/pay/' + this.orderInfo.tradeId + '/' + orderSellerId);
     }
 
-    cancelOrder(orderId) {
-        this.orderService.cancelOrder(orderId)
+    cancelOrder(orderSellerId) {
+        this.orderService.cancelOrder(orderSellerId)
             .then((res) => {
                 toast.showToast('取消成功');
-                this.fetchOrder(orderId);
+                this.loadOrder(orderSellerId);
             })
             .catch(e => {
                 toast.showToast(e.message);

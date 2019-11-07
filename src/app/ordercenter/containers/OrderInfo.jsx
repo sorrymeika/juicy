@@ -2,12 +2,12 @@ import React from 'react';
 import { Header, MainScrollView } from 'snowball/components';
 import { inject } from 'snowball/app';
 import OrderAddress from '../components/OrderAddress';
-import SellerOrder from '../components/SellerOrder';
+import SellerOrderListItem from '../components/SellerOrderListItem';
 import { util } from 'snowball';
 import OrderInfoFooter from '../components/OrderInfoFooter';
 
 
-function OrderInfo({ orderStatus, orderInfo, sellerOrders }) {
+function OrderInfo({ orderStatus, orderInfo }) {
     const {
         waitingForPay,
         isCanceled,
@@ -38,13 +38,11 @@ function OrderInfo({ orderStatus, orderInfo, sellerOrders }) {
                 </div>
                 <OrderAddress></OrderAddress>
                 <div className="oi_store_list">
-                    {
-                        sellerOrders.map((seller) => {
-                            return (
-                                <SellerOrder orderStatus={orderStatus} seller={seller} skus={seller.skus}></SellerOrder>
-                            );
-                        })
-                    }
+                    <SellerOrderListItem
+                        orderStatus={orderStatus}
+                        seller={orderInfo}
+                        skus={orderInfo.skus}
+                    />
                 </div>
                 <div className="oi_orderinfo">
                     <div className="oi_orderinfo_group">
@@ -85,15 +83,15 @@ function OrderInfo({ orderStatus, orderInfo, sellerOrders }) {
                 <div className="oi_orderinfo">
                     <div className="oi_orderinfo_item flex">
                         <b>商品总额</b>
-                        <div className="fx_1 ta_r"><span className="price">{orderInfo.totalAmount}</span></div>
+                        <div className="fx_1 ta_r"><span className="price">{orderInfo.amount}</span></div>
                     </div>
                     <div className="oi_orderinfo_item flex">
                         <b>总运费</b>
-                        <div className="fx_1 ta_r">+ <span className="price">{orderInfo.totalPostFee}</span></div>
+                        <div className="fx_1 ta_r">+ <span className="price">{orderInfo.postFee}</span></div>
                     </div>
                     <div className="oi_total_pay bd_t flex">
-                        <div className="oi_total_pay_hd">需付款</div>
-                        <div className="oi_total_pay_bd fx_1 ta_r"><span className="price">{orderInfo.totalAmount + orderInfo.totalPostFee}</span></div>
+                        <div className="oi_total_pay_hd">{orderInfo.payStatus == 0 ? '需付款' : '实付款'}</div>
+                        <div className="oi_total_pay_bd fx_1 ta_r"><span className="price">{orderInfo.amount + orderInfo.postFee}</span></div>
                     </div>
                 </div>
             </MainScrollView>

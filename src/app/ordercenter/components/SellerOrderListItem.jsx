@@ -2,7 +2,7 @@ import React from 'react';
 import { SfsImage } from 'sn-app';
 import Item from './Item';
 
-export default function SellerOrder({ orderStatus, seller, skus, onNoteChange }) {
+export default function SellerOrderListItem({ orderStatus, seller, skus, onNoteChange }) {
 
     return (
         <div className="oi_store">
@@ -14,7 +14,7 @@ export default function SellerOrder({ orderStatus, seller, skus, onNoteChange })
                 <i className="iconfont icon-arrow-right"></i>
             </div>
             {
-                skus.map((sku) => {
+                skus && skus.map((sku) => {
                     let buttons = null;
 
                     if (!orderStatus.waitingForPay) {
@@ -43,7 +43,6 @@ export default function SellerOrder({ orderStatus, seller, skus, onNoteChange })
                             );
                         }
                     }
-
                     return (
                         <Item sku={sku} buttons={buttons}></Item>
                     );
