@@ -1,8 +1,10 @@
 {
     "buildCommands": [
+        "rm -rf ./node_modules/snowball",
+        "rm -rf ./node_modules/sn-app",
         "npm install",
-        "ln -s /data/static/snowball ./node_modules/snowball",
-        "ln -s /data/static/sn-app ./node_modules/sn-app",
+        "ln -s /data/static/snowball/src ./node_modules/snowball",
+        "ln -s /data/static/sn-app/src ./node_modules/sn-app",
         "npm run build"
     ],
     "autoConfig": [
