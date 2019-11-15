@@ -11,14 +11,6 @@ process.on('unhandledRejection', err => {
   throw err;
 });
 
-const ln = (packageName) => {
-  if (!require('fs').existsSync('./node_modules/' + packageName)) {
-    require('child_process').execSync('ln -s ../../' + packageName + '/src ./node_modules/' + packageName);
-  }
-};
-ln('snowball');
-ln('sn-app');
-
 // Ensure environment variables are read.
 require('../config/env');
 
