@@ -9,7 +9,7 @@ export class NavBall extends BrickBase {
             width: Math.max(100, rows == 1 ? (images.length / 5) * 100 + 1 : ((images.length / 10) * 100 + 1)),
             images: images.map((img) => ({
                 ...img,
-                src: this.props.ctx.sfs.completeUrl(img.src)
+                src: this.props.ctx.app.sfs.completeUrl(img.src)
             }))
         };
     }

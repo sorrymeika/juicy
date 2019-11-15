@@ -34,10 +34,10 @@ const app = createApplication({
             env,
             sfs: new Sfs(env.SFS_URL),
             server: {
-                user: new Server({ baseUrl: '/user_server' }),
-                market: new Server({ baseUrl: '/market_server' }),
-                trade: new Server({ baseUrl: '/trade_server' }),
-                base: new Server({ baseUrl: '/base_server' }),
+                user: new Server({ baseUrl: env.API_URL + '/user_server' }),
+                market: new Server({ baseUrl: env.API_URL + '/market_server' }),
+                trade: new Server({ baseUrl: env.API_URL + '/trade_server' }),
+                base: new Server({ baseUrl: env.API_URL + '/base_server' }),
             },
             services: {
                 user: UserService,

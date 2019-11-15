@@ -1,6 +1,7 @@
 import { observable } from "snowball";
+import { Service } from "snowball/app";
 
-export default class UserService {
+export default class UserService extends Service {
     @observable userInfo = {};
 
     loadUserInfo() {
@@ -12,14 +13,14 @@ export default class UserService {
     }
 
     login(account, verifyCode) {
-        return this.ctx.server.user.post('/user/login', {
+        return this.app.server.user.post('/user/login', {
             account,
             verifyCode
         });
     }
 
     getUserInfo() {
-        return this.ctx.server.user.post('/user/getUserInfo');
+        return this.app.server.user.post('/user/getUserInfo');
     }
 
     addInvoice({
@@ -30,7 +31,7 @@ export default class UserService {
         taxCode,
         phoneNo
     }) {
-        return this.ctx.server.user.post('/userInvoice/addInvoice', {
+        return this.app.server.user.post('/userInvoice/addInvoice', {
             isDefault,
             type,
             titleType,
@@ -49,7 +50,7 @@ export default class UserService {
         taxCode,
         phoneNo
     }) {
-        return this.ctx.server.user.post('/userInvoice/updateInvoice', {
+        return this.app.server.user.post('/userInvoice/updateInvoice', {
             id,
             isDefault,
             type,
@@ -61,10 +62,10 @@ export default class UserService {
     }
 
     listInvoice() {
-        return this.ctx.server.user.post('/userInvoice/listInvoice');
+        return this.app.server.user.post('/userInvoice/listInvoice');
     }
 
     getDefaultInvoice() {
-        return this.ctx.server.user.post('/userInvoice/getDefaultInvoice');
+        return this.app.server.user.post('/userInvoice/getDefaultInvoice');
     }
 }

@@ -212,6 +212,6 @@ export default inject(({
 }) => {
     return {
         mainScrollViewHandler,
-        pictures: itemService.item.pictures ? itemService.item.pictures.split(',').map((img) => ctx.sfs.completeUrl(img)) : [],
+        pictures: itemService.item.pictures ? itemService.item.pictures.split(',').map((img) => ctx.app.sfs.completeUrl(img)) : [],
     };
 })(Pictures);

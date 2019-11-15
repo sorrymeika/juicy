@@ -136,7 +136,7 @@ export function DistrictSelectModal({
 
     useEffect(() => {
         if (shown) {
-            return onInit();
+            onInit();
         }
     }, [shown, onInit]);
 

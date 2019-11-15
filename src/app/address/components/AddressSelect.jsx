@@ -52,7 +52,7 @@ function AddressSelectModal({
 }) {
     useEffect(() => {
         if (visible) {
-            return onInit();
+            onInit();
         }
     }, [onInit, visible]);
 

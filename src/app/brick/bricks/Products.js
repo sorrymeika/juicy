@@ -22,7 +22,7 @@ class Products extends BrickBase {
                     const [maxPriceIntegerPart, maxPriceDecimalPart] = prd.maxPrice.toFixed(2).split('.');
                     return {
                         ...prd,
-                        src: this.props.ctx.sfs.completeUrl(prd.pictures.split(',')[0], '380x380', '80-2'),
+                        src: this.props.ctx.app.sfs.completeUrl(prd.pictures.split(',')[0], '380x380', '80-2'),
                         priceIntegerPart: priceInt,
                         priceDecimalPart: priceDec,
                         maxPriceIntegerPart,

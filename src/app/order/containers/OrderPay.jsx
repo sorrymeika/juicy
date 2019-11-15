@@ -12,20 +12,18 @@ function OrderPay({
 }) {
     const endTime = orderInfo.addDt ? new Date(orderInfo.addDt).getTime() + (1000 * 60 * 30) : 0;
 
-    console.log(endTime);
-
     const payTypes = [{
         type: 1,
-        icon: 'icons-weipay',
-        name: '微信支付',
-        desc: '微信安全支付'
-    }, {
-        type: 2,
         icon: 'icons-alipay',
         name: '支付宝支付',
         desc: '支付宝安全支付'
     }, {
-        type: 3,
+        type: 2,
+        icon: 'icons-weipay',
+        name: '微信支付',
+        desc: '微信安全支付'
+    }, {
+        type: 4,
         icon: 'icons-weipay',
         name: '模拟支付',
         desc: '模拟支付'
