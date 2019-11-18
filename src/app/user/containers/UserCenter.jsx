@@ -4,10 +4,11 @@ import UserInfo from '../components/UserInfo';
 import MyOrder from '../components/MyOrder';
 import { inject } from 'snowball/app';
 
-function UserCenter({ onToSetting }) {
+function UserCenter({ visible, showBack, onToSetting }) {
     return (
-        <>
+        <div style={{ display: visible ? 'block' : 'none' }}>
             <Header
+                back={showBack !== false}
                 className="uc_header"
                 buttons={
                     <>
@@ -23,7 +24,7 @@ function UserCenter({ onToSetting }) {
                 <UserInfo></UserInfo>
                 <MyOrder></MyOrder>
             </MainScrollView>
-        </>
+        </div>
     );
 }
 

@@ -1,6 +1,9 @@
 import React from "react";
 import { MainScrollView } from "snowball/components";
 import { renderBricks } from "../../brick";
+import HomeFooter from "../components/HomeFooter";
+import Cart from "../../cart/containers/Cart";
+import UserCenter from "../../user/containers/UserCenter";
 
 function Search() {
     return (
@@ -11,17 +14,35 @@ function Search() {
     );
 }
 
-function Home({ pageData, bricks, ctx }) {
-    console.log('home', bricks, ctx);
+function Home({ pageData, bricks, ctx, currentTab, isCartLoaded, isUserLoaded }) {
     return (
-        <div>
-            <header className="app-header">
-                <Search></Search>
-            </header>
-            <MainScrollView>
-                {renderBricks(pageData, bricks, ctx)}
-            </MainScrollView>
-        </div>
+        <>
+            <HomeFooter />
+            <div className="ho_main" style={{ display: currentTab === 'home' ? 'block' : 'none' }}>
+                <header className="app-header">
+                    <Search></Search>
+                </header>
+                <MainScrollView>
+                    {renderBricks(pageData, bricks, ctx)}
+                </MainScrollView>
+            </div>
+            {
+                isCartLoaded && (
+                    <Cart
+                        visible={currentTab === 'cart'}
+                        showBack={false}
+                    ></Cart>
+                )
+            }
+            {
+                isUserLoaded && (
+                    <UserCenter
+                        visible={currentTab === 'user'}
+                        showBack={false}
+                    ></UserCenter>
+                )
+            }
+        </>
     );
 }
 

@@ -82,6 +82,15 @@ $app_bgc: #f4f4f4;
 .ue_ {}
 */
 
+/* 首页 */
+
+.ho_footer { position: absolute; bottom: 0; height: 50px; right: 0; left: 0; background: #fff; z-index: 1001; }
+.ho_main .app-main { bottom: 50px; }
+.ho_footer_btn { display: block; height: 100%; text-align: center; color: #333; }
+.ho_footer_btn i.iconfont { display: block; font-size: 18px; }
+.ho_footer_btn span { display: block; }
+.ho_footer_btn.curr { color: #f23030; }
+
 /* 登录 */
 .lo_header::after { border: none; }
 .lo_form_item { padding: 10px 5px; margin: 15px; }
@@ -247,7 +256,8 @@ $app_bgc: #f4f4f4;
 .ca_header { background: $app_bgc; }
 .ca_header::after { display: none; }
 .ca_header_edit { color: #333; font-size: 13px; padding-right: 10px; }
-.ca_header_title { margin-left: 44px; font-size: 16px; }
+.ca_header_title { font-size: 16px; margin-left: 10px; }
+.app-header-back .ca_header_title { margin-left: 44px; }
 .ca_fixed { background-color: $app_bgc; height: 40px; z-index: 1000; margin: 0 8px; }
 
 .ca_total_count { line-height: 22px; font-size: 12px; padding-left: 10px; color: #999; }
