@@ -13,19 +13,31 @@ function MyOrder() {
                 <i className="iconfont icon-arrow-right"></i>
             </div>
             <div className="flex uc_myorder_types">
-                <div className="uc_myorder_type fx_1">
+                <div
+                    className="uc_myorder_type fx_1"
+                    app-link="/orderlist"
+                >
                     <i className="iconfont icon-card"></i>
                     <p>待付款</p>
                 </div>
-                <div className="uc_myorder_type fx_1">
+                <div
+                    className="uc_myorder_type fx_1"
+                    app-link="/orderlist"
+                >
                     <i className="iconfont icon-supply"></i>
                     <p>待收货</p>
                 </div>
-                <div className="uc_myorder_type fx_1">
+                <div
+                    className="uc_myorder_type fx_1"
+                    app-link="/orderlist"
+                >
                     <i className="iconfont icon-message1"></i>
                     <p>待评价</p>
                 </div>
-                <div className="uc_myorder_type fx_1">
+                <div
+                    className="uc_myorder_type fx_1"
+                    app-link="/orderlist"
+                >
                     <i className="iconfont icon-money"></i>
                     <p>退换/售后</p>
                 </div>
