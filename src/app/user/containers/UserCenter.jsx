@@ -4,7 +4,7 @@ import UserInfo from '../components/UserInfo';
 import MyOrder from '../components/MyOrder';
 import { inject } from 'snowball/app';
 
-function UserCenter({ visible, showBack, onToSetting }) {
+function UserCenter({ visible = true, showBack, onToSetting }) {
     return (
         <div style={{ display: visible ? 'block' : 'none' }}>
             <Header

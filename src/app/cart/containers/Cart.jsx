@@ -5,7 +5,7 @@ import { MainScrollView } from "snowball/components";
 import CartList from "../components/CartList";
 import FixedStore from "../components/FixedStore";
 
-export default function Cart({ visible, showBack }) {
+export default function Cart({ visible = true, showBack }) {
     return (
         <div className="ca_wrap" style={{ display: visible ? 'block' : 'none' }}>
             <CartHeader showBack={showBack}></CartHeader>
