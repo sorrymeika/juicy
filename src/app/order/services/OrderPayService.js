@@ -45,7 +45,7 @@ export default class OrderPayService extends Service {
         } else if (this.currentPayType == 1) {
             // TODO: 支付宝支付
             toast.showToast('暂未开通，敬请期待！');
-        } else if (this.currentPayType == 3) {
+        } else if (this.currentPayType == 4) {
             // 模拟支付
             const tradeCode = this.orderInfo.code + (this.sellerOrderId ? '-' + this.sellerOrderId : '');
             this.orderService.simulatePay(tradeCode)
