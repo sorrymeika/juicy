@@ -4,7 +4,8 @@ import ListItem from '../components/ListItem';
 
 export default function AddressList({
     addressList,
-    onEdit
+    onEdit,
+    onSelect
 }) {
     return (
         <div className="adl_wrap">
@@ -24,6 +25,7 @@ export default function AddressList({
                             <ListItem
                                 address={address}
                                 onEdit={onEdit}
+                                onSelect={onSelect}
                             ></ListItem>
                         );
                     })

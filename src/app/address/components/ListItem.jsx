@@ -2,9 +2,12 @@ import React from "react";
 import { CheckBox } from "sn-app";
 import { SmallTag } from "snowball/components";
 
-function ListItem({ address, selected, onEdit }) {
+function ListItem({ address, selected, onSelect, onEdit }) {
     return (
-        <div className="adl_item flex bd_b">
+        <div
+            className="adl_item flex bd_b"
+            onClick={() => onSelect(address)}
+        >
             {
                 selected
                     ? <CheckBox checked></CheckBox>
@@ -29,7 +32,10 @@ function ListItem({ address, selected, onEdit }) {
             </div>
             <button
                 className="iconfont icon-edit"
-                onClick={() => onEdit(address)}
+                onClick={(e) => {
+                    e.stopPropagation();
+                    onEdit(address);
+                }}
             ></button>
         </div>
     );

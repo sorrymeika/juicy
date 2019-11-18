@@ -3,7 +3,7 @@ import { inject } from 'snowball/app';
 
 function OrderAddress({ address }) {
     return (
-        <div className="od_address app-card" app-link="/address/list">
+        <div className="od_address app-card" app-link="/address/list?from=order">
             {
                 address && address.id
                     ? (
