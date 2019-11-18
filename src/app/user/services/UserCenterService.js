@@ -20,7 +20,7 @@ export default class UserCenterService extends Service {
 
     async init() {
         try {
-            await this.userService.loadUserInfo();
+            await this.userService.loadUserInfo({ autoLogin: true });
         } catch (e) {
             toast.showToast(e.message);
         }

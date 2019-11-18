@@ -27,7 +27,7 @@ export default class UserEditService extends Service {
 
     async init() {
         try {
-            const res = await this.userService.getUserInfo();
+            const res = await this.userService.getUserInfo({ autoLogin: true });
             this.userInfo = res.data;
         } catch (e) {
             toast.showToast(e.message);

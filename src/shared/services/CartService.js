@@ -4,7 +4,9 @@ export default class CartService {
     }
 
     countCartTotalNum() {
-        return this.app.server.trade.post("/cart/countCartTotalNum");
+        return this.app.server.trade.post("/cart/countCartTotalNum", null, {
+            autoLogin: false
+        });
     }
 
     addSkuToCart(sku, num) {

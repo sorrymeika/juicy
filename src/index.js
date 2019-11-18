@@ -26,18 +26,18 @@ const projects = {
 const app = createApplication({
     projects,
     routes: router,
-    extend(ctx) {
-        const extentions = appExtentions(ctx);
+    extend(app) {
+        const extentions = appExtentions(app);
         extentions.initDomEventHooks(document.body);
 
         return {
             env,
             sfs: new Sfs(env.SFS_URL),
             server: {
-                user: new Server({ baseUrl: env.API_URL + '/user_server' }),
-                market: new Server({ baseUrl: env.API_URL + '/market_server' }),
-                trade: new Server({ baseUrl: env.API_URL + '/trade_server' }),
-                base: new Server({ baseUrl: env.API_URL + '/base_server' }),
+                user: new Server({ baseUrl: env.API_URL + '/user_server', app }),
+                market: new Server({ baseUrl: env.API_URL + '/market_server', app }),
+                trade: new Server({ baseUrl: env.API_URL + '/trade_server', app }),
+                base: new Server({ baseUrl: env.API_URL + '/base_server', app }),
             },
             services: {
                 user: UserService,
