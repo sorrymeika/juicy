@@ -257,7 +257,7 @@ $app_bgc: #f4f4f4;
 .ca_header::after { display: none; }
 .ca_header_edit { color: #333; font-size: 13px; padding-right: 10px; }
 .ca_header_title { font-size: 16px; margin-left: 10px; }
-.app-header-back .ca_header_title { margin-left: 44px; }
+.app-header-has-back .ca_header_title { margin-left: 44px; }
 .ca_fixed { background-color: $app_bgc; height: 40px; z-index: 1000; margin: 0 8px; }
 
 .ca_total_count { line-height: 22px; font-size: 12px; padding-left: 10px; color: #999; }
