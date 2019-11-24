@@ -1,3 +1,4 @@
+import { lazy } from "snowball/app";
 import HomeController from "./home/controllers/HomeController";
 import MarketController from "./home/controllers/MarketController";
 
@@ -19,12 +20,17 @@ import OrderListController from "./ordercenter/controllers/OrderListController";
 
 import InvoiceController from "./order/controllers/InvoiceController";
 import PayResultController from "./order/controllers/PayResultController";
+import CategoryController from "./category/controllers/CategoryController";
+import SearchController from "./category/controllers/CategoryController";
 
 
 export default {
-    '/test': import("./home/controllers/TestController"),
+    '/test': lazy(() => import("./home/controllers/TestController")),
     '/': HomeController,
     '/market/\\d+:id': MarketController,
+
+    '/cates': CategoryController,
+    '/search': SearchController,
 
     '/login': LoginController,
     '/usercenter': UserCenterController,
@@ -33,6 +39,7 @@ export default {
 
     '/item/\\d+:id': ItemController,
     '/cart': CartController,
+
     '/order/create': OrderController,
 
     '/pay/\\d+:tradeId(?:/\\d+:sellerOrderId)?': OrderPayController,

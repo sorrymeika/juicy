@@ -6,7 +6,7 @@ import { inject } from 'snowball/app';
 
 function UserCenter({ visible = true, showBack, onToSetting }) {
     return (
-        <div style={{ display: visible ? 'block' : 'none' }}>
+        <div className="uc_wrap" style={{ display: visible ? 'block' : 'none' }}>
             <Header
                 back={showBack !== false}
                 className="uc_header"

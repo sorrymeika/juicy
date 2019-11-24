@@ -4,6 +4,7 @@ import { renderBricks } from "../../brick";
 import HomeFooter from "../components/HomeFooter";
 import Cart from "../../cart/containers/Cart";
 import UserCenter from "../../user/containers/UserCenter";
+import Category from "../../category/containers/Category";
 
 function Search() {
     return (
@@ -14,7 +15,7 @@ function Search() {
     );
 }
 
-function Home({ pageData, bricks, ctx, currentTab, isCartLoaded, isUserLoaded }) {
+function Home({ pageData, bricks, ctx, currentTab, isCartLoaded, isCateLoaded, isUserLoaded }) {
     return (
         <>
             <HomeFooter />
@@ -26,6 +27,15 @@ function Home({ pageData, bricks, ctx, currentTab, isCartLoaded, isUserLoaded })
                     {renderBricks(pageData, bricks, ctx)}
                 </MainScrollView>
             </div>
+
+            {
+                isCateLoaded && (
+                    <Category
+                        visible={currentTab === 'cate'}
+                        showBack={false}
+                    ></Category>
+                )
+            }
             {
                 isCartLoaded && (
                     <Cart

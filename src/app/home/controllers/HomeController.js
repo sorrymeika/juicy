@@ -1,5 +1,8 @@
 import { controller, injectable } from "snowball/app";
 
+import CategoryDataService from "../../../shared/services/CategoryDataService";
+import CategoryService from "../../category/services/CategoryService";
+
 import CartListService from "../../cart/services/CartListService";
 import UserCenterService from "../../user/services/UserCenterService";
 
@@ -9,6 +12,8 @@ import Home from "../containers/Home";
 
 @controller(Home)
 class HomeController extends PageViewController {
+    @injectable categoryService: CategoryService;
+
     @injectable cartListService: CartListService;
     @injectable userCenterService: UserCenterService;
 
@@ -24,6 +29,11 @@ class HomeController extends PageViewController {
     constructor(props, ctx) {
         super(props, ctx);
 
+        this.categoryDataService = new CategoryDataService();
+        this.categoryService = new CategoryService(
+            this.categoryDataService
+        );
+
         this.cartListService = new CartListService(
             this.ctx.service.cart,
             this.ctx.service.cartNum
@@ -37,10 +47,13 @@ class HomeController extends PageViewController {
 
                 switch (type) {
                     case 'cate':
-                        this.isFindLoaded = true;
+                        if (!this.isCateLoaded) {
+                            this.categoryService.loadCates();
+                            this.isCateLoaded = true;
+                        }
                         break;
                     case 'find':
-                        this.isCateLoaded = true;
+                        this.isFindLoaded = true;
                         break;
                     case 'cart':
                         this.isCartLoaded = true;

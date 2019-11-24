@@ -93,6 +93,21 @@ $app_bgc: #f4f4f4;
 
 .ho_footer ~ .ca_wrap .ca_footer { bottom: 50px; }
 .ho_footer ~ .ca_wrap .ca_footer ~ .app-main { bottom: 100px; }
+.ho_footer ~ .cg_wrap .app-main { bottom: 50px; }
+.ho_footer ~ .uc_wrap .app-main { bottom: 50px; }
+
+/* 分类页 */
+.cg_cate_list { width: .9rem; text-align: center; background: #f1f1f1; }
+.cg_cate { font-size: 13px; padding: 14px .08rem; }
+.cg_cate.curr { font-size: 14px; font-weight: bold; background: #fff; color: #000; }
+.cg_subcate_list { background: #fff; }
+.cg_subcate_list .app-scroller-container { background: #fff; padding: .1rem 0 .1rem .1rem; }
+.cg_subcate_tit { font-size: 13px; height: 30px; line-height: 30px; }
+.cg_subcate_con { padding-bottom: 15px; }
+.cg_subsubcate { padding: .08rem 0 0 .1rem; }
+.cg_subsubcate:nth-child(3n) { padding-right: 0; }
+.cg_subsubcate .img { width: .78rem; }
+.cg_subsubcate .name { font-size: 12px; }
 
 /* 登录 */
 .lo_header::after { border: none; }
