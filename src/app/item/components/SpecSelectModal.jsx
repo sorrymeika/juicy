@@ -62,7 +62,7 @@ function SpecSelectModal({
                                 <div className="it_spec_select_modal_props_bd">{
                                     specs.map((spec) => {
                                         return (
-                                            <button className="it_spec_select_modal_props_item curr">{spec}</button>
+                                            <button className={"it_spec_select_modal_props_item " + (currentSku[key] == spec ? 'curr' : '')}>{spec}</button>
                                         );
                                     })
                                 }</div>

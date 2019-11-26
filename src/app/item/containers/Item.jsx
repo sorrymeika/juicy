@@ -1,5 +1,5 @@
 import React from 'react';
-import { MainScrollView } from 'snowball/components';
+import { MainScrollView, Header } from 'snowball/components';
 import Pictures from '../components/Pictures';
 import Money from '../components/Money';
 import Title from '../components/Title';
@@ -15,12 +15,41 @@ import ShopInfo from '../components/ShopInfo';
 import ShopRecommends from '../components/ShopRecommends';
 import Detail from '../components/Detail';
 import Footer from '../components/Footer';
+import { inject } from 'snowball/app';
 
-export default function Item(props) {
+function Item({ headerVisible, scrollPos, mainScrollViewRef, onScroll, onScrollToComponent }) {
     return (
         <div>
+            <Header
+                className={"app-header-transparent it_header" + (headerVisible ? ' show' : '')}
+                buttons={
+                    <>
+                        <button className="iconfont icon-share"></button>
+                    </>
+                }
+            >
+                <ul className="it_header_tabs flex">
+                    <li
+                        className={scrollPos == 'basic' ? " curr" : ''}
+                        onClick={() => onScrollToComponent('basic')}
+                    >商品</li>
+                    <li
+                        className={scrollPos == 'detail' ? " curr" : ''}
+                        onClick={() => onScrollToComponent('detail')}
+                    >详情</li>
+                    <li
+                        className={scrollPos == 'comment' ? " curr" : ''}
+                        onClick={() => onScrollToComponent('comment')}
+                    >评价</li>
+                    <li className={"cursor cursor_" + scrollPos}></li>
+                </ul>
+            </Header>
             <Footer></Footer>
-            <MainScrollView className="it_main">
+            <MainScrollView
+                ref={mainScrollViewRef}
+                className="it_main"
+                onScroll={onScroll}
+            >
                 <Pictures></Pictures>
                 <Money></Money>
                 <Title></Title>
@@ -39,3 +68,13 @@ export default function Item(props) {
         </div>
     );
 }
+
+export default inject(({ itemService }) => {
+    return {
+        scrollPos: itemService.scrollPos,
+        headerVisible: itemService.headerVisible,
+        onScroll: itemService.onScroll.emit,
+        onScrollToComponent: itemService.onScrollToComponent.emit,
+        mainScrollViewRef: itemService.mainScrollViewRef
+    };
+})(Item);

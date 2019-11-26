@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
 import { $, util, ViewModel } from 'snowball';
 import { inject } from 'snowball/app';
 import { PhotoViewer } from "snowball/components";
@@ -99,26 +98,7 @@ class Pictures extends Component<PicturesProps, any> {
     }
 
     scrollToDetail() {
-        const mainScrollViewHandler = this.props.mainScrollViewHandler;
-
-        mainScrollViewHandler.getScrollView((scrollView) => {
-            var top = 0;
-            var scrollElement = scrollView.container;
-            var anchor = scrollElement.querySelector(`[spu-anchor="2"]`);
-            if (anchor) {
-                for (var node = anchor; node && node != scrollElement; node = node.offsetParent) {
-                    top += node.offsetTop;
-                }
-
-                const headHeight =
-                    ($(ReactDOM.findDOMNode(this))
-                        .closest('.view')
-                        .find('.header')
-                        .height() || 64) + 4;
-
-                scrollView.scrollTo(0, Math.max(0, top - headHeight), 200);
-            }
-        });
+        this.props.onScrollToComponent('detail');
     }
 
     showPhotoViewer = () => {
@@ -166,10 +146,10 @@ class Pictures extends Component<PicturesProps, any> {
         return (
             <div
                 className={"it_pictures w_1x ps_r of_h bd_b" + (!pictures.length ? ' img_default_bg' : '')}
-                spu-anchor="0"
                 onTouchStart={this.touchStart}
                 onTouchMove={this.touchMove}
                 onTouchEnd={this.touchEnd}
+                item-scroll-mark="basic"
             >
                 {
                     pictures.length
@@ -207,11 +187,10 @@ class Pictures extends Component<PicturesProps, any> {
 
 export default inject(({
     itemService,
-    mainScrollViewHandler,
     ctx
 }) => {
     return {
-        mainScrollViewHandler,
+        onScrollToComponent: itemService.onScrollToComponent.emit,
         pictures: itemService.item.pictures ? itemService.item.pictures.split(',').map((img) => ctx.app.sfs.completeUrl(img)) : [],
     };
 })(Pictures);

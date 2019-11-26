@@ -76,7 +76,7 @@ function Search({
                                             <p className="price">
                                                 <span>{item.minPrice}</span>
                                                 {
-                                                    item.minPrice == item.maxPrice && (
+                                                    item.minPrice < item.maxPrice && (
                                                         <>
                                                             <em>~</em>
                                                             <span>{item.maxPrice}</span>

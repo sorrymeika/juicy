@@ -3,7 +3,7 @@ import { inject } from "snowball/app";
 
 function Money({ minPrice, maxPrice, sales }) {
     const [minPriceLeft, minPriceRight] = minPrice == null ? [] : minPrice.toFixed(2).split('.');
-    const [maxPriceLeft, maxPriceRight] = minPrice == null ? [] : minPrice.toFixed(2).split('.');
+    const [maxPriceLeft, maxPriceRight] = minPrice == null ? [] : maxPrice.toFixed(2).split('.');
 
     return (
         <div className="it_money flex">

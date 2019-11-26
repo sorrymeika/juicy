@@ -279,6 +279,13 @@
       "unicode_decimal": 59566
     },
     {
+      "icon_id": "11372666",
+      "name": "分享",
+      "font_class": "share",
+      "unicode": "e8b0",
+      "unicode_decimal": 59568
+    },
+    {
       "icon_id": "11372693",
       "name": "删除",
       "font_class": "delete",

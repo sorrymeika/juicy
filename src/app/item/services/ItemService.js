@@ -1,5 +1,5 @@
 import { observable } from "snowball";
-import { Service } from "snowball/app";
+import { Service, ref } from "snowball/app";
 import { toast } from "snowball/widget";
 
 const SKU_SELECT_MODE = {
@@ -10,6 +10,11 @@ const SKU_SELECT_MODE = {
 
 
 export default class ItemService extends Service {
+    @observable headerVisible = false;
+    @observable scrollPos = 'basic';
+    onScroll = this.ctx.createEvent();
+    onScrollToComponent = this.ctx.createEvent();
+
     @observable item = {};
     @observable seller = {};
     @observable spuProps = [];
@@ -21,6 +26,8 @@ export default class ItemService extends Service {
 
     @observable skuSelectMode = false;
     @observable isSpecSelectModalVisible = false;
+
+    @ref mainScrollViewRef;
 
     get cartNum() {
         return this.cartNumService.total;
@@ -51,6 +58,13 @@ export default class ItemService extends Service {
         this.productService = productService;
         this.cartService = cartService;
         this.cartNumService = cartNumService;
+
+        this.onScroll(this.createScrollHandler());
+
+        this.onScrollToComponent((pos) => {
+            const node = this.ctx.page.findNode(`[item-scroll-mark=${pos}]`);
+            this.mainScrollViewRef.current.scrollTo(0, node.offsetTop, 100);
+        });
 
         this.onPostClick(() => {
             this.addressSelectService.visible = true;
@@ -109,6 +123,49 @@ export default class ItemService extends Service {
 
         this.detailHtml = detailRes.data.content;
         this.detailVideo = detailRes.data.detailVideo;
+    }
+
+    createScrollHandler() {
+        let scrollMarks;
+        let timeout;
+
+        return (e) => {
+            if (e.y == 0) {
+                if (this.headerVisible) {
+                    this.headerVisible = false;
+                }
+            } else if (!this.headerVisible) {
+                this.headerVisible = true;
+            }
+
+            if (timeout) {
+                clearTimeout(timeout);
+            }
+            timeout = setTimeout(() => {
+                timeout = scrollMarks = null;
+            }, 1000);
+
+            if (!scrollMarks) {
+                scrollMarks = [...e.target.querySelectorAll('[item-scroll-mark]')];
+            }
+
+            let maxTop;
+            let current;
+
+            scrollMarks.forEach((el) => {
+                let top = el.getBoundingClientRect().top;
+                if (top <= 80) {
+                    if (top > maxTop || maxTop == null) {
+                        current = el.getAttribute('item-scroll-mark');
+                        maxTop = top;
+                    }
+                }
+            });
+
+            if (current && this.scrollPos != current) {
+                this.scrollPos = current;
+            }
+        };
     }
 
     showSkuSelect(mode) {
