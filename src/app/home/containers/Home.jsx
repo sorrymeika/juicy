@@ -6,22 +6,27 @@ import Cart from "../../cart/containers/Cart";
 import UserCenter from "../../user/containers/UserCenter";
 import Category from "../../category/containers/Category";
 
-function Search() {
-    return (
-        <div className="app_search flex fx_1">
-            <i className="iconfont icon-search"></i>
-            <input type="input" className="fx_1" />
-        </div>
-    );
-}
-
-function Home({ pageData, bricks, ctx, currentTab, isCartLoaded, isCateLoaded, isUserLoaded }) {
+function Home({
+    ctx,
+    pageData,
+    bricks,
+    currentTab,
+    isCartLoaded,
+    isCateLoaded,
+    isUserLoaded,
+    onGotoSearch
+}) {
     return (
         <>
             <HomeFooter />
             <div className="ho_main" style={{ display: currentTab === 'home' ? 'block' : 'none' }}>
-                <header className="app-header">
-                    <Search></Search>
+                <header className="app-header ho_header flex">
+                    <button
+                        className="app_search flex fx_1"
+                        onClick={onGotoSearch}
+                    >
+                        <i className="iconfont icon-search"></i>
+                    </button>
                 </header>
                 <MainScrollView>
                     {renderBricks(pageData, bricks, ctx)}

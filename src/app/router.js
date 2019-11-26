@@ -21,8 +21,8 @@ import OrderListController from "./ordercenter/controllers/OrderListController";
 import InvoiceController from "./order/controllers/InvoiceController";
 import PayResultController from "./order/controllers/PayResultController";
 import CategoryController from "./category/controllers/CategoryController";
-import SearchController from "./category/controllers/CategoryController";
-
+import SearchController from "./search/controllers/SearchController";
+import SearchInputController from "./search/controllers/SearchInputController";
 
 export default {
     '/test': lazy(() => import("./home/controllers/TestController")),
@@ -31,6 +31,7 @@ export default {
 
     '/cates': CategoryController,
     '/search': SearchController,
+    '/searchInput': SearchInputController,
 
     '/login': LoginController,
     '/usercenter': UserCenterController,

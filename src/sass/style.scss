@@ -84,6 +84,8 @@ $app_bgc: #f4f4f4;
 
 /* 首页 */
 
+.ho_header .app_search { background: #fafafa; }
+
 .ho_footer { position: absolute; bottom: 0; height: 50px; right: 0; left: 0; background: #fff; z-index: 1001; }
 .ho_main .app-main { bottom: 50px; }
 .ho_footer_btn { display: block; height: 100%; text-align: center; color: #333; }
@@ -108,6 +110,57 @@ $app_bgc: #f4f4f4;
 .cg_subsubcate:nth-child(3n) { padding-right: 0; }
 .cg_subsubcate .img { width: .78rem; }
 .cg_subsubcate .name { font-size: 12px; }
+
+/* 搜索 */
+.sc_search_form { border-radius: 30px; height: 30px; background-color: #fafafa; padding-left: 8px; }
+.sc_search_form input { background-color: transparent; border: 0; margin: 0 10px 0 4px; font-size: 13px; color: #333; }
+.sc_search_submit { color: #666; padding: 10px 10px 10px 0; font-size: 13px; }
+
+.sc_search_input_header .sc_search_form { margin: 0 10px; }
+
+.sc_search_result_header .sc_search_form { margin: 0 10px 0 35px; }
+.sc_search_list_type { font-size: 22px; padding-right: 6px; }
+.sc_search_bar { height: 40px; background-color: #fff; }
+.sc_search_bar > ul { font-size: 13px; }
+.sc_search_bar ~ .app-main { margin-top: 40px; }
+.sc_search_bar .sort { width: 0px; padding: 0 15px; }
+.sc_search_bar .sort.curr { color: #f23030; font-weight: bold; }
+.sc_search_bar .more { height: 6px; display: inline-block; padding-left: 2px; }
+.sc_search_bar .more::before { content: ''; display: block; height: 0px; border-top: 3px solid #000; border-bottom: 0; border-left: 3px solid #fff; border-right: 3px solid #fff; }
+
+.sc_search_bar .more.open::before { border-bottom: 3px solid #000; border-top: 0; }
+.sc_search_bar .sort.curr .more.open::before { border-bottom-color: #f23030; }
+.sc_search_bar .sort.curr .more::before { border-top-color: #f23030; }
+
+.sc_search_bar .asc_desc { height: 8px; display: inline-block; padding-left: 2px; }
+.sc_search_bar .asc_desc::before { content: ''; display: block; height: 0px; border-bottom: 3px solid #000; border-top: 0; border-left: 3px solid #fff; border-right: 3px solid #fff; }
+.sc_search_bar .asc_desc::after { content: ''; display: block; height: 0px; border-top: 3px solid #000; border-bottom: 0; border-left: 3px solid #fff; border-right: 3px solid #fff; margin-top: 1px; }
+.sc_search_bar .asc_desc.asc::before { border-bottom-color: #f23030; }
+.sc_search_bar .asc_desc.desc::after { border-top-color: #f23030; }
+
+.sc_sort_wrap { position: absolute; top: 0; left: 0; right: 0; bottom: 0; z-index: 1000; background: transparent; }
+.sc_sort { position: absolute; top: 44px; margin-top: 40px; left: 0; right: 0; bottom: 0; z-index: 1000; background: rgba($color: #000000, $alpha: .5) }
+.app-android .sc_sort { top: 48px; }
+.app-fix-statusbar .sc_sort { top: 64px; }
+.sc_sort_con { background: #fff; padding: 5px 0; }
+.sc_sort_item { font-size: 14px; padding: 6px 10px; }
+.sc_sort_item.curr { font-weight: bold; color: #f23030; }
+
+.sc_search_result_item .img { width: 100px; height: 100px; display: block; }
+.sc_search_result_item .name { font-size: 13px; color: #333; height: 40px; padding: 4px 0 0 0; margin-bottom: 4px; }
+.sc_search_result_item .price { color: #f23030; font-size: 14px; padding: 4px 0; }
+.sc_search_result_item .price span::before { content: '￥'; font-size: 12px; vertical-align: bottom; }
+.sc_search_result_item .price em { margin: 0 5px; }
+.sc_search_result_item .comment { font-size: 12px; color: #999; }
+.sc_search_result_item .con { padding: 5px 10px 10px 10px; }
+
+.sc_search_result_card { padding-top: .1rem; }
+.sc_search_result_card .sc_search_result_item { float: left; width: 1.72rem; background: #fff; border-radius: 6px; margin: 0 0 .1rem .1rem; }
+.sc_search_result_card .sc_search_result_item .img { width: 1.72rem; height: 1.72rem; border-top-right-radius: 6px; border-top-left-radius: 6px; margin: 0 auto; }
+
+.sc_search_result_list .sc_search_result_item { display: flex; background: #fff; padding-bottom: .1rem; }
+.sc_search_result_list .sc_search_result_item .img { width: 1.4rem; height: 1.4rem; border-radius: 6px; margin-left: .1rem; }
+.sc_search_result_list .sc_search_result_item .con { padding-top: 0; }
 
 /* 登录 */
 .lo_header::after { border: none; }

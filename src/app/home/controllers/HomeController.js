@@ -71,6 +71,11 @@ class HomeController extends PageViewController {
     onInit() {
         this.pageViewService.initWithKeyName('home');
     }
+
+    @injectable
+    onGotoSearch() {
+        this.ctx.navigation.forward('/searchInput', false);
+    }
 }
 
 export default HomeController;

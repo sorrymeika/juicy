@@ -55,6 +55,13 @@
       "unicode_decimal": 59121
     },
     {
+      "icon_id": "7008964",
+      "name": "manage",
+      "font_class": "manage",
+      "unicode": "e70b",
+      "unicode_decimal": 59147
+    },
+    {
       "icon_id": "7008965",
       "name": "message",
       "font_class": "message1",
@@ -67,6 +74,20 @@
       "font_class": "more",
       "unicode": "e710",
       "unicode_decimal": 59152
+    },
+    {
+      "icon_id": "7008977",
+      "name": "other",
+      "font_class": "list",
+      "unicode": "e714",
+      "unicode_decimal": 59156
+    },
+    {
+      "icon_id": "7008991",
+      "name": "qrcode",
+      "font_class": "qrcode",
+      "unicode": "e71c",
+      "unicode_decimal": 59164
     },
     {
       "icon_id": "7008998",
@@ -256,6 +277,13 @@
       "font_class": "order1",
       "unicode": "e8ae",
       "unicode_decimal": 59566
+    },
+    {
+      "icon_id": "11372693",
+      "name": "删除",
+      "font_class": "delete",
+      "unicode": "e8b6",
+      "unicode_decimal": 59574
     },
     {
       "icon_id": "11372715",

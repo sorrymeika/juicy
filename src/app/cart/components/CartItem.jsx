@@ -14,7 +14,11 @@ export default function CartItem({
                     checked={!!sku.selected}
                     onClick={() => onSelectSku({ id: sku.id, selected: !sku.selected })}
                 ></CheckBox>
-                <SfsImage src={sku.picture} className="img" />
+                <SfsImage
+                    src={sku.picture}
+                    className="img"
+                    app-link={`/item/${sku.spuId}`}
+                />
             </div>
             <div className="con fx_1">
                 <div className="tit">{sku.title}</div>

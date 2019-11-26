@@ -6,7 +6,7 @@ import CategoryList from '../components/CategoryList';
 import SubCateList from '../components/SubCateList';
 import { Header } from 'snowball/components';
 
-function Category({ visible = true, showBack, cates, currentCate, onChange }) {
+function Category({ visible = true, showBack, cates, currentCate, onChange, onClickSubSubCate }) {
     return (
         <div className="cg_wrap" style={{ display: visible ? 'block' : 'none' }}>
             <Header
@@ -20,7 +20,10 @@ function Category({ visible = true, showBack, cates, currentCate, onChange }) {
                     currentCate={currentCate}
                     onChange={onChange}
                 />
-                <SubCateList subCates={currentCate && currentCate.children} />
+                <SubCateList
+                    subCates={currentCate && currentCate.children}
+                    onClickSubSubCate={onClickSubSubCate}
+                />
             </div>
         </div>
     );
@@ -30,6 +33,7 @@ export default inject(({ categoryService }) => {
     return {
         cates: categoryService.cates,
         currentCate: categoryService.currentCate,
-        onChange: categoryService.onCateChange.emit
+        onChange: categoryService.onCateChange.emit,
+        onClickSubSubCate: categoryService.onClickSubSubCate.emit
     };
 })(Category);

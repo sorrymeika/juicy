@@ -4,7 +4,7 @@ import React, { useLayoutEffect, useRef } from 'react';
 import { SfsImage } from 'sn-app';
 import { ScrollView } from 'snowball/components';
 
-function SubCateList({ subCates }) {
+function SubCateList({ subCates, onClickSubSubCate }) {
     const scrollViewRef = useRef();
     useLayoutEffect(() => {
         scrollViewRef.current.scrollToTop();
@@ -24,7 +24,10 @@ function SubCateList({ subCates }) {
                                 {
                                     subCate.children && subCate.children.map((subSubCate) => {
                                         return (
-                                            <li className="fl_l cg_subsubcate">
+                                            <li
+                                                className="fl_l cg_subsubcate"
+                                                onClick={() => onClickSubSubCate(subSubCate)}
+                                            >
                                                 <SfsImage
                                                     className="img"
                                                     src={subSubCate.picture}

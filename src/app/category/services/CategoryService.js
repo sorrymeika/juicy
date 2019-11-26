@@ -9,6 +9,7 @@ export default class CategoryService extends Service {
     @observable currentCate;
 
     onCateChange = this.ctx.createEvent();
+    onClickSubSubCate = this.ctx.createEvent();
 
     constructor(categoryDataService: CategoryDataService) {
         super();
@@ -16,6 +17,15 @@ export default class CategoryService extends Service {
         this.categoryDataService = categoryDataService;
 
         this.onCateChange((cate) => this.changeCate(cate));
+        this.onClickSubSubCate((subSubCate) => {
+            if (subSubCate.linkType == 0) {
+                this.ctx.navigation.forward('/search?keywords=' + encodeURIComponent(subSubCate.link));
+            } else if (subSubCate.linkType == 1) {
+                this.ctx.navigation.forward(subSubCate.link);
+            } else if (subSubCate.linkType == 2) {
+                this.ctx.navigation.forward('/search?formulaId=' + encodeURIComponent(subSubCate.formulaId));
+            }
+        });
     }
 
     loadCates() {
