@@ -63,7 +63,7 @@ export default class ItemService extends Service {
 
         this.onScrollToComponent((pos) => {
             const node = this.ctx.page.findNode(`[item-scroll-mark=${pos}]`);
-            this.mainScrollViewRef.current.scrollTo(0, node.offsetTop, 100);
+            this.mainScrollViewRef.current.scrollTo(0, node.offsetTop - 64, 200);
         });
 
         this.onPostClick(() => {

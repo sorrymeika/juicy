@@ -18,10 +18,6 @@ class ProductService extends Service {
             spuIds
         });
     }
-
-    search(params) {
-        return this.app.server.trade.post('/product/listSpu', params);
-    }
 }
 
 export default ProductService;

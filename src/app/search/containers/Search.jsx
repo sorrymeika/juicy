@@ -1,6 +1,6 @@
 import React from 'react';
-import { Header, MainScrollView, LoadingStatusBar } from 'snowball/components';
-import { SfsImage } from 'sn-app';
+import { Header } from 'snowball/components';
+import SearchResult from '../components/SearchResult';
 import { inject } from 'snowball/app';
 
 function Search({
@@ -54,48 +54,14 @@ function Search({
                         <li className={"sort fx_1 ta_r"}>筛选</li>
                     </ul>
                 </div>
-                <MainScrollView
-                    className="sc_search_result"
+                <SearchResult
+                    results={results}
+                    listType={listType}
+                    loading={loading}
+                    isNoMoreData={isNoMoreData}
+                    onGotoItem={onGotoItem}
                     onScrollToBottom={onScrollToBottom}
-                >
-                    <ul className={"clearfix " + (listType == 'list' ? 'sc_search_result_list' : 'sc_search_result_card')}>
-                        {
-                            results && results.map((item) => {
-                                return (
-                                    <li
-                                        className="sc_search_result_item"
-                                        onClick={() => onGotoItem(item)}
-                                    >
-                                        <SfsImage
-                                            className="img"
-                                            src={item.pictures.split(',')[0]}
-                                            size="240x240"
-                                        />
-                                        <div className="con">
-                                            <p className="name to_e2">{item.title}</p>
-                                            <p className="price">
-                                                <span>{item.minPrice}</span>
-                                                {
-                                                    item.minPrice < item.maxPrice && (
-                                                        <>
-                                                            <em>~</em>
-                                                            <span>{item.maxPrice}</span>
-                                                        </>
-                                                    )
-                                                }</p>
-                                            <p className="comment"> {!!item.sales && `${item.sales}人付款 `} {!!item.comments && `${item.comments}人评论`}</p>
-                                        </div>
-                                    </li>
-                                );
-                            })
-                        }
-                    </ul>
-                    {
-                        !isNoMoreData && (
-                            <LoadingStatusBar>{loading ? '正在加载...' : '上拉加载更多'}</LoadingStatusBar>
-                        )
-                    }
-                </MainScrollView>
+                />
             </div>
             <div
                 className="sc_sort_wrap"

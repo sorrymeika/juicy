@@ -33,7 +33,7 @@ export default class SearchResultService extends Service {
 
     _registerListener() {
         this.onOpenMoreSort(() => {
-            if (this.orderBy == ORDER_BY.DEFAULT || this.orderBy == ORDER_BY.COMMENTS_NUM_DESC || this.orderBy == ORDER_BY.CREATE_DT_ASC) {
+            if (this.orderBy == ORDER_BY.DEFAULT || this.orderBy == ORDER_BY.COMMENTS_NUM_DESC || this.orderBy == ORDER_BY.CREATE_DT_DESC) {
                 this.isMoreSortOpened = true;
             } else {
                 this.orderBy = ORDER_BY.DEFAULT;

@@ -6,7 +6,7 @@ export const ORDER_BY = {
     SALES_DESC: 2,
     PRICE_ASC: 3,
     PRICE_DESC: 4,
-    CREATE_DT_ASC: 5,
+    CREATE_DT_DESC: 5,
     COMMENTS_NUM_DESC: 6,
 };
 

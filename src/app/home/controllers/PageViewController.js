@@ -19,9 +19,7 @@ class PageViewController {
     }
 
     constructor(props, context) {
-        this.pageViewService = new PageViewService({
-            pageService: new PageService()
-        });
+        this.pageViewService = new PageViewService(new PageService());
         this.productService = new ProductService();
         this.searchService = new SearchService();
     }

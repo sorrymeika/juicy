@@ -55,6 +55,15 @@ $app_bgc: #f4f4f4;
 .app-tab-head-cursor { background: #f23030; }
 .app-tab-head .curr .app-tab-title { color: #f23030; }
 
+.app-search-form { border-radius: 30px; height: 30px; background-color: #fafafa; padding-left: 8px; margin-right: 10px; }
+.app-header-has-back .app-search-form { margin-left: 40px; }
+
+.app-icon-asc-desc { height: 8px; display: inline-block; padding-left: 2px; }
+.app-icon-asc-desc::before { content: ''; display: block; height: 0px; border-bottom: 3px solid #000; border-top: 0; border-left: 3px solid #fff; border-right: 3px solid #fff; }
+.app-icon-asc-desc::after { content: ''; display: block; height: 0px; border-top: 3px solid #000; border-bottom: 0; border-left: 3px solid #fff; border-right: 3px solid #fff; margin-top: 1px; }
+.app-icon-asc-desc.asc::before { border-bottom-color: #f23030; }
+.app-icon-asc-desc.desc::after { border-top-color: #f23030; }
+
 /*
 业务缩写:
 
@@ -66,6 +75,15 @@ $app_bgc: #f4f4f4;
 
 首页
 .ho_ {}
+
+搜索
+.sc_ {}
+
+分类页
+.cg_ {}
+
+店铺
+.shp_ {}
 
 商详页
 .it_ {}
@@ -84,6 +102,7 @@ $app_bgc: #f4f4f4;
 
 编辑用户信息
 .ue_ {}
+
 */
 
 /* 首页 */
@@ -160,10 +179,10 @@ $app_bgc: #f4f4f4;
 
 .sc_search_result_card { padding-top: .1rem; }
 .sc_search_result_card .sc_search_result_item { float: left; width: 1.72rem; background: #fff; border-radius: 6px; margin: 0 0 .1rem .1rem; }
-.sc_search_result_card .sc_search_result_item .img { width: 1.72rem; height: 1.72rem; border-top-right-radius: 6px; border-top-left-radius: 6px; margin: 0 auto; }
+.sc_search_result_card .sc_search_result_item .img { width: 1.72rem; height: 1.72rem; border-radius: 6px; margin: 0 auto; }
 
 .sc_search_result_list .sc_search_result_item { display: flex; background: #fff; padding-bottom: .1rem; }
-.sc_search_result_list .sc_search_result_item .img { width: 1.4rem; height: 1.4rem; border-radius: 6px; margin-left: .1rem; }
+.sc_search_result_list .sc_search_result_item .img { width: 1.4rem; height: 1.4rem; border-radius: 6px; margin-left: .1rem; display: block; }
 .sc_search_result_list .sc_search_result_item .con { padding-top: 0; }
 
 /* 登录 */
@@ -344,6 +363,32 @@ $app_bgc: #f4f4f4;
 .it_footer .btn_buy { background-image: linear-gradient(90deg,#ff4700,#f23030); }
 
 .it_footer ~ .app-main { bottom: 50px; }
+
+/* 店铺页 */
+.shp_header { background-color: transparent; }
+.shp_header::after { display: none; }
+.shp_header_more { font-size: 20px; padding-right: 10px; }
+.shp_main { top: 0 !important; margin-bottom: -70px; display: flex; flex-direction: column; }
+.shp_shopinfo_wrap { background-repeat: no-repeat; background-size: 100% auto; }
+.shp_shopinfo { background-color: rgba(0,0,0,.5); position: relative; padding: 44px 10px 40px 10px; height: 70px; box-sizing: content-box; color: #fff; }
+.app-android .shp_shopinfo { padding-top: 48px; }
+.app-fix-statusbar .shp_shopinfo { padding-top: 64px; }
+.shp_shopinfo .img { width: 46px; height: 46px; margin: 10px; }
+
+.shp_tabs { flex: 1; margin-top: -40px; }
+.shp_tabs .app-tab-head-wrap { background-color: transparent; height: 40px; }
+.shp_tabs .app-tab-head { font-size: 14px; height: 35px; color: #fff; }
+.shp_tabs .app-tab-head::after { display: none; }
+.shp_tabs .app-tab-head .curr .app-tab-title { color: #fff; font-weight: bold; }
+.shp_tabs .app-tab-head-cursor { background-color: #fff; }
+.shp_tabs .app-tab-body { top: 40px; }
+
+.shp_search_bar { height: 40px; }
+.shp_search_bar + .sc_search_result { margin-top: 40px; }
+
+.shp_search_bar .sortType { height: 40px; padding: 10px 14px; font-size: 13px; }
+.shp_search_bar .sortType.curr { color: #f10000; font-weight: bold; }
+
 
 /* 购物车 */
 .ca_header { background: $app_bgc; }

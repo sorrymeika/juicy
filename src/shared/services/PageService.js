@@ -12,4 +12,10 @@ export default class PageService extends Service {
             pageId
         });
     }
+
+    getPageBySellerId(sellerId) {
+        return this.app.server.market.post("/page/getPageBySellerId", {
+            sellerId
+        });
+    }
 }

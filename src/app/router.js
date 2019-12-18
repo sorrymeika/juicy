@@ -1,6 +1,7 @@
 import { lazy } from "snowball/app";
 import HomeController from "./home/controllers/HomeController";
 import MarketController from "./home/controllers/MarketController";
+import ShopController from "./shop/controllers/ShopController";
 
 import LoginController from "./user/controllers/LoginController";
 import UserCenterController from "./user/controllers/UserCenterController";
@@ -28,6 +29,7 @@ export default {
     '/test': lazy(() => import("./home/controllers/TestController")),
     '/': HomeController,
     '/market/\\d+:id': MarketController,
+    '/shop/\\d+:sellerId': ShopController,
 
     '/cates': CategoryController,
     '/search': SearchController,

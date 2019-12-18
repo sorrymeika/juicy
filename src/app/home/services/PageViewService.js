@@ -1,11 +1,12 @@
 import { observable } from "snowball";
 import { Service } from "snowball/app";
+import PageService from "../../../shared/services/PageService";
 
 export default class PageViewService extends Service {
     @observable pageData = {};
     @observable bricks = [];
 
-    constructor({ pageService }) {
+    constructor(pageService: PageService) {
         super();
 
         this.pageService = pageService;
@@ -23,6 +24,14 @@ export default class PageViewService extends Service {
         if (res.success) {
             this.init(res.data);
         }
+    }
+
+    async initWithShop(sellerId) {
+        const res = await this.pageService.getPageBySellerId(sellerId);
+        if (res.success && res.data) {
+            this.init(res.data);
+        }
+        return res;
     }
 
     init(page) {
