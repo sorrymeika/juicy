@@ -8,8 +8,8 @@ function ShopInfo({ seller }) {
                 <img src="" alt="" className="logo" />
                 <div className="name fx_1">{seller.name}</div>
                 <div className="btns">
-                    <button className="app-button-solid small">全部商品</button>
-                    <button className="app-button small">进店逛逛</button>
+                    <button className="app-button-solid small" app-link={"/shop/" + seller.id + '?tab=1'}>全部商品</button>
+                    <button className="app-button small" app-link={"/shop/" + seller.id}>进店逛逛</button>
                 </div>
             </div>
             <ul className="it_shop_serv flex">

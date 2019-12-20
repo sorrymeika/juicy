@@ -17,6 +17,10 @@ class CartController {
     onInit() {
         this.cartListService.onInit.emit();
     }
+
+    onResume() {
+        this.cartListService.loadUserCart();
+    }
 }
 
 export default CartController;

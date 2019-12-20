@@ -9,8 +9,10 @@ import { SfsImage } from 'sn-app';
 
 function Shop({
     ctx,
+    tabIndex,
     pageData,
     bricks,
+    seller,
     onGoToSearch,
     onTabChange
 }) {
@@ -69,14 +71,15 @@ function Shop({
                                     }
                             }
                         >
-                            <SfsImage className="img" />
+                            <SfsImage className="img" src={seller.logo} />
                             <div className="info">
-                                <p className="name">xxx旗舰店</p>
+                                <p className="name">{seller.name}</p>
                             </div>
                         </div>
                     </div>
                 </div>
                 <Tab
+                    index={tabIndex}
                     className="shp_tabs"
                     onTabChange={onTabChange}
                     headerStyle={{
@@ -106,6 +109,8 @@ function Shop({
 
 export default inject(({ ctx, shopService }: { shopService: ShopService }) => {
     return {
+        seller: shopService.seller,
+        tabIndex: shopService.tabIndex,
         onTabChange: shopService.onTabChange.emit,
         ctx
     };

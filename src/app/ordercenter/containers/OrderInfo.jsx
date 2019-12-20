@@ -52,7 +52,7 @@ function OrderInfo({ orderStatus, orderInfo }) {
                         </div>
                         <div className="oi_orderinfo_item">
                             <b>下单时间：</b>
-                            <span>{util.formatDate(new Date(orderInfo.addDt), 'yyyy-MM-dd HH:mm:ss')}</span>
+                            <span>{orderInfo.addDt && util.formatDate(new Date(orderInfo.addDt), 'yyyy-MM-dd HH:mm:ss')}</span>
                         </div>
                         {
                             !!orderInfo.payDt && (

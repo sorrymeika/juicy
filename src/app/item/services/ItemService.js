@@ -1,6 +1,7 @@
 import { observable } from "snowball";
 import { Service, ref } from "snowball/app";
 import { toast } from "snowball/widget";
+import ItemShopService from "./ItemShopService";
 
 const SKU_SELECT_MODE = {
     NONE: null,
@@ -50,7 +51,8 @@ export default class ItemService extends Service {
         productService,
         addressSelectService,
         cartService,
-        cartNumService
+        cartNumService,
+        itemShopService: ItemShopService
     ) {
         super();
 
@@ -58,6 +60,7 @@ export default class ItemService extends Service {
         this.productService = productService;
         this.cartService = cartService;
         this.cartNumService = cartNumService;
+        this.itemShopService = itemShopService;
 
         this.onScroll(this.createScrollHandler());
 
@@ -123,6 +126,9 @@ export default class ItemService extends Service {
 
         this.detailHtml = detailRes.data.content;
         this.detailVideo = detailRes.data.detailVideo;
+
+        this.itemShopService.seller = data.seller;
+        this.itemShopService.loadRecommends([data.item.id]);
     }
 
     createScrollHandler() {

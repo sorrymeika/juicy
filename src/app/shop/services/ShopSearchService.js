@@ -11,7 +11,6 @@ export default class ShopSearchService extends Service {
     @observable loading = true;
     @observable listType = 'list';
 
-    seller = null;
     @observable orderBy = 0;
     params = {};
     pageIndex = 1;
@@ -23,11 +22,13 @@ export default class ShopSearchService extends Service {
     onToggleListType = this.ctx.createEvent();
 
     constructor(
+        sellerId,
         sellerService: SellerService,
         searchService: SearchService
     ) {
         super();
 
+        this.sellerId = sellerId;
         this.sellerService = sellerService;
         this.searchService = searchService;
 
@@ -74,7 +75,7 @@ export default class ShopSearchService extends Service {
             res = await this.searchService.searchByConditions({
                 ...this.params,
                 orderBy: this.orderBy,
-                sellerIds: [this.seller.id],
+                sellerIds: [this.sellerId],
                 pageIndex: this.pageIndex,
                 pageSize: this.pageSize
             });

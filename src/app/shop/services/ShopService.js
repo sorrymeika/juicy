@@ -12,7 +12,6 @@ const TABS = {
 export default class ShopService extends Service {
     @observable seller = {};
 
-    @observable isHomeTabVisible = true;
     @observable currentTab = TABS.SHOP;
 
     @observable products = [];
@@ -25,14 +24,19 @@ export default class ShopService extends Service {
     pageIndex = 1;
     pageSize = 20
 
+    @observable tabIndex = 0;
     onTabChange = this.ctx.createEvent();
 
     constructor(
         sellerService: SellerService,
-        shopSearchService: ShopSearchService
+        shopSearchService: ShopSearchService,
+        {
+            tabIndex
+        }
     ) {
         super();
 
+        this.tabIndex = tabIndex;
         this.sellerService = sellerService;
         this.shopSearchService = shopSearchService;
 
@@ -41,15 +45,13 @@ export default class ShopService extends Service {
         });
 
         this.onTabChange((tabIndex) => {
-            const type = this.isHomeTabVisible ? tabIndex : (tabIndex + 1);
-            this.setTab(type == 0 ? TABS.SHOP : type == 1 ? TABS.PRODUCT : TABS.CATEGORY);
+            this.setTabIndex(tabIndex);
         });
     }
 
-    hideHomeTab() {
-        this.isHomeTabVisible = false;
-        this.setTab(TABS.SHOP);
-        return this;
+    setTabIndex(tabIndex) {
+        this.tabIndex = tabIndex;
+        this.setTab(tabIndex == 0 ? TABS.SHOP : tabIndex == 1 ? TABS.PRODUCT : TABS.CATEGORY);
     }
 
     setTab(tab) {
