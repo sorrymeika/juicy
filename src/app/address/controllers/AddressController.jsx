@@ -1,4 +1,4 @@
-import { controller, injectable } from "snowball/app";
+import { controller, autowired } from "snowball/app";
 
 
 import AddressEditService from "../services/AddressEditService";
@@ -8,26 +8,18 @@ import Address from "../containers/Address";
 
 @controller(Address)
 class AddressController {
-    @injectable districtSelectService: DistrictSelectService;
-    @injectable addressEditService: AddressEditService;
+    @autowired
+    districtSelectService: DistrictSelectService;
 
-    @injectable get data() {
+    @autowired
+    addressEditService: AddressEditService;
+
+    get data() {
         return this.addressEditService.data;
     }
 
     constructor(props) {
         this.addressId = Number(props.location.query.id) || 0;
-
-        const addressService = this.ctx.service.address;
-
-        this.addressService = addressService;
-        this.districtSelectService = new DistrictSelectService(
-            addressService
-        );
-        this.addressEditService = new AddressEditService(
-            addressService,
-            this.districtSelectService
-        );
     }
 
     onInit() {
@@ -39,15 +31,15 @@ class AddressController {
         }
     }
 
-    @injectable onFieldChange(field, value) {
+    onFieldChange(field, value) {
         this.addressEditService.onFieldChange.emit({ name: field, value });
     }
 
-    @injectable onClickDistrict() {
+    onClickDistrict() {
         return this.addressEditService.onClickDistrict.emit();
     }
 
-    @injectable onSave() {
+    onSave() {
         return this.addressEditService.onSave.emit();
     }
 

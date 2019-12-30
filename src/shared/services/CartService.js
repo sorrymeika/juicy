@@ -1,4 +1,6 @@
-export default class CartService {
+import { Service } from "snowball/app";
+
+export default class CartService extends Service {
     listUserCart() {
         return this.app.server.trade.post("/cart/listUserCart");
     }

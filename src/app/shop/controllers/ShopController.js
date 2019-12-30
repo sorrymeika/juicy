@@ -1,4 +1,4 @@
-import { controller, injectable } from "snowball/app";
+import { controller } from "snowball/app";
 import { toast } from "snowball/widget";
 
 import PageViewController from "../../home/controllers/PageViewController";
@@ -9,8 +9,8 @@ import ShopSearchService from "../services/ShopSearchService";
 
 @controller(Shop)
 class ShopController extends PageViewController {
-    @injectable shopService: ShopService;
-    @injectable shopSearchService: ShopSearchService;
+    shopService: ShopService;
+    shopSearchService: ShopSearchService;
 
     constructor(props, ctx) {
         super(props, ctx);

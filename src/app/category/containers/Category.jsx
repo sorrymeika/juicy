@@ -29,11 +29,11 @@ function Category({ visible = true, showBack, cates, currentCate, onChange, onCl
     );
 }
 
-export default inject(({ categoryService }) => {
+export default inject(({ categoryViewService }) => {
     return {
-        cates: categoryService.cates,
-        currentCate: categoryService.currentCate,
-        onChange: categoryService.onCateChange.emit,
-        onClickSubSubCate: categoryService.onClickSubSubCate.emit
+        cates: categoryViewService.cates,
+        currentCate: categoryViewService.currentCate,
+        onChange: categoryViewService.onCateChange.emit,
+        onClickSubSubCate: categoryViewService.onClickSubSubCate.emit
     };
 })(Category);

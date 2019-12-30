@@ -39,12 +39,12 @@ function CartStore({
     );
 }
 
-export default inject(({ cartListService }) => (
-    cartListService
+export default inject(({ cartViewService }) => (
+    cartViewService
         ? {
-            onSelectSku: cartListService.onSelectSku.emit,
-            onSelectSeller: cartListService.onSelectSeller.emit,
-            onCartNumChange: cartListService.onCartNumChange.emit
+            onSelectSku: cartViewService.onSelectSku.emit,
+            onSelectSeller: cartViewService.onSelectSeller.emit,
+            onCartNumChange: cartViewService.onCartNumChange.emit
         }
         : null
 ))(CartStore);

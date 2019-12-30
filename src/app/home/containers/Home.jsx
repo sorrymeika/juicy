@@ -30,12 +30,11 @@ function Home({
                 </header>
                 <MainScrollView>
                     {renderBricks(pageData, bricks, ctx)}
-                    <div className="pd_m ta_c fs_m cl_333">
-                        <a href="http://www.beian.miit.gov.cn/">沪ICP备19040998号-1</a>
+                    <div className="pd_m ta_c fs_m">
+                        <a className="cl_333" href="http://www.beian.miit.gov.cn/">沪ICP备19040998号-1</a>
                     </div>
                 </MainScrollView>
             </div>
-
             {
                 isCateLoaded && (
                     <Category

@@ -1,12 +1,12 @@
-import { controller, injectable } from "snowball/app";
+import { controller } from "snowball/app";
 import OrderListService from "../services/OrderListService";
 import OrderList from "../containers/OrderList";
 
 @controller(OrderList)
 class OrderListController {
-    @injectable orderListServices: OrderListService[] = {};
+    orderListServices: OrderListService[] = {};
 
-    @injectable orderListServiceFactory() {
+    orderListServiceFactory() {
         return new OrderListService(
             this.ctx.service.order,
         );

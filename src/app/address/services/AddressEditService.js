@@ -1,5 +1,5 @@
-import { Service } from "snowball/app";
 import { observable, util } from "snowball";
+import { Service, autowired } from "snowball/app";
 import { toast } from "snowball/widget";
 
 export default class AddressEditService extends Service {
@@ -9,15 +9,18 @@ export default class AddressEditService extends Service {
     onClickDistrict = this.ctx.createEvent();
     onSave = this.ctx.createEvent();
 
-    constructor(addressService, districtSelectService) {
+    @autowired
+    addressService;
+
+    @autowired
+    districtSelectService;
+
+    constructor() {
         super();
 
-        this.addressService = addressService;
-        this.districtSelectService = districtSelectService;
+        this.onClickDistrict(() => this.showDistrictSelectModal());
 
         this.onFieldChange(({ name, value }) => this.updateField(name, value));
-
-        this.onClickDistrict(() => this.showDistrictSelectModal());
 
         this.districtSelectService.onSelect(([province, city, district]) => {
             this.data.withMutations((data) => {

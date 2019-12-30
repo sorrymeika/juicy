@@ -2,7 +2,7 @@ import { observable, util } from "snowball";
 import { Service } from "snowball/app";
 import { toast } from "snowball/widget";
 
-export default class CartListService extends Service {
+export default class CartViewService extends Service {
     @observable sellers = [];
     @observable unavailableSkus = [];
     @observable total = 0;

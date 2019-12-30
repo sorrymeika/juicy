@@ -1,6 +1,8 @@
 import { observable } from "snowball";
-import { Service } from "snowball/app";
+import { Service, autowired } from "snowball/app";
 import { toast } from "snowball/widget";
+import OrderService from "../../../shared/services/OrderService";
+import AddressService from "../../../shared/services/AddressService";
 
 export default class OrderCreationService extends Service {
     @observable sellers = [];
@@ -13,11 +15,14 @@ export default class OrderCreationService extends Service {
 
     @observable orderAddress;
 
+    @autowired
+    orderService: OrderService;
+
+    @autowired
+    addressService: AddressService;
+
     constructor(orderService, addressService) {
         super();
-
-        this.orderService = orderService;
-        this.addressService = addressService;
 
         this.onNoteChange(({ sellerId, note }) => {
             const seller = this.sellers.find(seller => seller.id == sellerId);

@@ -1,16 +1,16 @@
-import { controller, injectable } from "snowball/app";
+import { controller } from "snowball/app";
 import Invoice from "../containers/Invoice";
 import InvoiceService from "../services/InvoiceService";
 
 @controller(Invoice)
 class InvoiceController {
-    @injectable invoiceService: InvoiceService;
+    invoiceService: InvoiceService;
 
-    @injectable get data() {
+    get data() {
         return this.invoiceService.data;
     }
 
-    @injectable get isInvoiceSelectorVisible() {
+    get isInvoiceSelectorVisible() {
         return this.invoiceService.isInvoiceSelectorVisible;
     }
 
@@ -25,17 +25,14 @@ class InvoiceController {
         this.invoiceService.onInit.emit();
     }
 
-    @injectable
     onFieldChange(name, value) {
         this.invoiceService.onFieldChange.emit({ name, value });
     }
 
-    @injectable
     onShowInvoiceSelector() {
         this.invoiceService.onShowInvoiceSelector.emit();
     }
 
-    @injectable
     onConfirm() {
         this.invoiceService.onConfirm.emit();
     }

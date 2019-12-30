@@ -1,80 +1,77 @@
-import { controller, injectable } from "snowball/app";
+import { controller, autowired } from "snowball/app";
 
-import CategoryDataService from "../../../shared/services/CategoryDataService";
-import CategoryService from "../../category/services/CategoryService";
+import CategoryViewService from "../../category/services/CategoryViewService";
 
-import CartListService from "../../cart/services/CartListService";
+import CartViewService from "../../cart/services/CartViewService";
 import UserCenterService from "../../user/services/UserCenterService";
 
 import PageViewController from "./PageViewController";
 
 import Home from "../containers/Home";
 
-@controller(Home)
+import { UserConfiguration } from "../../user/configuration/UserConfiguration";
+import { CartConfiguration } from "../../cart/configuration/CartConfiguration";
+import { CategoryConfiguration } from "../../category/configuration/CategoryConfiguration";
+import { MarketConfiguration } from "../configuration/MarketConfiguration";
+
+@controller({
+    component: Home,
+    configuration: [
+        UserConfiguration,
+        CartConfiguration,
+        CategoryConfiguration,
+        MarketConfiguration
+    ]
+})
 class HomeController extends PageViewController {
-    @injectable categoryService: CategoryService;
+    @autowired
+    categoryViewService: CategoryViewService;
 
-    @injectable cartListService: CartListService;
-    @injectable userCenterService: UserCenterService;
+    @autowired
+    cartViewService: CartViewService;
 
-    @injectable onFooterTabChange = this.ctx.createEvent();
+    @autowired
+    userCenterService: UserCenterService;
 
-    @injectable currentTab = 'home';
+    currentTab = 'home';
 
-    @injectable isCateLoaded = false;
-    @injectable isFindLoaded = false;
-    @injectable isCartLoaded = false;
-    @injectable isUserLoaded = false;
-
-    constructor(props, ctx) {
-        super(props, ctx);
-
-        this.categoryDataService = new CategoryDataService();
-        this.categoryService = new CategoryService(
-            this.categoryDataService
-        );
-
-        this.cartListService = new CartListService(
-            this.ctx.service.cart,
-            this.ctx.service.cartNum
-        );
-
-        this.userCenterService = new UserCenterService();
-
-        this.onFooterTabChange(({ type }) => {
-            if (this.currentTab != type) {
-                this.currentTab = type;
-
-                switch (type) {
-                    case 'cate':
-                        if (!this.isCateLoaded) {
-                            this.categoryService.loadCates();
-                            this.isCateLoaded = true;
-                        }
-                        break;
-                    case 'find':
-                        this.isFindLoaded = true;
-                        break;
-                    case 'cart':
-                        this.isCartLoaded = true;
-                        this.cartListService.loadUserCart();
-                        break;
-                    case 'user':
-                        this.isUserLoaded = true;
-                        this.userCenterService.init();
-                        break;
-                }
-            }
-        });
-    }
+    isCateLoaded = false;
+    isFindLoaded = false;
+    isCartLoaded = false;
+    isUserLoaded = false;
 
     onInit() {
         this.pageViewService.initWithKeyName('home');
     }
 
-    @injectable
     onGotoSearch() {
         this.ctx.navigation.forward('/searchInput', false);
+    }
+
+    onFooterTabChange({ type }) {
+        if (this.currentTab != type) {
+            this.currentTab = type;
+
+            switch (type) {
+                case 'cate':
+                    if (!this.isCateLoaded) {
+                        this.categoryViewService.loadCates();
+                        this.isCateLoaded = true;
+                    }
+                    break;
+                case 'find':
+                    this.isFindLoaded = true;
+                    break;
+                case 'cart':
+                    this.isCartLoaded = true;
+                    this.cartViewService.loadUserCart();
+                    break;
+                case 'user':
+                    this.isUserLoaded = true;
+                    this.userCenterService.init();
+                    break;
+            }
+        }
     }
 }
 

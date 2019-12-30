@@ -1,6 +1,7 @@
 import { Emitter } from "snowball";
+import { Service } from "snowball/app";
 
-export default class OrderService {
+export default class OrderService extends Service {
     onAddressChange = Emitter.create();
     onInvoiceChange = Emitter.create();
 

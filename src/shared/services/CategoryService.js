@@ -1,6 +1,6 @@
 import { Service } from "snowball/app";
 
-class CategoryDataService extends Service {
+class CategoryService extends Service {
     getCates(sellerId) {
         return this.app.server.trade.post('/fdCategory/getCates', {
             sellerId
@@ -14,4 +14,4 @@ class CategoryDataService extends Service {
     }
 }
 
-export default CategoryDataService;
+export default CategoryService;

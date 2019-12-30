@@ -1,11 +1,14 @@
 import { util, observable, Emitter } from "snowball";
+import { Service } from "snowball/app";
 
-export default class GlobalAddressService {
+export default class GlobalAddressService extends Service {
     @observable current;
 
     onAddressChange = Emitter.create();
 
     constructor() {
+        super();
+
         this.current = util.store("MALL_GLOBAL_ADDRESS") || {};
     }
 

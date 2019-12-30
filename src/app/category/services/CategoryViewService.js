@@ -1,20 +1,21 @@
 import { observable } from "snowball";
-import { Service } from "snowball/app";
+import { Service, autowired } from "snowball/app";
 
-import CategoryDataService from "../../../shared/services/CategoryDataService";
+import CategoryService from "../../../shared/services/CategoryService";
 import { toast } from "snowball/widget";
 
-export default class CategoryService extends Service {
+export default class CategoryViewService extends Service {
     @observable cates;
     @observable currentCate;
 
     onCateChange = this.ctx.createEvent();
     onClickSubSubCate = this.ctx.createEvent();
 
-    constructor(categoryDataService: CategoryDataService) {
-        super();
+    @autowired
+    categoryService: CategoryService;
 
-        this.categoryDataService = categoryDataService;
+    constructor() {
+        super();
 
         this.onCateChange((cate) => this.changeCate(cate));
         this.onClickSubSubCate((subSubCate) => {
@@ -29,7 +30,7 @@ export default class CategoryService extends Service {
     }
 
     loadCates() {
-        this.categoryDataService.getCates(0)
+        this.categoryService.getCates(0)
             .then(res => {
                 this.cates = res.data;
                 this.currentCate = res.data && res.data[0];
@@ -42,7 +43,7 @@ export default class CategoryService extends Service {
             if (!this.currentCate.children) {
                 if (this.changing) return;
                 this.changing = true;
-                this.categoryDataService.getSubCatesTreeByPid(cate.id)
+                this.categoryService.getSubCatesTreeByPid(cate.id)
                     .then(res => {
                         this.currentCate.withMutations((currentCate) => {
                             currentCate.set({

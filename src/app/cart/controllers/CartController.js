@@ -1,25 +1,22 @@
-import { controller, injectable } from "snowball/app";
+import { controller, autowired } from "snowball/app";
 import Cart from "../containers/Cart";
-import CartListService from "../services/CartListService";
+import CartViewService from "../services/CartViewService";
+import { CartConfiguration } from "../configuration/CartConfiguration";
 
-
-@controller(Cart)
+@controller({
+    component: Cart,
+    configuration: CartConfiguration
+})
 class CartController {
-    @injectable cartListService: CartListService;
-
-    constructor() {
-        this.cartListService = new CartListService(
-            this.ctx.service.cart,
-            this.ctx.service.cartNum
-        );
-    }
+    @autowired
+    cartViewService: CartViewService;
 
     onInit() {
-        this.cartListService.onInit.emit();
+        this.cartViewService.onInit.emit();
     }
 
     onResume() {
-        this.cartListService.loadUserCart();
+        this.cartViewService.loadUserCart();
     }
 }
 

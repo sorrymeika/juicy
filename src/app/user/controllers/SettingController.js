@@ -1,10 +1,10 @@
-import { controller, injectable } from "snowball/app";
+import { controller } from "snowball/app";
 import Setting from "../containers/Setting";
 import SettingService from "../services/SettingService";
 
 @controller(Setting)
 class SettingController {
-    @injectable settingService: SettingService;
+    settingService: SettingService;
 
     constructor() {
         this.settingService = new SettingService();

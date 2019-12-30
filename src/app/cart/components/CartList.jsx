@@ -21,10 +21,10 @@ function CartList({ sellers }) {
     );
 }
 
-export default inject(({ cartListService }) => (
-    cartListService
+export default inject(({ cartViewService }) => (
+    cartViewService
         ? {
-            sellers: cartListService.sellers
+            sellers: cartViewService.sellers
         }
         : {}
 ))(CartList);

@@ -1,5 +1,5 @@
 import { observable } from "snowball";
-import { Service, ref } from "snowball/app";
+import { Service, ref, autowired } from "snowball/app";
 import { toast } from "snowball/widget";
 import ItemShopService from "./ItemShopService";
 
@@ -47,20 +47,23 @@ export default class ItemService extends Service {
     onConfirmSku = this.ctx.createEvent();
     onCancelSkuSelect = this.ctx.createEvent();
 
-    constructor(
-        productService,
-        addressSelectService,
-        cartService,
-        cartNumService,
-        itemShopService: ItemShopService
-    ) {
-        super();
+    @autowired
+    productService;
 
-        this.addressSelectService = addressSelectService;
-        this.productService = productService;
-        this.cartService = cartService;
-        this.cartNumService = cartNumService;
-        this.itemShopService = itemShopService;
+    @autowired
+    addressSelectService;
+
+    @autowired
+    cartService;
+
+    @autowired
+    cartNumService;
+
+    @autowired
+    itemShopService: ItemShopService
+
+    constructor() {
+        super();
 
         this.onScroll(this.createScrollHandler());
 

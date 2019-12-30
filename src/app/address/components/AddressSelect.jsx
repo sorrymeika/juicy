@@ -97,38 +97,40 @@ function AddressSelectModal({
     );
 }
 
-export default inject(({ addressSelectService, districtSelectService }) => (
-    addressSelectService && districtSelectService
-        ? {
-            visible: addressSelectService.visible,
-            addressList: addressSelectService.addressList,
-            currentAddress: addressSelectService.currentAddress,
-            onInit: addressSelectService.onInit.emit,
-            onBack: addressSelectService.onBack.emit,
-            onCancel: addressSelectService.onCancel.emit,
-            onSelectAddress: addressSelectService.onSelectAddress.emit,
-            onToSelectOtherArea: addressSelectService.onToSelectOtherArea.emit,
+export default inject(({ addressSelectService, districtSelectService }) => {
+    return (
+        addressSelectService && districtSelectService
+            ? {
+                visible: addressSelectService.visible,
+                addressList: addressSelectService.addressList,
+                currentAddress: addressSelectService.currentAddress,
+                onInit: addressSelectService.onInit.emit,
+                onBack: addressSelectService.onBack.emit,
+                onCancel: addressSelectService.onCancel.emit,
+                onSelectAddress: addressSelectService.onSelectAddress.emit,
+                onToSelectOtherArea: addressSelectService.onToSelectOtherArea.emit,
 
-            districtSelectProps: {
-                visible: districtSelectService.visible,
-                provinces: districtSelectService.provinces,
-                cities: districtSelectService.cities,
-                districts: districtSelectService.districts,
+                districtSelectProps: {
+                    visible: districtSelectService.visible,
+                    provinces: districtSelectService.provinces,
+                    cities: districtSelectService.cities,
+                    districts: districtSelectService.districts,
 
-                currentTab: districtSelectService.currentTab,
+                    currentTab: districtSelectService.currentTab,
 
-                currentProvinceCode: districtSelectService.currentProvinceCode,
-                currentProvinceName: districtSelectService.currentProvinceName,
-                currentCityCode: districtSelectService.currentCityCode,
-                currentCityName: districtSelectService.currentCityName,
-                currentDistrictCode: districtSelectService.currentDistrictCode,
-                currentDistrictName: districtSelectService.currentDistrictName,
+                    currentProvinceCode: districtSelectService.currentProvinceCode,
+                    currentProvinceName: districtSelectService.currentProvinceName,
+                    currentCityCode: districtSelectService.currentCityCode,
+                    currentCityName: districtSelectService.currentCityName,
+                    currentDistrictCode: districtSelectService.currentDistrictCode,
+                    currentDistrictName: districtSelectService.currentDistrictName,
 
-                onTabChange: districtSelectService.onTabChange.emit,
-                onProvinceChange: districtSelectService.onProvinceChange.emit,
-                onCityChange: districtSelectService.onCityChange.emit,
-                onDistrictChange: districtSelectService.onDistrictChange.emit
+                    onTabChange: districtSelectService.onTabChange.emit,
+                    onProvinceChange: districtSelectService.onProvinceChange.emit,
+                    onCityChange: districtSelectService.onCityChange.emit,
+                    onDistrictChange: districtSelectService.onDistrictChange.emit
+                }
             }
-        }
-        : null
-))(AddressSelectModal);
+            : null
+    );
+})(AddressSelectModal);

@@ -1,11 +1,11 @@
-import { controller, injectable } from "snowball/app";
+import { controller } from "snowball/app";
 import Login from "../containers/Login";
 import LoginService from "../services/LoginService";
 // import { request } from "./jkGateway";
 
 @controller(Login)
 class LoginController {
-    @injectable loginService: LoginService;
+    loginService: LoginService;
 
     constructor() {
         this.loginService = new LoginService();

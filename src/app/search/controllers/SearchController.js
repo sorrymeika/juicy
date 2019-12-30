@@ -1,11 +1,11 @@
-import { controller, injectable } from "snowball/app";
+import { controller } from "snowball/app";
 import Search from "../containers/Search";
 import SearchService from "../../../shared/services/SearchService";
 import SearchResultService from "../services/SearchResultService";
 
 @controller(Search)
 class SearchController {
-    @injectable searchResultService: SearchResultService;
+    searchResultService: SearchResultService;
 
     constructor() {
         this.searchService = new SearchService();

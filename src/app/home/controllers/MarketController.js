@@ -1,8 +1,12 @@
 import { controller } from "snowball/app";
 import Market from "../containers/Market";
 import PageViewController from "./PageViewController";
+import { MarketConfiguration } from "../configuration/MarketConfiguration";
 
-@controller(Market)
+@controller({
+    component: Market,
+    configuration: MarketConfiguration
+})
 class MarketController extends PageViewController {
     constructor(props, context) {
         super(props, context);

@@ -1,14 +1,15 @@
-import { controller, injectable } from "snowball/app";
+import { controller, autowired } from "snowball/app";
 import EditUserInfo from "../containers/UserEdit";
 import UserEditService from "../services/UserEditService";
+import { UserConfiguration } from "../configuration/UserConfiguration";
 
-@controller(EditUserInfo)
+@controller({
+    component: EditUserInfo,
+    configuration: UserConfiguration
+})
 class UserEditController {
-    @injectable userEditService: UserEditService;
-
-    constructor() {
-        this.userEditService = new UserEditService();
-    }
+    @autowired
+    userEditService: UserEditService;
 
     onInit() {
         this.userEditService.onInit.emit();

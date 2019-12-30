@@ -1,4 +1,6 @@
-export default class AddressService {
+import { Service } from "snowball/app";
+
+export default class AddressService extends Service {
     getProvinces() {
         return this.app.server.base.post('/address/getProvinces');
     }

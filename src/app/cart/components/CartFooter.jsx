@@ -30,14 +30,14 @@ function CartFooter({
     );
 }
 
-export default inject(({ cartListService }) => (
-    cartListService
+export default inject(({ cartViewService }) => (
+    cartViewService
         ? {
-            total: cartListService.total,
-            selectedCount: cartListService.selectedCount,
-            amount: cartListService.amount,
-            onSelectAll: cartListService.onSelectAll.emit,
-            onCheckout: cartListService.onCheckout.emit
+            total: cartViewService.total,
+            selectedCount: cartViewService.selectedCount,
+            amount: cartViewService.amount,
+            onSelectAll: cartViewService.onSelectAll.emit,
+            onCheckout: cartViewService.onCheckout.emit
         }
         : null
 ))(CartFooter);

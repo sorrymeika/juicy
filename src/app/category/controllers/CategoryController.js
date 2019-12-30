@@ -1,21 +1,22 @@
-import { controller, injectable } from "snowball/app";
+import { controller, autowired } from "snowball/app";
 import Category from "../containers/Category";
-import CategoryDataService from "../../../shared/services/CategoryDataService";
-import CategoryService from "../services/CategoryService";
+import CategoryService from "../../../shared/services/CategoryService";
+import CategoryViewService from "../services/CategoryViewService";
+import { CategoryConfiguration } from "../configuration/CategoryConfiguration";
 
-@controller(Category)
+@controller({
+    component: Category,
+    configuration: CategoryConfiguration
+})
 class CategoryController {
-    @injectable categoryService: CategoryService;
+    @autowired
+    categoryViewService: CategoryViewService;
 
-    constructor() {
-        this.categoryDataService = new CategoryDataService();
-        this.categoryService = new CategoryService(
-            this.categoryDataService
-        );
-    }
+    @autowired
+    categoryService: CategoryService;
 
     onInit() {
-        this.categoryService.loadCates();
+        this.categoryViewService.loadCates();
     }
 }
 

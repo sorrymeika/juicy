@@ -47,6 +47,6 @@ function HomeFooter({ currentTab, onFooterTabChange }) {
 export default inject(({ onFooterTabChange, currentTab }) => {
     return {
         currentTab,
-        onFooterTabChange: onFooterTabChange.emit
+        onFooterTabChange
     };
 })(HomeFooter);

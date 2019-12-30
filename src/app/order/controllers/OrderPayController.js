@@ -1,10 +1,10 @@
-import { controller, injectable } from "snowball/app";
+import { controller } from "snowball/app";
 import OrderPayService from "../services/OrderPayService";
 import OrderPay from "../containers/OrderPay";
 
 @controller(OrderPay)
 class OrderPayController {
-    @injectable orderPayService;
+    orderPayService;
 
     constructor(props) {
         this.tradeId = Number(props.location.params.tradeId);

@@ -1,27 +1,25 @@
-import { injectable } from "snowball/app";
-import PageService from "../../../shared/services/PageService";
+import { autowired } from "snowball/app";
 import PageViewService from "../services/PageViewService";
 
 import ProductService from "../../../shared/services/ProductService";
 import SearchService from "../../../shared/services/SearchService";
 
 class PageViewController {
-    @injectable pageViewService: PageViewService;
-    @injectable productService: ProductService;
-    @injectable searchService: SearchService;
+    @autowired
+    pageViewService: PageViewService;
 
-    @injectable get pageData() {
+    @autowired
+    productService: ProductService;
+
+    @autowired
+    searchService: SearchService;
+
+    get pageData() {
         return this.pageViewService.pageData;
     }
 
-    @injectable get bricks() {
+    get bricks() {
         return this.pageViewService.bricks;
-    }
-
-    constructor(props, context) {
-        this.pageViewService = new PageViewService(new PageService());
-        this.productService = new ProductService();
-        this.searchService = new SearchService();
     }
 }
 

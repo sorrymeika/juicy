@@ -1,14 +1,15 @@
-import { controller, injectable } from "snowball/app";
+import { controller, autowired } from "snowball/app";
 import UserCenter from "../containers/UserCenter";
 import UserCenterService from "../services/UserCenterService";
+import { UserConfiguration } from "../configuration/UserConfiguration";
 
-@controller(UserCenter)
+@controller({
+    component: UserCenter,
+    configuration: UserConfiguration
+})
 class UserCenterController {
-    @injectable userCenterService: UserCenterService;
-
-    constructor() {
-        this.userCenterService = new UserCenterService();
-    }
+    @autowired
+    userCenterService: UserCenterService;
 
     onInit() {
         this.userCenterService.onInit.emit();

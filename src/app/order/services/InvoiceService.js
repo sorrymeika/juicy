@@ -1,6 +1,8 @@
 import { observable, util } from "snowball";
-import { Service } from "snowball/app";
+import { Service, autowired } from "snowball/app";
 import { toast } from "snowball/widget";
+
+import UserService from "../../../shared/services/UserService";
 
 export default class InvoiceService extends Service {
     sellerId;
@@ -18,10 +20,11 @@ export default class InvoiceService extends Service {
     onInit = this.ctx.createEvent();
     onConfirm = this.ctx.createEvent();
 
+    @autowired
+    userService: UserService
+
     constructor(userService) {
         super();
-
-        this.userService = userService;
 
         this.onFieldChange(({ name, value }) => {
             this.data.withMutations((data) => {

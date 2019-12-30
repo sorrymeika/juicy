@@ -7,25 +7,17 @@ import { Server, Sfs, appExtentions } from "sn-app";
 
 import * as appEnv from "./env";
 import router from "./app/router";
-
-import UserService from "./shared/services/UserService";
-import AddressService from "./shared/services/AddressService";
-import GlobalAddressService from "./shared/services/GlobalAddressService";
-import OrderService from "./shared/services/OrderService";
-import CartService from "./shared/services/CartService";
-import CartNumService from "./shared/services/CartNumService";
+import { AppConfiguration } from "./AppConfiguration";
 
 const env = {
     ...mainEnv,
     ...appEnv
 };
 
-const projects = {
-};
-
 const app = createApplication({
-    projects,
+    projects: appEnv.PROJECTS,
     routes: router,
+    configuration: AppConfiguration,
     extend(app) {
         const extentions = appExtentions(app);
         extentions.initDomEventHooks(document.body);
@@ -38,14 +30,6 @@ const app = createApplication({
                 market: new Server({ baseUrl: env.API_URL + '/market_server', app }),
                 trade: new Server({ baseUrl: env.API_URL + '/trade_server', app }),
                 base: new Server({ baseUrl: env.API_URL + '/base_server', app }),
-            },
-            services: {
-                user: UserService,
-                cart: CartService,
-                cartNum: CartNumService,
-                address: AddressService,
-                globalAddress: GlobalAddressService,
-                order: OrderService,
             }
         };
     }

@@ -1,4 +1,4 @@
-import { controller, injectable } from "snowball/app";
+import { controller } from "snowball/app";
 import Test from "../containers/Test";
 import PageViewController from "./PageViewController";
 
@@ -8,7 +8,6 @@ class TestController extends PageViewController {
         // fetch remote data here!
     }
 
-    @injectable
     onButtonClick() {
         this.ctx.navigation.forward('/');
     }

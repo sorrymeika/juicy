@@ -1,20 +1,19 @@
-import { controller, injectable } from "snowball/app";
+import { controller, autowired } from "snowball/app";
 import OrderCreationService from "../services/OrderCreationService";
-import Order from "../containers/Order";
+import { OrderConfiguration } from "../configuration/OrderConfiguration";
 
-@controller(Order)
+import Order from "../containers/Order";
+@controller({
+    component: Order,
+    configuration: OrderConfiguration
+})
 class OrderController {
-    @injectable orderCreationService;
+    @autowired
+    orderCreationService: OrderCreationService;
 
     constructor(props) {
         const skus = JSON.parse(props.location.query.skus || '[]');
-        const addressService = this.ctx.service.address;
-
         this.skus = skus;
-        this.orderCreationService = new OrderCreationService(
-            this.ctx.service.order,
-            addressService
-        );
     }
 
     onInit() {

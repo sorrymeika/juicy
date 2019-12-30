@@ -1,5 +1,8 @@
-import { Service } from "snowball/app";
+import { Service, autowired } from "snowball/app";
 import { observable } from "snowball";
+import GlobalAddressService from "../../../shared/services/GlobalAddressService";
+import AddressService from "../../../shared/services/AddressService";
+import DistrictSelectService from "./DistrictSelectService";
 
 export default class AddressSelectService extends Service {
     @observable visible = false;
@@ -12,12 +15,19 @@ export default class AddressSelectService extends Service {
     onSelectAddress = this.ctx.createEvent();
     onToSelectOtherArea = this.ctx.createEvent();
 
-    constructor(addressService, districtSelectService) {
+    @autowired
+    globalAddressService: GlobalAddressService;
+
+    @autowired
+    addressService: AddressService;
+
+    @autowired
+    districtSelectService: DistrictSelectService;
+
+    constructor() {
         super();
 
-        this.addressService = addressService;
-        this.districtSelectService = districtSelectService;
-        this.currentAddress = this.ctx.service.globalAddress.current;
+        this.currentAddress = this.globalAddressService.current;
 
         this.onInit(() => this.init());
         this.onCancel(() => {
@@ -43,7 +53,7 @@ export default class AddressSelectService extends Service {
             });
         });
 
-        this.ctx.service.globalAddress.onAddressChange((address) => {
+        this.globalAddressService.onAddressChange((address) => {
             this.currentAddress = address;
         });
     }
@@ -56,7 +66,7 @@ export default class AddressSelectService extends Service {
     }
 
     selectAddress(address) {
-        this.ctx.service.globalAddress.save(address);
+        this.globalAddressService.save(address);
         this.visible = false;
         this.districtSelectService.visible = false;
     }

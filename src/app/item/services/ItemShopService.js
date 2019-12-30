@@ -1,16 +1,13 @@
 import { observable } from "snowball";
-import { Service } from "snowball/app";
+import { Service, autowired } from "snowball/app";
 import SearchService, { ORDER_BY } from "../../../shared/services/SearchService";
 
 export default class ItemShopService extends Service {
     @observable products;
     @observable seller;
 
-    constructor(searchService: SearchService) {
-        super();
-
-        this.searchService = searchService;
-    }
+    @autowired
+    searchService: SearchService;
 
     async loadRecommends(excludeSpuIds = []) {
         if (!this.seller) {

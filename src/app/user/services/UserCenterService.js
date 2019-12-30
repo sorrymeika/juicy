@@ -1,5 +1,6 @@
-import { Service } from "snowball/app";
+import { Service, autowired } from "snowball/app";
 import { toast } from "snowball/widget";
+import UserService from "../../../shared/services/UserService";
 
 export default class UserCenterService extends Service {
     get userInfo() {
@@ -9,10 +10,11 @@ export default class UserCenterService extends Service {
     onInit = this.ctx.createEvent();
     onToSetting = this.ctx.createEvent();
 
+    @autowired
+    userService: UserService;
+
     constructor() {
         super();
-
-        this.userService = this.ctx.service.user;
 
         this.onInit(() => this.init());
         this.onToSetting(() => this.toSetting());

@@ -1,16 +1,13 @@
 import { observable } from "snowball";
-import { Service } from "snowball/app";
-import PageService from "../../../shared/services/PageService";
+import { Service, autowired } from "snowball/app";
+import PageService from "./PageService";
 
 export default class PageViewService extends Service {
     @observable pageData = {};
     @observable bricks = [];
 
-    constructor(pageService: PageService) {
-        super();
-
-        this.pageService = pageService;
-    }
+    @autowired
+    pageService: PageService;
 
     async initWithKeyName(keyName) {
         const res = await this.pageService.getPageByKeyName(keyName);

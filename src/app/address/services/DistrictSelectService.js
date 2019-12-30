@@ -1,5 +1,6 @@
-import { Service } from "snowball/app";
+import { Service, autowired } from "snowball/app";
 import { observable } from "snowball";
+import AddressService from "../../../shared/services/AddressService";
 
 export default class DistrictSelectService extends Service {
     @observable visible = false;
@@ -25,10 +26,11 @@ export default class DistrictSelectService extends Service {
     onDistrictChange = this.ctx.createEvent();
     onSelect = this.ctx.createEvent();
 
-    constructor(addressService) {
-        super();
+    @autowired
+    addressService: AddressService;
 
-        this.addressService = addressService;
+    constructor() {
+        super();
 
         this.onInit.once(() => this.init());
 
