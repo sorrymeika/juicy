@@ -1,7 +1,9 @@
 import React, { useEffect } from "react";
-import { inject } from "snowball/app";
+import { inject, autowired } from "snowball/app";
 import { Modal, ScrollView } from "snowball/components";
 import { DistrictSelect } from "./DistrictSelect";
+import DistrictSelectService from "../services/DistrictSelectService";
+import AddressSelectService from "../services/AddressSelectService";
 
 function AddressSelect({
     currentAddress,
@@ -44,18 +46,11 @@ function AddressSelectModal({
     currentAddress,
     addressList,
     districtSelectProps,
-    onInit,
     onCancel,
     onBack,
     onSelectAddress,
     onToSelectOtherArea
 }) {
-    useEffect(() => {
-        if (visible) {
-            onInit();
-        }
-    }, [onInit, visible]);
-
     return (
         <Modal
             visible={visible}
@@ -92,45 +87,50 @@ function AddressSelectModal({
                         <DistrictSelect {...districtSelectProps}></DistrictSelect>
                     )
             }
-
         </Modal>
     );
 }
 
-export default inject(({ addressSelectService, districtSelectService }) => {
-    return (
-        addressSelectService && districtSelectService
-            ? {
-                visible: addressSelectService.visible,
-                addressList: addressSelectService.addressList,
-                currentAddress: addressSelectService.currentAddress,
-                onInit: addressSelectService.onInit.emit,
-                onBack: addressSelectService.onBack.emit,
-                onCancel: addressSelectService.onCancel.emit,
-                onSelectAddress: addressSelectService.onSelectAddress.emit,
-                onToSelectOtherArea: addressSelectService.onToSelectOtherArea.emit,
+export default inject((props) => {
+    const addressSelectService: AddressSelectService = autowired('addressSelectService');
+    const districtSelectService: DistrictSelectService = autowired('districtSelectService');
 
-                districtSelectProps: {
-                    visible: districtSelectService.visible,
-                    provinces: districtSelectService.provinces,
-                    cities: districtSelectService.cities,
-                    districts: districtSelectService.districts,
+    const visible = addressSelectService.visible;
 
-                    currentTab: districtSelectService.currentTab,
+    useEffect(() => {
+        if (visible) {
+            addressSelectService.init();
+        }
+    }, [addressSelectService, visible]);
 
-                    currentProvinceCode: districtSelectService.currentProvinceCode,
-                    currentProvinceName: districtSelectService.currentProvinceName,
-                    currentCityCode: districtSelectService.currentCityCode,
-                    currentCityName: districtSelectService.currentCityName,
-                    currentDistrictCode: districtSelectService.currentDistrictCode,
-                    currentDistrictName: districtSelectService.currentDistrictName,
+    return {
+        visible,
+        addressList: addressSelectService.addressList,
+        currentAddress: addressSelectService.currentAddress,
+        onBack: addressSelectService.onBack.emit,
+        onCancel: addressSelectService.onCancel.emit,
+        onSelectAddress: addressSelectService.onSelectAddress.emit,
+        onToSelectOtherArea: addressSelectService.onToSelectOtherArea.emit,
 
-                    onTabChange: districtSelectService.onTabChange.emit,
-                    onProvinceChange: districtSelectService.onProvinceChange.emit,
-                    onCityChange: districtSelectService.onCityChange.emit,
-                    onDistrictChange: districtSelectService.onDistrictChange.emit
-                }
-            }
-            : null
-    );
+        districtSelectProps: {
+            visible: districtSelectService.visible,
+            provinces: districtSelectService.provinces,
+            cities: districtSelectService.cities,
+            districts: districtSelectService.districts,
+
+            currentTab: districtSelectService.currentTab,
+
+            currentProvinceCode: districtSelectService.currentProvinceCode,
+            currentProvinceName: districtSelectService.currentProvinceName,
+            currentCityCode: districtSelectService.currentCityCode,
+            currentCityName: districtSelectService.currentCityName,
+            currentDistrictCode: districtSelectService.currentDistrictCode,
+            currentDistrictName: districtSelectService.currentDistrictName,
+
+            onTabChange: districtSelectService.onTabChange.emit,
+            onProvinceChange: districtSelectService.onProvinceChange.emit,
+            onCityChange: districtSelectService.onCityChange.emit,
+            onDistrictChange: districtSelectService.onDistrictChange.emit
+        }
+    };
 })(AddressSelectModal);

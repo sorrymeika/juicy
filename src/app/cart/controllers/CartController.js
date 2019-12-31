@@ -11,12 +11,30 @@ class CartController {
     @autowired
     cartViewService: CartViewService;
 
-    onInit() {
-        this.cartViewService.onInit.emit();
+    constructor() {
+        this._resumeListener = this.ctx.delegate(this.page, 'resume', () => {
+            this.load();
+        });
     }
 
-    onResume() {
-        this.cartViewService.loadUserCart();
+    onInit() {
+        this.load();
+    }
+
+    async load() {
+        this._resumeListener.off();
+        try {
+            const res = await this.cartViewService.listUserCart();
+            this._resumeListener.on();
+            return res;
+        } catch (e) {
+            if (e.code === 10002) {
+                this.app.navigation.back();
+            } else {
+                this._resumeListener.on();
+                throw e;
+            }
+        }
     }
 }
 

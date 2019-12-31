@@ -8,20 +8,11 @@ import UserCenterService from "../../user/services/UserCenterService";
 import PageViewController from "./PageViewController";
 
 import Home from "../containers/Home";
-
-import { UserConfiguration } from "../../user/configuration/UserConfiguration";
-import { CartConfiguration } from "../../cart/configuration/CartConfiguration";
-import { CategoryConfiguration } from "../../category/configuration/CategoryConfiguration";
-import { MarketConfiguration } from "../configuration/MarketConfiguration";
+import { HomeConfiguration } from "../configuration/HomeConfiguration";
 
 @controller({
     component: Home,
-    configuration: [
-        UserConfiguration,
-        CartConfiguration,
-        CategoryConfiguration,
-        MarketConfiguration
-    ]
+    configuration: HomeConfiguration
 })
 class HomeController extends PageViewController {
     @autowired

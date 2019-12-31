@@ -9,7 +9,6 @@ export default class AddressSelectService extends Service {
     @observable addressList = [];
     @observable currentAddress;
 
-    onInit = this.ctx.createEvent();
     onBack = this.ctx.createEvent();
     onCancel = this.ctx.createEvent();
     onSelectAddress = this.ctx.createEvent();
@@ -29,7 +28,6 @@ export default class AddressSelectService extends Service {
 
         this.currentAddress = this.globalAddressService.current;
 
-        this.onInit(() => this.init());
         this.onCancel(() => {
             this.visible = false;
             this.districtSelectService.visible = false;

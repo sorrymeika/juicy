@@ -1,5 +1,6 @@
 import React from 'react';
-import { inject } from 'snowball/app';
+import { inject, autowired } from 'snowball/app';
+import ItemService from '../services/ItemService';
 
 function Footer({
     sellerId,
@@ -45,13 +46,13 @@ function Footer({
     );
 }
 
-export default inject(({ itemService }) => (
-    itemService
-        ? {
-            sellerId: itemService.seller.id,
-            cartNum: itemService.cartNum,
-            onAddToCart: itemService.onAddToCart.emit,
-            onBuyNow: itemService.onBuyNow.emit
-        }
-        : {}
-))(Footer);
+export default inject((props) => {
+    const itemService: ItemService = autowired('itemService');
+
+    return {
+        sellerId: itemService.seller.id,
+        cartNum: itemService.cartNum,
+        onAddToCart: itemService.onAddToCart,
+        onBuyNow: itemService.onBuyNow
+    };
+})(Footer);

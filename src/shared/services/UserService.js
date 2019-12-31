@@ -1,8 +1,11 @@
 import { observable, createEmitter } from "snowball";
-import { Service } from "snowball/app";
+import { Service, autowired } from "snowball/app";
 
 export default class UserService extends Service {
     @observable userInfo = {};
+
+    @autowired
+    _userServer;
 
     onLoginStatusChange = createEmitter();
 
@@ -32,7 +35,7 @@ export default class UserService extends Service {
     }
 
     async login(account, verifyCode) {
-        const res = await this.app.server.user.post('/user/login', {
+        const res = await this._userServer.post('/user/login', {
             account,
             verifyCode
         });
@@ -40,7 +43,7 @@ export default class UserService extends Service {
     }
 
     getUserInfo({ autoLogin = false } = {}) {
-        return this.app.server.user.post('/user/getUserInfo', null, {
+        return this._userServer.post('/user/getUserInfo', null, {
             autoLogin
         });
     }
@@ -53,7 +56,7 @@ export default class UserService extends Service {
         taxCode,
         phoneNo
     }) {
-        return this.app.server.user.post('/userInvoice/addInvoice', {
+        return this._userServer.post('/userInvoice/addInvoice', {
             isDefault,
             type,
             titleType,
@@ -72,7 +75,7 @@ export default class UserService extends Service {
         taxCode,
         phoneNo
     }) {
-        return this.app.server.user.post('/userInvoice/updateInvoice', {
+        return this._userServer.post('/userInvoice/updateInvoice', {
             id,
             isDefault,
             type,
@@ -84,10 +87,10 @@ export default class UserService extends Service {
     }
 
     listInvoice() {
-        return this.app.server.user.post('/userInvoice/listInvoice');
+        return this._userServer.post('/userInvoice/listInvoice');
     }
 
     getDefaultInvoice() {
-        return this.app.server.user.post('/userInvoice/getDefaultInvoice');
+        return this._userServer.post('/userInvoice/getDefaultInvoice');
     }
 }

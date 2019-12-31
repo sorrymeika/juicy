@@ -1,5 +1,5 @@
 import React from 'react';
-import { inject } from "snowball/app";
+import { inject, autowired } from "snowball/app";
 
 function Money({ minPrice, maxPrice, sales }) {
     const [minPriceLeft, minPriceRight] = minPrice == null ? [] : minPrice.toFixed(2).split('.');
@@ -42,12 +42,11 @@ function Money({ minPrice, maxPrice, sales }) {
     );
 }
 
-export default inject(({ itemService }) => (
-    itemService
-        ? {
-            minPrice: itemService.item.minPrice,
-            maxPrice: itemService.item.maxPrice,
-            sales: itemService.item.sales
-        }
-        : {}
-))(Money);
+export default inject((props) => {
+    const itemService = autowired('itemService');
+    return {
+        minPrice: itemService.item.minPrice,
+        maxPrice: itemService.item.maxPrice,
+        sales: itemService.item.sales
+    };
+})(Money);

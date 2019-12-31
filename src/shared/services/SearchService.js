@@ -1,4 +1,4 @@
-import { Service } from "snowball/app";
+import { Service, autowired } from "snowball/app";
 
 export const ORDER_BY = {
     DEFAULT: 0,
@@ -26,12 +26,15 @@ type SearchConditions = {
 }
 
 class SearchService extends Service {
+    @autowired
+    _tradeServer;
+
     searchByFormula(formulaId, pageIndex, pageSize) {
-        return this.app.server.trade.post('/search/searchByFormula', { formulaId, pageIndex, pageSize });
+        return this._tradeServer.post('/search/searchByFormula', { formulaId, pageIndex, pageSize });
     }
 
     searchByConditions(conditions: SearchConditions) {
-        return this.app.server.trade.post('/search/searchByConditions', conditions);
+        return this._tradeServer.post('/search/searchByConditions', conditions);
     }
 }
 

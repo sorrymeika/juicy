@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { inject } from "snowball/app";
 import SpecSelectModal from './SpecSelectModal';
 

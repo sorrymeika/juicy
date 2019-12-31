@@ -1,6 +1,7 @@
 import React from 'react';
 import { inject } from 'snowball/app';
 import AddressSelect from '../../address/components/AddressSelect';
+import ItemService from '../services/ItemService';
 
 function PostInfo({ currentAddress, onPostClick }) {
     return (
@@ -23,9 +24,9 @@ function PostInfo({ currentAddress, onPostClick }) {
     );
 }
 
-export default inject(({ itemService, currentAddress }) => {
+export default inject(['itemService', 'currentAddress'], ([itemService, currentAddress]: [ItemService], props) => {
     return {
         currentAddress,
-        onPostClick: itemService.onPostClick.emit
+        onPostClick: itemService.onPostClick
     };
 })(PostInfo);

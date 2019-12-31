@@ -13,8 +13,6 @@ const SKU_SELECT_MODE = {
 export default class ItemService extends Service {
     @observable headerVisible = false;
     @observable scrollPos = 'basic';
-    onScroll = this.ctx.createEvent();
-    onScrollToComponent = this.ctx.createEvent();
 
     @observable item = {};
     @observable seller = {};
@@ -34,19 +32,6 @@ export default class ItemService extends Service {
         return this.cartNumService.total;
     }
 
-    onPostClick = this.ctx.createEvent();
-
-    onClickSpec = this.ctx.createEvent();
-    onSpecChange = this.ctx.createEvent();
-    onBuyNumChange = this.ctx.createEvent();
-    onCancelSelectSpec = this.ctx.createEvent();
-
-    onAddToCart = this.ctx.createEvent();
-    onBuyNow = this.ctx.createEvent();
-
-    onConfirmSku = this.ctx.createEvent();
-    onCancelSkuSelect = this.ctx.createEvent();
-
     @autowired
     productService;
 
@@ -62,33 +47,35 @@ export default class ItemService extends Service {
     @autowired
     itemShopService: ItemShopService
 
+    @autowired
+    picturesService;
+
     constructor() {
         super();
 
-        this.onScroll(this.createScrollHandler());
+        this._registerListeners();
+    }
 
-        this.onScrollToComponent((pos) => {
-            const node = this.ctx.page.findNode(`[item-scroll-mark=${pos}]`);
-            this.mainScrollViewRef.current.scrollTo(0, node.offsetTop - 64, 200);
-        });
+    _registerListeners() {
+        this.onScroll = this.ctx.createEvent(this.createScrollHandler());
 
-        this.onPostClick(() => {
+        this.onPostClick = this.ctx.createEvent(() => {
             this.addressSelectService.visible = true;
         });
 
-        this.onClickSpec(() => {
+        this.onClickSpec = this.ctx.createEvent(() => {
             this.isSpecSelectModalVisible = true;
         });
 
-        this.onBuyNumChange((num) => {
+        this.onBuyNumChange = this.ctx.createEvent((num) => {
             this.buyNum = num;
         });
 
-        this.onCancelSelectSpec(() => {
+        this.onCancelSelectSpec = this.ctx.createEvent(() => {
             this.isSpecSelectModalVisible = false;
         });
 
-        this.onAddToCart((sku) => {
+        this.onAddToCart = this.ctx.createEvent((sku) => {
             if (!sku) {
                 if (this.skus.length === 1) {
                     this.addToCart(this.currentSku);
@@ -100,7 +87,7 @@ export default class ItemService extends Service {
             }
         });
 
-        this.onBuyNow((sku) => {
+        this.onBuyNow = this.ctx.createEvent((sku) => {
             if (!sku) {
                 if (this.skus.length === 1) {
                     this.buyNow(this.currentSku);
@@ -112,7 +99,7 @@ export default class ItemService extends Service {
             }
         });
 
-        this.onCancelSkuSelect(() => {
+        this.onCancelSkuSelect = this.ctx.createEvent(() => {
             this.skuSelectMode = SKU_SELECT_MODE.NONE;
         });
     }
@@ -132,6 +119,21 @@ export default class ItemService extends Service {
 
         this.itemShopService.seller = data.seller;
         this.itemShopService.loadRecommends([data.item.id]);
+
+        this.picturesService.onReleaseToSeeMore(() => {
+            this.scrollToComponent('detail');
+        });
+
+        this.ctx.autorun(() => {
+            this.picturesService.pictures = this.item.pictures
+                ? this.item.pictures.split(',').map((img) => this.app.sfs.completeUrl(img))
+                : [];
+        });
+    }
+
+    scrollToComponent(componentName) {
+        const node = this.ctx.page.findNode(`[item-component-name=${componentName}]`);
+        this.mainScrollViewRef.current.scrollTo(0, node.offsetTop - 64, 200);
     }
 
     createScrollHandler() {
@@ -155,7 +157,7 @@ export default class ItemService extends Service {
             }, 1000);
 
             if (!scrollMarks) {
-                scrollMarks = [...e.target.querySelectorAll('[item-scroll-mark]')];
+                scrollMarks = [...e.target.querySelectorAll('[item-component-name]')];
             }
 
             let maxTop;
@@ -165,7 +167,7 @@ export default class ItemService extends Service {
                 let top = el.getBoundingClientRect().top;
                 if (top <= 80) {
                     if (top > maxTop || maxTop == null) {
-                        current = el.getAttribute('item-scroll-mark');
+                        current = el.getAttribute('item-component-name');
                         maxTop = top;
                     }
                 }

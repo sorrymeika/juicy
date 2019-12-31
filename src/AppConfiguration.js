@@ -1,4 +1,7 @@
 import { configuration, singleton } from "snowball/app";
+import { Server } from "sn-app";
+
+import { API_URL } from "./env";
 
 import UserService from "./shared/services/UserService";
 import AddressService from "./shared/services/AddressService";
@@ -8,41 +11,23 @@ import CartService from "./shared/services/CartService";
 import CartNumService from "./shared/services/CartNumService";
 import SearchService from "./shared/services/SearchService";
 
-@configuration
-class AppConfiguration {
-    @singleton
-    get userService() {
-        return new UserService();
-    }
+import { PicturesService } from "./shared/components";
 
-    @singleton
-    get cartService() {
-        return new CartService();
+const AppConfiguration = configuration({
+    modules: {
+        userService: singleton(UserService),
+        cartService: singleton(CartService),
+        cartNumService: singleton(CartNumService),
+        addressService: singleton(AddressService),
+        orderService: singleton(OrderService),
+        globalAddressService: singleton(GlobalAddressService),
+        searchService: SearchService,
+        picturesService: PicturesService,
+        userServer: () => new Server({ baseUrl: API_URL + '/user_server' }),
+        marketServer: () => new Server({ baseUrl: API_URL + '/market_server' }),
+        tradeServer: () => new Server({ baseUrl: API_URL + '/trade_server' }),
+        baseServer: () => new Server({ baseUrl: API_URL + '/base_server' }),
     }
-
-    @singleton
-    get cartNumService() {
-        return new CartNumService();
-    }
-
-    @singleton
-    get addressService() {
-        return new AddressService();
-    }
-
-    @singleton
-    get globalAddressService() {
-        return new GlobalAddressService();
-    }
-
-    @singleton
-    get orderService() {
-        return new OrderService();
-    }
-
-    get searchService() {
-        return new SearchService();
-    }
-}
+});
 
 export { AppConfiguration };

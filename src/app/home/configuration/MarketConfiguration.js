@@ -2,15 +2,9 @@ import { configuration } from "snowball/app";
 import PageViewService from "../services/PageViewService";
 import PageService from "../services/PageService";
 
-@configuration
-class MarketConfiguration {
-    get pageService() {
-        return new PageService();
+export const MarketConfiguration = configuration({
+    modules: {
+        pageService: PageService,
+        pageViewService: PageViewService
     }
-
-    get pageViewService() {
-        return new PageViewService();
-    }
-}
-
-export { MarketConfiguration };
+});

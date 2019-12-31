@@ -1,16 +1,11 @@
 import { configuration } from "snowball/app";
-import CategoryService from "../../../shared/services/CategoryService";
+
+import CategoryService from "../services/CategoryService";
 import CategoryViewService from "../services/CategoryViewService";
 
-@configuration
-class CategoryConfiguration {
-    get categoryService() {
-        return new CategoryService();
+export const CategoryConfiguration = configuration({
+    modules: {
+        categoryService: CategoryService,
+        categoryViewService: CategoryViewService
     }
-
-    get categoryViewService() {
-        return new CategoryViewService();
-    }
-}
-
-export { CategoryConfiguration };
+});

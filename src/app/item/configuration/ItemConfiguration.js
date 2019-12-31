@@ -5,19 +5,11 @@ import ProductService from "../../../shared/services/ProductService";
 import ItemService from "../services/ItemService";
 import ItemShopService from "../services/ItemShopService";
 
-@configuration([AddressConfiguration])
-class ItemConfiguration {
-    get productService() {
-        return new ProductService();
+export const ItemConfiguration = configuration({
+    imports: [AddressConfiguration],
+    modules: {
+        productService: ProductService,
+        itemShopService: ItemShopService,
+        itemService: ItemService
     }
-
-    get itemShopService() {
-        return new ItemShopService();
-    }
-
-    get itemService() {
-        return new ItemService();
-    }
-}
-
-export { ItemConfiguration };
+});

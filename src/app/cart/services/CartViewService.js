@@ -1,6 +1,7 @@
 import { observable, util } from "snowball";
-import { Service } from "snowball/app";
+import { Service, autowired } from "snowball/app";
 import { toast } from "snowball/widget";
+import CartService from "../../../shared/services/CartService";
 
 export default class CartViewService extends Service {
     @observable sellers = [];
@@ -9,8 +10,6 @@ export default class CartViewService extends Service {
     @observable amount = 0;
     @observable selectedCount = 0;
 
-    onInit = this.ctx.createEvent();
-
     onSelectSku = this.ctx.createEvent();
     onSelectSeller = this.ctx.createEvent();
     onSelectAll = this.ctx.createEvent();
@@ -18,14 +17,14 @@ export default class CartViewService extends Service {
 
     onCheckout = this.ctx.createEvent();
 
+    @autowired
+    cartService: CartService;
 
-    constructor(cartService, cartNumService) {
+    @autowired
+    cartNumService;
+
+    constructor() {
         super();
-
-        this.cartService = cartService;
-        this.cartNumService = cartNumService;
-
-        this.onInit.once(() => this.loadUserCart());
 
         this.onSelectSku((item) => this.selectItem(item));
         this.onSelectSeller((sellerId) => this.selectSeller(sellerId));
@@ -35,9 +34,10 @@ export default class CartViewService extends Service {
         this.onCheckout(() => this.checkout());
     }
 
-    loadUserCart() {
-        this.cartService.listUserCart()
-            .then(this._syncDataFromRemoteResult);
+    async loadUserCart() {
+        const res = await this.cartService.listUserCart();
+        this._syncDataFromRemoteResult(res);
+        return res;
     }
 
     _syncDataFromRemoteResult = (res) => {

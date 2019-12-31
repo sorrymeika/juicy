@@ -1,11 +1,11 @@
 import React from 'react';
-import { inject } from 'snowball/app';
+import { inject, autowired } from 'snowball/app';
 
 function Detail({ detailHtml }) {
     return (
         <div
             className="it_detail"
-            item-scroll-mark="detail"
+            item-component-name="detail"
         >
             <div className="it_detail_tit ta_c flex"><p className="fx_1 bd_b"></p><p className="tit">商品详情</p><p className="fx_1 bd_b"></p></div>
             <div
@@ -18,10 +18,9 @@ function Detail({ detailHtml }) {
     );
 }
 
-export default inject(({ itemService }) => (
-    itemService
-        ? {
-            detailHtml: itemService.detailHtml
-        }
-        : null
-))(Detail);
+export default inject((props) => {
+    const itemService = autowired('itemService');
+    return {
+        detailHtml: itemService.detailHtml
+    };
+})(Detail);

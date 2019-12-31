@@ -1,20 +1,23 @@
-import { Service } from "snowball/app";
+import { Service, autowired } from "snowball/app";
 
 export default class PageService extends Service {
+    @autowired
+    _marketServer;
+
     getPageByKeyName(keyName) {
-        return this.app.server.market.post("/page/getPageByKeyName", {
+        return this._marketServer.post("/page/getPageByKeyName", {
             keyName
         });
     }
 
     getPageById(pageId) {
-        return this.app.server.market.post("/page/getPageById", {
+        return this._marketServer.post("/page/getPageById", {
             pageId
         });
     }
 
     getPageBySellerId(sellerId) {
-        return this.app.server.market.post("/page/getPageBySellerId", {
+        return this._marketServer.post("/page/getPageBySellerId", {
             sellerId
         });
     }

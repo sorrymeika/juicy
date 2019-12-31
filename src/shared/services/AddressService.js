@@ -1,51 +1,57 @@
-import { Service } from "snowball/app";
+import { Service, autowired } from "snowball/app";
 
 export default class AddressService extends Service {
+    @autowired
+    _userServer;
+
+    @autowired
+    _baseServer;
+
     getProvinces() {
-        return this.app.server.base.post('/address/getProvinces');
+        return this._baseServer.post('/address/getProvinces');
     }
 
     getCitiesByProvinceId(provinceId) {
-        return this.app.server.base.post('/address/getCitiesByProvinceId', {
+        return this._baseServer.post('/address/getCitiesByProvinceId', {
             provinceId
         });
     }
 
     getDistrictsByCityId(cityId) {
-        return this.app.server.base.post('/address/getDistrictsByCityId', {
+        return this._baseServer.post('/address/getDistrictsByCityId', {
             cityId
         });
     }
 
     getCitiesByProvinceCode(provinceCode) {
-        return this.app.server.base.post('/address/getCitiesByProvinceCode', {
+        return this._baseServer.post('/address/getCitiesByProvinceCode', {
             provinceCode
         });
     }
 
     getDistrictsByCityCode(cityCode) {
-        return this.app.server.base.post('/address/getDistrictsByCityCode', {
+        return this._baseServer.post('/address/getDistrictsByCityCode', {
             cityCode
         });
     }
 
     addUserAddress(data) {
-        return this.app.server.user.post('/userAddress/addUserAddress', data);
+        return this._userServer.post('/userAddress/addUserAddress', data);
     }
 
     updateUserAddress(data) {
-        return this.app.server.user.post('/userAddress/updateUserAddress', data);
+        return this._userServer.post('/userAddress/updateUserAddress', data);
     }
 
     listUserAddress() {
-        return this.app.server.user.post('/userAddress/listUserAddress');
+        return this._userServer.post('/userAddress/listUserAddress');
     }
 
     getDefaultAddress() {
-        return this.app.server.user.post('/userAddress/getDefaultAddress');
+        return this._userServer.post('/userAddress/getDefaultAddress');
     }
 
     getUserAddressById(addressId) {
-        return this.app.server.user.post('/userAddress/getUserAddressById', { addressId });
+        return this._userServer.post('/userAddress/getUserAddressById', { addressId });
     }
 }

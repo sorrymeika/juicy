@@ -1,16 +1,15 @@
-import { controller } from "snowball/app";
+import { controller, autowired } from "snowball/app";
 import OrderInfoService from "../services/OrderInfoService";
 import OrderInfo from "../containers/OrderInfo";
 
 @controller(OrderInfo)
 class OrderInfoController {
-    orderInfoService;
+
+    @autowired
+    orderInfoService: OrderInfoService;
 
     constructor(props) {
         this.sellerOrderId = Number(props.location.params.sellerOrderId);
-        this.orderInfoService = new OrderInfoService(
-            this.ctx.service.order,
-        );
     }
 
     onInit() {

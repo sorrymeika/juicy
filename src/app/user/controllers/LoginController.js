@@ -3,7 +3,9 @@ import Login from "../containers/Login";
 import LoginService from "../services/LoginService";
 // import { request } from "./jkGateway";
 
-@controller(Login)
+@controller({
+    component: Login
+})
 class LoginController {
     loginService: LoginService;
 

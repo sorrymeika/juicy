@@ -4,19 +4,12 @@ import DistrictSelectService from "../services/DistrictSelectService";
 import AddressSelectService from "../services/AddressSelectService";
 import AddressEditService from "../services/AddressEditService";
 
-@configuration
-class AddressConfiguration {
-    get districtSelectService() {
-        return new DistrictSelectService();
+const AddressConfiguration = configuration({
+    modules: {
+        districtSelectService: DistrictSelectService,
+        addressSelectService: AddressSelectService,
+        addressEditService: AddressEditService
     }
-
-    get addressSelectService() {
-        return new AddressSelectService();
-    }
-
-    get addressEditService() {
-        return new AddressEditService();
-    }
-}
+});
 
 export { AddressConfiguration };

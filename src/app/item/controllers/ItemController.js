@@ -42,8 +42,6 @@ class ItemController {
 
     constructor(props) {
         this.spuId = Number(props.location.params.id);
-
-        console.log(this.addressSelectService === this.itemService.addressSelectService);
     }
 
     onInit() {

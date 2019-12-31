@@ -43,10 +43,8 @@ function LoginForm({ onSubmit }) {
     );
 }
 
-export default inject(({ loginService }) => (
-    loginService
-        ? {
-            onSubmit: loginService.onSubmit.emit
-        }
-        : null
-))(LoginForm);
+export default inject(['loginService'], ([loginService]) => {
+    return {
+        onSubmit: loginService.onSubmit.emit
+    };
+})(LoginForm);

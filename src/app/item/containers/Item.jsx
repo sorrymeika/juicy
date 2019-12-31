@@ -1,6 +1,6 @@
 import React from 'react';
-import { MainScrollView, Header } from 'snowball/components';
-import Pictures from '../components/Pictures';
+import { MainScrollView } from 'snowball/components';
+import { Pictures } from '../../../shared/components';
 import Money from '../components/Money';
 import Title from '../components/Title';
 import Coupon from '../components/Coupon';
@@ -16,34 +16,12 @@ import ShopRecommends from '../components/ShopRecommends';
 import Detail from '../components/Detail';
 import Footer from '../components/Footer';
 import { inject } from 'snowball/app';
+import ItemHeader from '../components/ItemHeader';
 
-function Item({ headerVisible, scrollPos, mainScrollViewRef, onScroll, onScrollToComponent }) {
+function Item({ mainScrollViewRef, onScroll }) {
     return (
         <div>
-            <Header
-                className={"app-header-transparent it_header" + (headerVisible ? ' show' : '')}
-                buttons={
-                    <>
-                        <button className="iconfont icon-share"></button>
-                    </>
-                }
-            >
-                <ul className="it_header_tabs flex">
-                    <li
-                        className={scrollPos == 'basic' ? " curr" : ''}
-                        onClick={() => onScrollToComponent('basic')}
-                    >商品</li>
-                    <li
-                        className={scrollPos == 'detail' ? " curr" : ''}
-                        onClick={() => onScrollToComponent('detail')}
-                    >详情</li>
-                    <li
-                        className={scrollPos == 'comment' ? " curr" : ''}
-                        onClick={() => onScrollToComponent('comment')}
-                    >评价</li>
-                    <li className={"cursor cursor_" + scrollPos}></li>
-                </ul>
-            </Header>
+            <ItemHeader />
             <Footer></Footer>
             <MainScrollView
                 ref={mainScrollViewRef}
@@ -71,10 +49,7 @@ function Item({ headerVisible, scrollPos, mainScrollViewRef, onScroll, onScrollT
 
 export default inject(({ itemService }) => {
     return {
-        scrollPos: itemService.scrollPos,
-        headerVisible: itemService.headerVisible,
-        onScroll: itemService.onScroll.emit,
-        onScrollToComponent: itemService.onScrollToComponent.emit,
-        mainScrollViewRef: itemService.mainScrollViewRef
+        mainScrollViewRef: itemService.mainScrollViewRef,
+        onScroll: itemService.onScroll,
     };
 })(Item);

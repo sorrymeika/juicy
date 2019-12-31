@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import { $, util, ViewModel } from 'snowball';
-import { inject } from 'snowball/app';
+import { inject, autowired } from 'snowball/app';
 import { PhotoViewer } from "snowball/components";
+import PicturesService from './PicturesService';
 
 type PicturesProps = {
     pictures: string[],
-    onRelease?: () => any
+    onReleaseToSeeMore?: () => any
 };
 
 class Pictures extends Component<PicturesProps, any> {
@@ -89,16 +90,15 @@ class Pictures extends Component<PicturesProps, any> {
                 });
 
                 if (this.right < -60) {
-                    this.props.onRelease && this.props.onRelease();
-                    this.scrollToDetail();
+                    this.onReleaseToSeeMore();
                 }
                 e.stopPropagation();
             }
         };
     }
 
-    scrollToDetail() {
-        this.props.onScrollToComponent('detail');
+    onReleaseToSeeMore() {
+        this.props.onReleaseToSeeMore && this.props.onReleaseToSeeMore();
     }
 
     showPhotoViewer = () => {
@@ -132,7 +132,7 @@ class Pictures extends Component<PicturesProps, any> {
                 onBounceBack(distance) {
                     if (distance > 70) {
                         PhotoViewer.hide();
-                        self.scrollToDetail();
+                        self.onReleaseToSeeMore();
                     }
                 }
             }
@@ -141,7 +141,7 @@ class Pictures extends Component<PicturesProps, any> {
     }
 
     render() {
-        const { pictures } = this.props;
+        const { pictures = [] } = this.props;
 
         return (
             <div
@@ -149,7 +149,7 @@ class Pictures extends Component<PicturesProps, any> {
                 onTouchStart={this.touchStart}
                 onTouchMove={this.touchMove}
                 onTouchEnd={this.touchEnd}
-                item-scroll-mark="basic"
+                item-component-name="basic"
             >
                 {
                     pictures.length
@@ -185,12 +185,10 @@ class Pictures extends Component<PicturesProps, any> {
     }
 }
 
-export default inject(({
-    itemService,
-    ctx
-}) => {
+export default inject((props) => {
+    const picturesService: PicturesService = autowired('picturesService');
     return {
-        onScrollToComponent: itemService.onScrollToComponent.emit,
-        pictures: itemService.item.pictures ? itemService.item.pictures.split(',').map((img) => ctx.app.sfs.completeUrl(img)) : [],
+        pictures: picturesService.pictures,
+        onReleaseToSeeMore: picturesService.onReleaseToSeeMore
     };
 })(Pictures);

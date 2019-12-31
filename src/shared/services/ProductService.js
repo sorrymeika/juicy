@@ -1,20 +1,23 @@
-import { Service } from "snowball/app";
+import { Service, autowired } from "snowball/app";
 
 class ProductService extends Service {
+    @autowired
+    _tradeServer;
+
     getProductById(spuId) {
-        return this.app.server.trade.post('/product/getProductById', {
+        return this._tradeServer.post('/product/getProductById', {
             id: spuId
         });
     }
 
     getDetailById(spuId) {
-        return this.app.server.trade.post('/product/getDetailById', {
+        return this._tradeServer.post('/product/getDetailById', {
             id: spuId
         });
     }
 
     getSpusByIds(spuIds) {
-        return this.app.server.trade.post('/product/getSpusByIds', {
+        return this._tradeServer.post('/product/getSpusByIds', {
             spuIds
         });
     }

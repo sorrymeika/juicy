@@ -1,7 +1,7 @@
 import { observable } from "snowball";
 import { Service, autowired } from "snowball/app";
 
-import CategoryService from "../../../shared/services/CategoryService";
+import CategoryService from "./CategoryService";
 import { toast } from "snowball/widget";
 
 export default class CategoryViewService extends Service {
