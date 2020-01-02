@@ -1,6 +1,6 @@
 import { controller, autowired } from "snowball/app";
-import OrderInfoService from "../services/OrderInfoService";
-import OrderInfo from "../containers/OrderInfo";
+import OrderInfoService from "./OrderInfoService";
+import OrderInfo from "./OrderInfo";
 
 @controller(OrderInfo)
 class OrderInfoController {

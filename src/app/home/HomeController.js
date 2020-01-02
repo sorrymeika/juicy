@@ -1,14 +1,14 @@
 import { controller, autowired } from "snowball/app";
 
-import CategoryViewService from "../../category/services/CategoryViewService";
+import CategoryViewService from "../category/services/CategoryViewService";
 
-import CartViewService from "../../cart/services/CartViewService";
-import UserCenterService from "../../user/services/UserCenterService";
+import CartViewService from "../cart/CartViewService";
+import UserCenterService from "../user/services/UserCenterService";
 
-import PageViewController from "./PageViewController";
+import PageViewController from "../brick/PageViewController";
 
-import Home from "../containers/Home";
-import { HomeConfiguration } from "../configuration/HomeConfiguration";
+import Home from "./Home";
+import { HomeConfiguration } from "./HomeConfiguration";
 
 @controller({
     component: Home,

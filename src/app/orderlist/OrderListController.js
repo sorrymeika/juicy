@@ -1,6 +1,6 @@
 import { controller } from "snowball/app";
-import OrderListService from "../services/OrderListService";
-import OrderList from "../containers/OrderList";
+import OrderListService from "./OrderListService";
+import OrderList from "./containers/OrderList";
 
 @controller(OrderList)
 class OrderListController {

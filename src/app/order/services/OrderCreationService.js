@@ -10,8 +10,8 @@ export default class OrderCreationService extends Service {
     @observable totalAmount = 0;
     @observable totalPostFee = 0;
 
-    onSubmit = this.ctx.createEvent();
-    onNoteChange = this.ctx.createEvent();
+    onSubmit = this.ctx.createEmitter();
+    onNoteChange = this.ctx.createEmitter();
 
     @observable orderAddress;
 

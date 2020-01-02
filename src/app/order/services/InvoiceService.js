@@ -9,16 +9,16 @@ export default class InvoiceService extends Service {
 
     @observable data = {};
 
-    onFieldChange = this.ctx.createEvent();
-    onShowInvoiceSelector = this.ctx.createEvent();
+    onFieldChange = this.ctx.createEmitter();
+    onShowInvoiceSelector = this.ctx.createEmitter();
 
     @observable isInvoiceSelectorVisible = false;
     @observable invoiceList = [];
-    onCloseInvoiceSelector = this.ctx.createEvent();
-    onSelectInvoice = this.ctx.createEvent();
+    onCloseInvoiceSelector = this.ctx.createEmitter();
+    onSelectInvoice = this.ctx.createEmitter();
 
-    onInit = this.ctx.createEvent();
-    onConfirm = this.ctx.createEvent();
+    onInit = this.ctx.createEmitter();
+    onConfirm = this.ctx.createEmitter();
 
     @autowired
     userService: UserService

@@ -1,11 +1,11 @@
 import { controller } from "snowball/app";
-import Market from "../containers/Market";
-import PageViewController from "./PageViewController";
-import { MarketConfiguration } from "../configuration/MarketConfiguration";
+import Market from "./Market";
+import PageViewController from "../brick/PageViewController";
+import { PageConfiguration } from "../brick/PageConfiguration";
 
 @controller({
     component: Market,
-    configuration: MarketConfiguration
+    configuration: PageConfiguration
 })
 class MarketController extends PageViewController {
     constructor(props, context) {

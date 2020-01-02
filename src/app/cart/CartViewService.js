@@ -1,7 +1,7 @@
 import { observable, util } from "snowball";
 import { Service, autowired } from "snowball/app";
 import { toast } from "snowball/widget";
-import CartService from "../../../shared/services/CartService";
+import CartService from "../../shared/services/CartService";
 
 export default class CartViewService extends Service {
     @observable sellers = [];
@@ -9,13 +9,6 @@ export default class CartViewService extends Service {
     @observable total = 0;
     @observable amount = 0;
     @observable selectedCount = 0;
-
-    onSelectSku = this.ctx.createEvent();
-    onSelectSeller = this.ctx.createEvent();
-    onSelectAll = this.ctx.createEvent();
-    onCartNumChange = this.ctx.createEvent();
-
-    onCheckout = this.ctx.createEvent();
 
     @autowired
     cartService: CartService;
@@ -26,12 +19,17 @@ export default class CartViewService extends Service {
     constructor() {
         super();
 
-        this.onSelectSku((item) => this.selectItem(item));
-        this.onSelectSeller((sellerId) => this.selectSeller(sellerId));
-        this.onSelectAll((selected) => this.selectAll(selected));
-        this.onCartNumChange((item) => this.changeCartNum(item));
+        this.onSelectSku = this.ctx.createEmitter((item) => this.selectItem(item));
+        this.onSelectSeller = this.ctx.createEmitter((sellerId) => this.selectSeller(sellerId));
+        this.onSelectAll = this.ctx.createEmitter((selected) => this.selectAll(selected));
 
-        this.onCheckout(() => this.checkout());
+        this.onCartNumChange = this.ctx.createEmitter((item) =>
+            this.changeCartNum(item)
+        );
+
+        this.onCheckout = this.ctx.createEmitter(() =>
+            this.checkout()
+        );
     }
 
     async loadUserCart() {

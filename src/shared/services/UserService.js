@@ -1,4 +1,4 @@
-import { observable, createEmitter } from "snowball";
+import { observable, Emitter } from "snowball";
 import { Service, autowired } from "snowball/app";
 
 export default class UserService extends Service {
@@ -7,7 +7,7 @@ export default class UserService extends Service {
     @autowired
     _userServer;
 
-    onLoginStatusChange = createEmitter();
+    onLoginStatusChange = Emitter.create();
 
     loadUserInfo(options) {
         return this.getUserInfo(options)
@@ -19,18 +19,22 @@ export default class UserService extends Service {
 
     goToLogin(events) {
         if (events) {
-            this.onLoginStatusChange.once(({ status }) => {
+            const dispose = this.onLoginStatusChange(({ status }) => {
                 switch (status) {
                     case 'success':
                         events.onLogin && events.onLogin();
+                        dispose();
                         break;
                     case 'cancel':
-                        events.onCancelLogin && events.onCancelLogin();
+                        events.onCancel && events.onCancel();
+                        dispose();
+                        break;
+                    case 'error':
+                        events.onError && events.onError();
                         break;
                 }
             });
         }
-
         this.app.navigation.forward('/login');
     }
 

@@ -9,11 +9,6 @@ export default class AddressSelectService extends Service {
     @observable addressList = [];
     @observable currentAddress;
 
-    onBack = this.ctx.createEvent();
-    onCancel = this.ctx.createEvent();
-    onSelectAddress = this.ctx.createEvent();
-    onToSelectOtherArea = this.ctx.createEvent();
-
     @autowired
     globalAddressService: GlobalAddressService;
 
@@ -26,20 +21,24 @@ export default class AddressSelectService extends Service {
     constructor() {
         super();
 
-        this.currentAddress = this.globalAddressService.current;
+        this.ctx.autorun(() => {
+            this.currentAddress = this.globalAddressService.current;
+        });
 
-        this.onCancel(() => {
+        this.onCancel = this.ctx.createEmitter(() => {
             this.visible = false;
             this.districtSelectService.visible = false;
         });
 
-        this.onBack(() => {
+        this.onBack = this.ctx.createEmitter(() => {
             this.districtSelectService.hide();
         });
 
-        this.onSelectAddress((address) => this.selectAddress(address));
+        this.onSelectAddress = this.ctx.createEmitter((address) =>
+            this.selectAddress(address)
+        );
 
-        this.onToSelectOtherArea(() => {
+        this.onToSelectOtherArea = this.ctx.createEmitter(() => {
             this.districtSelectService.show();
         });
 
@@ -49,10 +48,6 @@ export default class AddressSelectService extends Service {
                 ...city,
                 ...district
             });
-        });
-
-        this.globalAddressService.onAddressChange((address) => {
-            this.currentAddress = address;
         });
     }
 

@@ -1,5 +1,5 @@
 import { observable } from "snowball";
-import { Service } from "snowball/app";
+import { Service, autowired, param } from "snowball/app";
 import SellerService from "../../../shared/services/SellerService";
 import SearchService from "../../../shared/services/SearchService";
 import { toast } from "snowball/widget";
@@ -16,21 +16,22 @@ export default class ShopSearchService extends Service {
     pageIndex = 1;
     pageSize = 20
 
-    onSetSort = this.ctx.createEvent();
-    onGotoItem = this.ctx.createEvent();
-    onScrollToBottom = this.ctx.createEvent();
-    onToggleListType = this.ctx.createEvent();
+    onSetSort = this.ctx.createEmitter();
+    onGotoItem = this.ctx.createEmitter();
+    onScrollToBottom = this.ctx.createEmitter();
+    onToggleListType = this.ctx.createEmitter();
 
-    constructor(
-        sellerId,
-        sellerService: SellerService,
-        searchService: SearchService
-    ) {
+    @param
+    sellerId: number;
+
+    @autowired
+    sellerService: SellerService;
+
+    @autowired
+    searchService: SearchService;
+
+    constructor() {
         super();
-
-        this.sellerId = sellerId;
-        this.sellerService = sellerService;
-        this.searchService = searchService;
 
         this.onSetSort((orderBy) => {
             this.orderBy = orderBy;
@@ -47,6 +48,10 @@ export default class ShopSearchService extends Service {
         });
 
         this.onScrollToBottom(() => this.loadNextPage());
+    }
+
+    setSellerId(sellerId) {
+        this.sellerId = sellerId;
     }
 
     search({ keywords } = {}) {

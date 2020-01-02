@@ -5,10 +5,6 @@ import { toast } from "snowball/widget";
 export default class AddressEditService extends Service {
     @observable data = {};
 
-    onFieldChange = this.ctx.createEvent();
-    onClickDistrict = this.ctx.createEvent();
-    onSave = this.ctx.createEvent();
-
     @autowired
     addressService;
 
@@ -17,10 +13,6 @@ export default class AddressEditService extends Service {
 
     constructor() {
         super();
-
-        this.onClickDistrict(() => this.showDistrictSelectModal());
-
-        this.onFieldChange(({ name, value }) => this.updateField(name, value));
 
         this.districtSelectService.onSelect(([province, city, district]) => {
             this.data.withMutations((data) => {
@@ -33,7 +25,7 @@ export default class AddressEditService extends Service {
             this.districtSelectService.hide();
         });
 
-        this.onSave(() => this.save());
+        this.onSave = this.ctx.createEmitter(() => this.save());
     }
 
     showDistrictSelectModal() {

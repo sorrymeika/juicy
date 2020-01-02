@@ -7,7 +7,7 @@ import { Sfs, appExtentions } from "sn-app";
 
 import * as appEnv from "./env";
 import router from "./app/router";
-import { AppConfiguration } from "./AppConfiguration";
+import { AppConfiguration } from "./shared/AppConfiguration";
 
 const env = {
     ...mainEnv,

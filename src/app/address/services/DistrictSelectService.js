@@ -17,14 +17,13 @@ export default class DistrictSelectService extends Service {
 
     @observable currentTab = 0;
 
-    onInit = this.ctx.createEvent();
-    onLoad = this.ctx.createEvent();
-    onCancel = this.ctx.createEvent();
-    onTabChange = this.ctx.createEvent();
-    onProvinceChange = this.ctx.createEvent();
-    onCityChange = this.ctx.createEvent();
-    onDistrictChange = this.ctx.createEvent();
-    onSelect = this.ctx.createEvent();
+    onLoad = this.ctx.createEmitter();
+    onCancel = this.ctx.createEmitter();
+    onTabChange = this.ctx.createEmitter();
+    onProvinceChange = this.ctx.createEmitter();
+    onCityChange = this.ctx.createEmitter();
+    onDistrictChange = this.ctx.createEmitter();
+    onSelect = this.ctx.createEmitter();
 
     @autowired
     addressService: AddressService;
@@ -32,6 +31,7 @@ export default class DistrictSelectService extends Service {
     constructor() {
         super();
 
+        this.onInit = this.ctx.createEmitter();
         this.onInit.once(() => this.init());
 
         this.onTabChange((tab) => {

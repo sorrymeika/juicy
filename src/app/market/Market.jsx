@@ -1,6 +1,6 @@
 import React from "react";
 import { MainScrollView } from "snowball/components";
-import { renderBricks } from "../../brick";
+import { renderBricks } from "../brick";
 
 function Market({ pageData, bricks, ctx }) {
     return (

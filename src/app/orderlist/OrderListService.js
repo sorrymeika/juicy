@@ -11,7 +11,7 @@ export default class OrderListService extends Service {
     pageSize = 10;
     total = 0;
 
-    onInit = this.ctx.createEvent();
+    onInit = this.ctx.createEmitter();
 
     constructor(orderService) {
         super();

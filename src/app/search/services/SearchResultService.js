@@ -5,12 +5,12 @@ import { ORDER_BY } from "../../../shared/services/SearchService";
 export default class SearchResultService extends Service {
     @observable orderBy = ORDER_BY.DEFAULT;
     @observable isMoreSortOpened = false;
-    onOpenMoreSort = this.ctx.createEvent();
-    onHideMoreSort = this.ctx.createEvent();
-    onSetSort = this.ctx.createEvent();
+    onOpenMoreSort = this.ctx.createEmitter();
+    onHideMoreSort = this.ctx.createEmitter();
+    onSetSort = this.ctx.createEmitter();
 
     @observable listType = 'list';
-    onToggleListType = this.ctx.createEvent();
+    onToggleListType = this.ctx.createEmitter();
 
     @observable results = [];
     @observable isNoMoreData = false;
@@ -20,9 +20,9 @@ export default class SearchResultService extends Service {
     pageIndex = 1;
     pageSize = 20;
 
-    onScrollToBottom = this.ctx.createEvent();
-    onGoToSearch = this.ctx.createEvent();
-    onGotoItem = this.ctx.createEvent();
+    onScrollToBottom = this.ctx.createEmitter();
+    onGoToSearch = this.ctx.createEmitter();
+    onGotoItem = this.ctx.createEmitter();
 
     constructor(searchService) {
         super();

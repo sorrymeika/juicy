@@ -1,6 +1,6 @@
 import { controller } from "snowball/app";
-import Test from "../containers/Test";
-import PageViewController from "./PageViewController";
+import Test from "./Test";
+import PageViewController from "../brick/PageViewController";
 
 @controller(Test)
 class TestController extends PageViewController {

@@ -1,5 +1,5 @@
 import { observable } from "snowball";
-import { Service } from "snowball/app";
+import { Service, autowired, param } from "snowball/app";
 import SellerService from "../../../shared/services/SellerService";
 import ShopSearchService from "./ShopSearchService";
 
@@ -10,13 +10,20 @@ const TABS = {
 };
 
 export default class ShopService extends Service {
-    @observable seller = {};
+    @observable
+    seller = {};
 
-    @observable currentTab = TABS.SHOP;
+    @observable
+    currentTab = TABS.SHOP;
 
-    @observable products = [];
-    @observable isNoMoreData = false;
-    @observable loading = true;
+    @observable
+    products = [];
+
+    @observable
+    isNoMoreData = false;
+
+    @observable
+    loading = true;
 
     isProductsLoaded = false;
 
@@ -24,29 +31,28 @@ export default class ShopService extends Service {
     pageIndex = 1;
     pageSize = 20
 
-    @observable tabIndex = 0;
-    onTabChange = this.ctx.createEvent();
+    @param('tab')
+    _tabIndex;
 
-    constructor(
-        sellerService: SellerService,
-        shopSearchService: ShopSearchService,
-        {
-            tabIndex
-        }
-    ) {
+    @observable
+    tabIndex = this._tabIndex;
+
+    @autowired
+    sellerService: SellerService;
+
+    @autowired
+    shopSearchService: ShopSearchService;
+
+    constructor() {
         super();
-
-        this.tabIndex = tabIndex;
-        this.sellerService = sellerService;
-        this.shopSearchService = shopSearchService;
 
         this.ctx.autorun(() => {
             this.shopSearchService.seller = this.seller;
         });
 
-        this.onTabChange((tabIndex) => {
+        this.onTabChange = this.ctx.createEmitter(((tabIndex) => {
             this.setTabIndex(tabIndex);
-        });
+        }));
     }
 
     setTabIndex(tabIndex) {

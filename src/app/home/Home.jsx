@@ -1,10 +1,10 @@
 import React from "react";
 import { MainScrollView } from "snowball/components";
-import { renderBricks } from "../../brick";
-import HomeFooter from "../components/HomeFooter";
-import Cart from "../../cart/containers/Cart";
-import UserCenter from "../../user/containers/UserCenter";
-import Category from "../../category/containers/Category";
+import { renderBricks } from "../brick";
+import HomeFooter from "./components/HomeFooter";
+import Cart from "../cart/Cart";
+import UserCenter from "../user/containers/UserCenter";
+import Category from "../category/containers/Category";
 
 function Home({
     ctx,

@@ -6,8 +6,8 @@ export default class SettingService extends Service {
         return this.userService.userInfo;
     }
 
-    onInit = this.ctx.createEvent();
-    onGoToEdit = this.ctx.createEvent();
+    onInit = this.ctx.createEmitter();
+    onGoToEdit = this.ctx.createEmitter();
 
     constructor() {
         super();

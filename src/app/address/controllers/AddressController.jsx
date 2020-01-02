@@ -14,10 +14,6 @@ class AddressController {
     @autowired
     addressEditService: AddressEditService;
 
-    get data() {
-        return this.addressEditService.data;
-    }
-
     constructor(props) {
         this.addressId = Number(props.location.query.id) || 0;
     }
@@ -31,16 +27,8 @@ class AddressController {
         }
     }
 
-    onFieldChange(field, value) {
-        this.addressEditService.onFieldChange.emit({ name: field, value });
-    }
-
-    onClickDistrict() {
-        return this.addressEditService.onClickDistrict.emit();
-    }
-
     onSave() {
-        return this.addressEditService.onSave.emit();
+        return this.addressEditService.onSave();
     }
 
     saveAddress() {

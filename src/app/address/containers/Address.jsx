@@ -1,8 +1,12 @@
 import React from 'react';
+import { inject } from 'snowball/app';
 import { Header, MainScrollView, Switch } from 'snowball/components';
+
+import AddressEditService from '../services/AddressEditService';
+
 import DistrictSelect from '../components/DistrictSelect';
 
-export default function Address({
+function Address({
     data = {},
     onClickDistrict,
     onFieldChange,
@@ -76,3 +80,17 @@ export default function Address({
         </div>
     );
 }
+
+export default inject(['addressEditService'], ([addressEditService]: [AddressEditService]) => {
+
+    return {
+        data: addressEditService.data,
+        onFieldChange(name, value) {
+            addressEditService.updateField(name, value);
+        },
+        onClickDistrict() {
+            addressEditService.showDistrictSelectModal();
+        },
+        onSave: addressEditService.onSave
+    };
+})(Address);

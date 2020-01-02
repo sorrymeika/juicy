@@ -4,8 +4,8 @@ import { Service } from "snowball/app";
 export default class SearchInputService extends Service {
     @observable keywords = "";
 
-    onChange = this.ctx.createEvent();
-    onSubmit = this.ctx.createEvent();
+    onChange = this.ctx.createEmitter();
+    onSubmit = this.ctx.createEmitter();
 
     constructor(searchService) {
         super();

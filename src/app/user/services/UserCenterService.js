@@ -7,8 +7,8 @@ export default class UserCenterService extends Service {
         return this.userService.userInfo;
     }
 
-    onInit = this.ctx.createEvent();
-    onToSetting = this.ctx.createEvent();
+    onInit = this.ctx.createEmitter();
+    onToSetting = this.ctx.createEmitter();
 
     @autowired
     userService: UserService;

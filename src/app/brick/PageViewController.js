@@ -1,8 +1,8 @@
 import { autowired } from "snowball/app";
-import PageViewService from "../services/PageViewService";
+import PageViewService from "./services/PageViewService";
 
-import ProductService from "../../../shared/services/ProductService";
-import SearchService from "../../../shared/services/SearchService";
+import ProductService from "../../shared/services/ProductService";
+import SearchService from "../../shared/services/SearchService";
 
 class PageViewController {
     @autowired

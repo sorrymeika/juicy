@@ -1,43 +1,36 @@
-import { controller } from "snowball/app";
+import { controller, autowired, param } from "snowball/app";
 import { toast } from "snowball/widget";
 
-import PageViewController from "../../home/controllers/PageViewController";
+import PageViewController from "../../brick/PageViewController";
 import ShopService from "../services/ShopService";
 import Shop from "../containers/Shop";
-import SellerService from "../../../shared/services/SellerService";
 import ShopSearchService from "../services/ShopSearchService";
+import { PageConfiguration } from "../../brick/PageConfiguration";
+import { ShopConfiguration } from "../configuration/ShopConfiguration";
 
-@controller(Shop)
+@controller({
+    component: Shop,
+    configuration: [PageConfiguration, ShopConfiguration]
+})
 class ShopController extends PageViewController {
+    @param
+    _sellerId: number;
+
+    @param('tab')
+    _tabIndex: number;
+
+    @autowired
     shopService: ShopService;
+
+    @autowired
     shopSearchService: ShopSearchService;
 
-    constructor(props, ctx) {
-        super(props, ctx);
-
-        this.tabIndex = Number(props.location.query.tab || 0);
-        this.sellerId = Number(props.location.params.sellerId);
-        this.sellerService = new SellerService();
-        this.shopSearchService = new ShopSearchService(
-            this.sellerId,
-            this.sellerService,
-            this.searchService
-        );
-        this.shopService = new ShopService(
-            this.sellerService,
-            this.shopSearchService,
-            {
-                tabIndex: this.tabIndex,
-            }
-        );
-    }
-
     onInit() {
-        if (this.tabIndex) {
-            this.shopService.setTabIndex(this.tabIndex);
+        if (this._tabIndex) {
+            this.shopService.setTabIndex(this._tabIndex);
         }
 
-        this.pageViewService.initWithShop(this.sellerId)
+        this.pageViewService.initWithShop(this._sellerId)
             .then((res) => {
                 if (!res.seller) {
                     toast.showToast('商户不存在或已注销！');

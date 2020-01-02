@@ -3,11 +3,11 @@ import ReactDOM from "react-dom";
 import { ViewModel } from "snowball";
 import { MainScrollView } from "snowball/components";
 
-import imageHTML from '../mocks/images.html';
-import sliderHTML from '../mocks/slider.html';
-import navBallHTML from '../mocks/nav-ball.html';
-import productsHTML from '../mocks/products.html';
-import { createBrickFactory } from "../../brick";
+import imageHTML from './mocks/images.html';
+import sliderHTML from './mocks/slider.html';
+import navBallHTML from './mocks/nav-ball.html';
+import productsHTML from './mocks/products.html';
+import { createBrickFactory } from "../brick";
 import { Component } from "preact";
 
 let templateId = 0;

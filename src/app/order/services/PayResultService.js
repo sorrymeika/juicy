@@ -5,8 +5,8 @@ export default class PayResultService extends Service {
     @observable orderInfo = {};
     @observable error;
 
-    onGoToOrder = this.ctx.createEvent();
-    onComplete = this.ctx.createEvent();
+    onGoToOrder = this.ctx.createEmitter();
+    onComplete = this.ctx.createEmitter();
 
     constructor(orderService) {
         super();

@@ -8,8 +8,8 @@ export default class CategoryViewService extends Service {
     @observable cates;
     @observable currentCate;
 
-    onCateChange = this.ctx.createEvent();
-    onClickSubSubCate = this.ctx.createEvent();
+    onCateChange = this.ctx.createEmitter();
+    onClickSubSubCate = this.ctx.createEmitter();
 
     @autowired
     categoryService: CategoryService;

@@ -34,8 +34,8 @@ export default class OrderInfoService extends Service {
     @observable orderStatus = {};
     @observable error;
 
-    onToPay = this.ctx.createEvent();
-    onCancelOrder = this.ctx.createEvent();
+    onToPay = this.ctx.createEmitter();
+    onCancelOrder = this.ctx.createEmitter();
 
     constructor(orderService) {
         super();

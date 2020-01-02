@@ -57,25 +57,25 @@ export default class ItemService extends Service {
     }
 
     _registerListeners() {
-        this.onScroll = this.ctx.createEvent(this.createScrollHandler());
+        this.onScroll = this.ctx.createEmitter(this.createScrollHandler());
 
-        this.onPostClick = this.ctx.createEvent(() => {
+        this.onPostClick = this.ctx.createEmitter(() => {
             this.addressSelectService.visible = true;
         });
 
-        this.onClickSpec = this.ctx.createEvent(() => {
+        this.onClickSpec = this.ctx.createEmitter(() => {
             this.isSpecSelectModalVisible = true;
         });
 
-        this.onBuyNumChange = this.ctx.createEvent((num) => {
+        this.onBuyNumChange = this.ctx.createEmitter((num) => {
             this.buyNum = num;
         });
 
-        this.onCancelSelectSpec = this.ctx.createEvent(() => {
+        this.onCancelSelectSpec = this.ctx.createEmitter(() => {
             this.isSpecSelectModalVisible = false;
         });
 
-        this.onAddToCart = this.ctx.createEvent((sku) => {
+        this.onAddToCart = this.ctx.createEmitter((sku) => {
             if (!sku) {
                 if (this.skus.length === 1) {
                     this.addToCart(this.currentSku);
@@ -87,7 +87,7 @@ export default class ItemService extends Service {
             }
         });
 
-        this.onBuyNow = this.ctx.createEvent((sku) => {
+        this.onBuyNow = this.ctx.createEmitter((sku) => {
             if (!sku) {
                 if (this.skus.length === 1) {
                     this.buyNow(this.currentSku);
@@ -99,7 +99,7 @@ export default class ItemService extends Service {
             }
         });
 
-        this.onCancelSkuSelect = this.ctx.createEvent(() => {
+        this.onCancelSkuSelect = this.ctx.createEmitter(() => {
             this.skuSelectMode = SKU_SELECT_MODE.NONE;
         });
     }

@@ -1,10 +1,10 @@
 import React from 'react';
 import { Header, MainScrollView } from 'snowball/components';
 import { inject } from 'snowball/app';
-import OrderAddress from '../components/OrderAddress';
-import SellerOrderListItem from '../components/SellerOrderListItem';
+import OrderAddress from './components/OrderAddress';
+import SellerOrderListItem from './components/SellerOrderListItem';
 import { util } from 'snowball';
-import OrderInfoFooter from '../components/OrderInfoFooter';
+import OrderInfoFooter from './components/OrderInfoFooter';
 
 
 function OrderInfo({ orderStatus, orderInfo }) {

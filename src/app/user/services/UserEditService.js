@@ -5,9 +5,9 @@ import { toast } from "snowball/widget";
 export default class UserEditService extends Service {
     @observable userInfo = {};
 
-    onInit = this.ctx.createEvent();
-    onFieldChange = this.ctx.createEvent();
-    onSave = this.ctx.createEvent();
+    onInit = this.ctx.createEmitter();
+    onFieldChange = this.ctx.createEmitter();
+    onSave = this.ctx.createEmitter();
 
     constructor() {
         super();

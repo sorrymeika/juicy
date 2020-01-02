@@ -7,8 +7,8 @@ export default class OrderPayService extends Service {
     @observable error;
     @observable currentPayType = 1;
 
-    onPayTypeChange = this.ctx.createEvent();
-    onPay = this.ctx.createEvent();
+    onPayTypeChange = this.ctx.createEmitter();
+    onPay = this.ctx.createEmitter();
 
     constructor(orderService) {
         super();

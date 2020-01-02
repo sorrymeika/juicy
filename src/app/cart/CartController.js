@@ -1,7 +1,7 @@
 import { controller, autowired } from "snowball/app";
-import Cart from "../containers/Cart";
-import CartViewService from "../services/CartViewService";
-import { CartConfiguration } from "../configuration/CartConfiguration";
+import Cart from "./Cart";
+import CartViewService from "./CartViewService";
+import { CartConfiguration } from "./CartConfiguration";
 
 @controller({
     component: Cart,
@@ -12,7 +12,7 @@ class CartController {
     cartViewService: CartViewService;
 
     constructor() {
-        this._resumeListener = this.ctx.delegate(this.page, 'resume', () => {
+        this._resumeListener = this.ctx.delegate(this.ctx.page, 'resume', () => {
             this.load();
         });
     }
@@ -24,7 +24,7 @@ class CartController {
     async load() {
         this._resumeListener.off();
         try {
-            const res = await this.cartViewService.listUserCart();
+            const res = await this.cartViewService.loadUserCart();
             this._resumeListener.on();
             return res;
         } catch (e) {
