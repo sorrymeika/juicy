@@ -1,27 +1,35 @@
+import { observable } from "snowball";
 import { controller, autowired } from "snowball/app";
 import AddressList from "../containers/AddressList";
 
+import OrderService from "../../../shared/services/OrderService";
+import AddressService from "../../../shared/services/AddressService";
+
 @controller(AddressList)
 class AddressListController {
+    @observable
     addressList = [];
 
     @autowired
-    addressService;
+    _addressService: AddressService;
+
+    @autowired
+    _orderService: OrderService;
 
     constructor(props) {
         this.isFromOrder = props.location.query.from == 'order';
     }
 
     onInit() {
-        this.fetch();
+        this._fetch();
     }
 
     onResume() {
-        this.fetch();
+        this._fetch();
     }
 
-    fetch() {
-        this.addressService.listUserAddress()
+    _fetch() {
+        this._addressService.listUserAddress()
             .then(res => {
                 this.addressList = res.data;
             });
@@ -29,7 +37,7 @@ class AddressListController {
 
     onSelect(address) {
         if (this.isFromOrder) {
-            this.ctx.service.order.onAddressChange.emit(address);
+            this._orderService.onAddressChange(address);
             this.app.navigation.back();
         }
     }

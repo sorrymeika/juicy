@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { $, util, ViewModel } from 'snowball';
-import { inject, autowired } from 'snowball/app';
+import { inject } from 'snowball/app';
 import { PhotoViewer } from "snowball/components";
 import PicturesService from './PicturesService';
 
@@ -185,8 +185,7 @@ class Pictures extends Component<PicturesProps, any> {
     }
 }
 
-export default inject((props) => {
-    const picturesService: PicturesService = autowired('picturesService');
+export default inject(['picturesService'], ([picturesService]: [PicturesService]) => {
     return {
         pictures: picturesService.pictures,
         onReleaseToSeeMore: picturesService.onReleaseToSeeMore

@@ -25,9 +25,13 @@ export default class AddressSelectService extends Service {
             this.currentAddress = this.globalAddressService.current;
         });
 
+        this._initListeners();
+    }
+
+    _initListeners() {
         this.onCancel = this.ctx.createEmitter(() => {
             this.visible = false;
-            this.districtSelectService.visible = false;
+            this.districtSelectService.hide();
         });
 
         this.onBack = this.ctx.createEmitter(() => {
@@ -52,10 +56,18 @@ export default class AddressSelectService extends Service {
     }
 
     init() {
-        this.addressService.listUserAddress()
-            .then(res => {
-                this.addressList = res.data;
-            });
+        if (!this._inited) {
+            this._inited = true;
+            this.addressService.listUserAddress()
+                .then(res => {
+                    this.addressList = res.data;
+                });
+        }
+    }
+
+    show() {
+        this.init();
+        this.visible = true;
     }
 
     selectAddress(address) {

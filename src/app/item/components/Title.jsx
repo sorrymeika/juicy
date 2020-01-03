@@ -14,9 +14,7 @@ function Title({ title }) {
 }
 
 export default inject(({ itemService }) => (
-    itemService
-        ? {
-            title: itemService.item.title
-        }
-        : {}
+    {
+        title: itemService.item.title
+    }
 ))(Title);

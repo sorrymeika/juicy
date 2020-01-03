@@ -1,20 +1,53 @@
-import { observable, Emitter } from "snowball";
+import { observable, Emitter, util } from "snowball";
 import { Service, autowired } from "snowball/app";
 
 export default class UserService extends Service {
-    @observable userInfo = {};
+
+    @observable _userInfo = {};
+    get userInfo() {
+        return this._userInfo;
+    }
 
     @autowired
     _userServer;
 
+    _isLogin = false;
+
     onLoginStatusChange = Emitter.create();
 
+    async isLogin() {
+        if (!util.cookie('wtk')) return false;
+
+        if (!this._isLogin) {
+            try {
+                await this.loadUserInfo();
+                return this._isLogin;
+            } catch (error) {
+                return false;
+            }
+        }
+        return true;
+    }
+
     loadUserInfo(options) {
-        return this.getUserInfo(options)
-            .then(res => {
-                this.userInfo = res.data;
-                return res;
-            });
+        if (!this._loadUserPromise) {
+            this._loadUserPromise = this.getUserInfo(options)
+                .then(res => {
+                    this._userInfo = res.data;
+                    this._isLogin = true;
+                    return res;
+                });
+
+            const clearPromise = () => {
+                this._loadUserPromise = null;
+            };
+
+            this._loadUserPromise
+                .then(clearPromise)
+                .catch(clearPromise);
+        }
+        return this._loadUserPromise;
+
     }
 
     goToLogin(events) {
@@ -38,63 +71,26 @@ export default class UserService extends Service {
         this.app.navigation.forward('/login');
     }
 
-    async login(account, verifyCode) {
-        const res = await this._userServer.post('/user/login', {
+    login(account, verifyCode) {
+        return this._userServer.post('/user/login', {
             account,
             verifyCode
-        });
-        return res;
+        })
+            .then(res => {
+                this._isLogin = true;
+                this.onLoginStatusChange({ status: 'success' });
+                return res;
+            })
+            .catch(e => {
+                this._isLogin = false;
+                this.onLoginStatusChange({ status: 'error' });
+                throw e;
+            });
     }
 
     getUserInfo({ autoLogin = false } = {}) {
         return this._userServer.post('/user/getUserInfo', null, {
             autoLogin
         });
-    }
-
-    addInvoice({
-        isDefault,
-        type,
-        titleType,
-        title,
-        taxCode,
-        phoneNo
-    }) {
-        return this._userServer.post('/userInvoice/addInvoice', {
-            isDefault,
-            type,
-            titleType,
-            title,
-            taxCode,
-            phoneNo
-        });
-    }
-
-    updateInvoice({
-        id,
-        isDefault,
-        type,
-        titleType,
-        title,
-        taxCode,
-        phoneNo
-    }) {
-        return this._userServer.post('/userInvoice/updateInvoice', {
-            id,
-            isDefault,
-            type,
-            titleType,
-            title,
-            taxCode,
-            phoneNo
-        });
-    }
-
-    listInvoice() {
-        return this._userServer.post('/userInvoice/listInvoice');
-    }
-
-    getDefaultInvoice() {
-        return this._userServer.post('/userInvoice/getDefaultInvoice');
     }
 }

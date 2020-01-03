@@ -4,7 +4,7 @@ import { renderBricks } from "../brick";
 import HomeFooter from "./components/HomeFooter";
 import Cart from "../cart/Cart";
 import UserCenter from "../user/containers/UserCenter";
-import Category from "../category/containers/Category";
+import Category from "../category/Category";
 
 function Home({
     ctx,

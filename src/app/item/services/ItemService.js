@@ -2,6 +2,7 @@ import { observable } from "snowball";
 import { Service, ref, autowired } from "snowball/app";
 import { toast } from "snowball/widget";
 import ItemShopService from "./ItemShopService";
+import AddressSelectService from "../../address/services/AddressSelectService";
 
 const SKU_SELECT_MODE = {
     NONE: null,
@@ -36,7 +37,7 @@ export default class ItemService extends Service {
     productService;
 
     @autowired
-    addressSelectService;
+    addressSelectService: AddressSelectService;
 
     @autowired
     cartService;
@@ -60,7 +61,7 @@ export default class ItemService extends Service {
         this.onScroll = this.ctx.createEmitter(this.createScrollHandler());
 
         this.onPostClick = this.ctx.createEmitter(() => {
-            this.addressSelectService.visible = true;
+            this.addressSelectService.show();
         });
 
         this.onClickSpec = this.ctx.createEmitter(() => {

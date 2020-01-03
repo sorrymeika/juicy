@@ -12,7 +12,7 @@ import ItemController from "./item/controllers/ItemController";
 import CartController from "./cart/CartController";
 
 import AddressListController from "./address/controllers/AddressListController";
-import AddressController from "./address/controllers/AddressController";
+import AddressEditController from "./address/controllers/AddressEditController";
 
 import OrderController from "./order/controllers/OrderController";
 import OrderPayController from "./order/controllers/OrderPayController";
@@ -21,7 +21,7 @@ import OrderListController from "./orderlist/OrderListController";
 
 import InvoiceController from "./order/controllers/InvoiceController";
 import PayResultController from "./order/controllers/PayResultController";
-import CategoryController from "./category/controllers/CategoryController";
+import CategoryController from "./category/CategoryController";
 import SearchController from "./search/controllers/SearchController";
 import SearchInputController from "./search/controllers/SearchInputController";
 
@@ -52,7 +52,7 @@ export default {
     '/orderlist(?:/\\d+:type)?': OrderListController,
 
     '/address/list': AddressListController,
-    '/address/edit': AddressController,
+    '/address/edit': AddressEditController,
 
     '/invoice': InvoiceController,
 };

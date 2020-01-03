@@ -1,6 +1,7 @@
 import { observable, util } from "snowball";
 import { Service, autowired } from "snowball/app";
 import { toast } from "snowball/widget";
+import DistrictSelectService from "./DistrictSelectService";
 
 export default class AddressEditService extends Service {
     @observable data = {};
@@ -9,7 +10,7 @@ export default class AddressEditService extends Service {
     addressService;
 
     @autowired
-    districtSelectService;
+    districtSelectService: DistrictSelectService;
 
     constructor() {
         super();
@@ -29,7 +30,7 @@ export default class AddressEditService extends Service {
     }
 
     showDistrictSelectModal() {
-        this.districtSelectService.show();
+        this.districtSelectService.show(this.data);
     }
 
     updateField(field, value) {

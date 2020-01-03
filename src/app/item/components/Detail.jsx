@@ -1,5 +1,5 @@
 import React from 'react';
-import { inject, autowired } from 'snowball/app';
+import { inject } from 'snowball/app';
 
 function Detail({ detailHtml }) {
     return (
@@ -18,8 +18,7 @@ function Detail({ detailHtml }) {
     );
 }
 
-export default inject((props) => {
-    const itemService = autowired('itemService');
+export default inject(({ itemService }, props) => {
     return {
         detailHtml: itemService.detailHtml
     };

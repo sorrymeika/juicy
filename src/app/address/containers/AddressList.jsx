@@ -1,6 +1,6 @@
 import React from 'react';
 import { Header, MainScrollView } from 'snowball/components';
-import ListItem from '../components/ListItem';
+import AddressListItem from '../components/AddressListItem';
 
 export default function AddressList({
     addressList,
@@ -22,11 +22,11 @@ export default function AddressList({
                 {
                     addressList.map((address, i) => {
                         return (
-                            <ListItem
+                            <AddressListItem
                                 address={address}
                                 onEdit={onEdit}
                                 onSelect={onSelect}
-                            ></ListItem>
+                            ></AddressListItem>
                         );
                     })
                 }

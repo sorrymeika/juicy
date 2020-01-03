@@ -5,7 +5,7 @@ import DistrictSelectService from "../../address/services/DistrictSelectService"
 import AddressSelectService from "../../address/services/AddressSelectService";
 import SearchService from "../../../shared/services/SearchService";
 import CartNumService from "../../../shared/services/CartNumService";
-import { ItemConfiguration } from "../configuration/ItemConfiguration";
+import { ItemConfiguration } from "../ItemConfiguration";
 
 @controller({
     component: Item,

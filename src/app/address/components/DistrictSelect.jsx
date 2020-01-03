@@ -2,8 +2,9 @@ import React, { useRef, useEffect, useLayoutEffect } from "react";
 import ReactDOM from "react-dom";
 import { Modal, ScrollView } from "snowball/components";
 import { inject } from "snowball/app";
+import DistrictSelectService from "../services/DistrictSelectService";
 
-export function DistrictSelect({
+function _DistrictSelect({
     provinces,
     cities,
     districts,
@@ -123,11 +124,42 @@ export function DistrictSelect({
     );
 }
 
-export function DistrictSelectModal({
+export const DistrictSelect = inject(
+    ['districtSelectService'], ([districtSelectService]: [DistrictSelectService]) => {
+        return {
+            provinces: districtSelectService.provinces,
+            cities: districtSelectService.cities,
+            districts: districtSelectService.districts,
+
+            currentTab: districtSelectService.currentTab,
+
+            currentProvinceCode: districtSelectService.currentProvinceCode,
+            currentProvinceName: districtSelectService.currentProvinceName,
+            currentCityCode: districtSelectService.currentCityCode,
+            currentCityName: districtSelectService.currentCityName,
+            currentDistrictCode: districtSelectService.currentDistrictCode,
+            currentDistrictName: districtSelectService.currentDistrictName,
+
+            onTabChange: districtSelectService.onTabChange,
+            onProvinceChange: districtSelectService.onProvinceChange,
+            onCityChange: districtSelectService.onCityChange,
+            onDistrictChange: districtSelectService.onDistrictChange
+        };
+    }
+)(_DistrictSelect);
+
+function _DistrictSelectModal({
     visible,
+    onInit,
     onCancel,
     ...props
 }) {
+    useEffect(() => {
+        if (visible) {
+            onInit();
+        }
+    }, [onInit, visible]);
+
     return (
         <Modal
             visible={visible}
@@ -142,32 +174,12 @@ export function DistrictSelectModal({
     );
 }
 
-export default inject(['districtSelectService'], ([districtSelectService]) => {
-    useEffect(() => {
-        if (districtSelectService.visible) {
-            districtSelectService.onInit();
-        }
-    }, [districtSelectService, districtSelectService.visible]);
-
-    return {
-        visible: districtSelectService.visible,
-        provinces: districtSelectService.provinces,
-        cities: districtSelectService.cities,
-        districts: districtSelectService.districts,
-
-        currentTab: districtSelectService.currentTab,
-
-        currentProvinceCode: districtSelectService.currentProvinceCode,
-        currentProvinceName: districtSelectService.currentProvinceName,
-        currentCityCode: districtSelectService.currentCityCode,
-        currentCityName: districtSelectService.currentCityName,
-        currentDistrictCode: districtSelectService.currentDistrictCode,
-        currentDistrictName: districtSelectService.currentDistrictName,
-
-        onCancel: districtSelectService.onCancel,
-        onTabChange: districtSelectService.onTabChange,
-        onProvinceChange: districtSelectService.onProvinceChange,
-        onCityChange: districtSelectService.onCityChange,
-        onDistrictChange: districtSelectService.onDistrictChange
-    };
-})(DistrictSelectModal);
+export const DistrictSelectModal = inject(
+    ['districtSelectService'], ([districtSelectService]: [DistrictSelectService], props) => {
+        return {
+            onInit: districtSelectService.onInit,
+            onCancel: districtSelectService.onCancel,
+            visible: districtSelectService.visible,
+        };
+    }
+)(_DistrictSelectModal);

@@ -1,5 +1,6 @@
 import { Service, autowired } from "snowball/app";
 import { toast } from "snowball/widget";
+import UserService from "../../../shared/services/UserService";
 
 export default class LoginService extends Service {
     onSubmit = this.ctx.createEmitter();
@@ -7,7 +8,7 @@ export default class LoginService extends Service {
     isLogin = false;
 
     @autowired
-    _userService;
+    _userService: UserService;
 
     constructor() {
         super();
@@ -30,7 +31,6 @@ export default class LoginService extends Service {
             if (res.success) {
                 toast.showToast('登录成功!');
                 this.isLogin = true;
-                this._userService.onLoginStatusChange({ status: 'success' });
                 this.ctx.navigation.back();
             }
         } catch (e) {

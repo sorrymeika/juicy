@@ -61,12 +61,12 @@ function InvoiceListModal({
     );
 }
 
-export default inject(({ invoiceService }) => (
-    invoiceService
+export default inject(({ invoiceViewService }) => (
+    invoiceViewService
         ? {
-            dataSource: invoiceService.invoiceList,
-            onClose: invoiceService.onCloseInvoiceSelector.emit,
-            onSelect: invoiceService.onSelectInvoice.emit
+            dataSource: invoiceViewService.invoiceList,
+            onClose: invoiceViewService.onCloseInvoiceSelector.emit,
+            onSelect: invoiceViewService.onSelectInvoice.emit
         }
         : null
 ))(InvoiceListModal);

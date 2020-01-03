@@ -2,8 +2,8 @@
 
 import React from 'react';
 import { inject } from 'snowball/app';
-import CategoryList from '../components/CategoryList';
-import SubCateList from '../components/SubCateList';
+import CategoryList from './components/CategoryList';
+import SubCateList from './components/SubCateList';
 import { Header } from 'snowball/components';
 
 function Category({ visible = true, showBack, cates, currentCate, onChange, onClickSubSubCate }) {

@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { inject, autowired } from "snowball/app";
+import { inject } from "snowball/app";
 import { Modal, ScrollView } from "snowball/components";
 import { DistrictSelect } from "./DistrictSelect";
 import DistrictSelectService from "../services/DistrictSelectService";
@@ -45,12 +45,19 @@ function AddressSelectModal({
     visible,
     currentAddress,
     addressList,
-    districtSelectProps,
+    districtSelectVisible,
+    onShow,
     onCancel,
     onBack,
     onSelectAddress,
     onToSelectOtherArea
 }) {
+    useEffect(() => {
+        if (visible && onShow) {
+            onShow();
+        }
+    }, [onShow, visible]);
+
     return (
         <Modal
             visible={visible}
@@ -59,7 +66,7 @@ function AddressSelectModal({
         >
             <div className="adr_district_select_hd flex jc_c ps_r ta_c bd_b">
                 {
-                    districtSelectProps.visible && (
+                    districtSelectVisible && (
                         <button className="iconfont icon-back dock_tl" onClick={() => onBack()}></button>
                     )
                 }
@@ -67,7 +74,7 @@ function AddressSelectModal({
                 <button className="iconfont icon-close dock_tr" onClick={() => onCancel()}></button>
             </div>
             {
-                !districtSelectProps.visible
+                !districtSelectVisible
                     ? (
                         <>
                             <AddressSelect
@@ -84,53 +91,26 @@ function AddressSelectModal({
                         </>
                     )
                     : (
-                        <DistrictSelect {...districtSelectProps}></DistrictSelect>
+                        <DistrictSelect></DistrictSelect>
                     )
             }
         </Modal>
     );
 }
 
-export default inject((props) => {
-    const addressSelectService: AddressSelectService = autowired('addressSelectService');
-    const districtSelectService: DistrictSelectService = autowired('districtSelectService');
+export default inject(
+    ['addressSelectService', 'districtSelectService'],
+    ([addressSelectService, districtSelectService]: [AddressSelectService, DistrictSelectService], props) => {
+        return {
+            visible: addressSelectService.visible,
+            addressList: addressSelectService.addressList,
+            currentAddress: addressSelectService.currentAddress,
+            onBack: addressSelectService.onBack,
+            onCancel: addressSelectService.onCancel,
+            onSelectAddress: addressSelectService.onSelectAddress,
+            onToSelectOtherArea: addressSelectService.onToSelectOtherArea,
 
-    const visible = addressSelectService.visible;
-
-    useEffect(() => {
-        if (visible) {
-            addressSelectService.init();
-        }
-    }, [addressSelectService, visible]);
-
-    return {
-        visible,
-        addressList: addressSelectService.addressList,
-        currentAddress: addressSelectService.currentAddress,
-        onBack: addressSelectService.onBack.emit,
-        onCancel: addressSelectService.onCancel.emit,
-        onSelectAddress: addressSelectService.onSelectAddress.emit,
-        onToSelectOtherArea: addressSelectService.onToSelectOtherArea.emit,
-
-        districtSelectProps: {
-            visible: districtSelectService.visible,
-            provinces: districtSelectService.provinces,
-            cities: districtSelectService.cities,
-            districts: districtSelectService.districts,
-
-            currentTab: districtSelectService.currentTab,
-
-            currentProvinceCode: districtSelectService.currentProvinceCode,
-            currentProvinceName: districtSelectService.currentProvinceName,
-            currentCityCode: districtSelectService.currentCityCode,
-            currentCityName: districtSelectService.currentCityName,
-            currentDistrictCode: districtSelectService.currentDistrictCode,
-            currentDistrictName: districtSelectService.currentDistrictName,
-
-            onTabChange: districtSelectService.onTabChange.emit,
-            onProvinceChange: districtSelectService.onProvinceChange.emit,
-            onCityChange: districtSelectService.onCityChange.emit,
-            onDistrictChange: districtSelectService.onDistrictChange.emit
-        }
-    };
-})(AddressSelectModal);
+            districtSelectVisible: districtSelectService.visible
+        };
+    }
+)(AddressSelectModal);

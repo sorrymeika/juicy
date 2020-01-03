@@ -21,10 +21,8 @@ function SpuProps({ brandName, spuProps }) {
 }
 
 export default inject(({ itemService }) => (
-    itemService
-        ? {
-            brandName: itemService.item.brandName,
-            spuProps: itemService.spuProps
-        }
-        : null
+    {
+        brandName: itemService.item.brandName,
+        spuProps: itemService.spuProps
+    }
 ))(SpuProps);

@@ -4,7 +4,7 @@ import { Header, MainScrollView, Switch } from 'snowball/components';
 
 import AddressEditService from '../services/AddressEditService';
 
-import DistrictSelect from '../components/DistrictSelect';
+import { DistrictSelectModal } from '../components/DistrictSelect';
 
 function Address({
     data = {},
@@ -55,7 +55,7 @@ function Address({
                     </div>
                     <div className="iconfont icon-arrow-right"></div>
                 </div>
-                <DistrictSelect></DistrictSelect>
+                <DistrictSelectModal />
                 <div className="app_form_item bd_b ai_fs">
                     <p className="app_form_label" style={{ paddingTop: 2 }}>详细地址</p>
                     <div className="app_form_input">

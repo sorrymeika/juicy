@@ -1,5 +1,5 @@
 import React from 'react';
-import { inject, autowired } from 'snowball/app';
+import { inject } from 'snowball/app';
 import ItemService from '../services/ItemService';
 
 function Footer({
@@ -46,9 +46,7 @@ function Footer({
     );
 }
 
-export default inject((props) => {
-    const itemService: ItemService = autowired('itemService');
-
+export default inject(({ itemService }: { itemService: ItemService }, props) => {
     return {
         sellerId: itemService.seller.id,
         cartNum: itemService.cartNum,

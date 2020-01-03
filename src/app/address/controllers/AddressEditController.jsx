@@ -4,15 +4,23 @@ import { controller, autowired } from "snowball/app";
 import AddressEditService from "../services/AddressEditService";
 import DistrictSelectService from "../services/DistrictSelectService";
 
-import Address from "../containers/Address";
+import AddressEdit from "../containers/AddressEdit";
+import { AddressConfiguration } from "../configuration/AddressConfiguration";
+import AddressService from "../../../shared/services/AddressService";
 
-@controller(Address)
-class AddressController {
+@controller({
+    component: AddressEdit,
+    configuration: AddressConfiguration
+})
+class AddressEditController {
     @autowired
     districtSelectService: DistrictSelectService;
 
     @autowired
     addressEditService: AddressEditService;
+
+    @autowired
+    addressService: AddressService;
 
     constructor(props) {
         this.addressId = Number(props.location.query.id) || 0;
@@ -30,9 +38,6 @@ class AddressController {
     onSave() {
         return this.addressEditService.onSave();
     }
-
-    saveAddress() {
-    }
 }
 
-export default AddressController;
+export default AddressEditController;

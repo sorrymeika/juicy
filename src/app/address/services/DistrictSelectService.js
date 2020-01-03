@@ -75,7 +75,7 @@ export default class DistrictSelectService extends Service {
         this.loaded = true;
     }
 
-    show(provinceCode, cityCode, districtCode) {
+    show({ provinceCode, cityCode, districtCode } = {}) {
         this.visible = true;
         this.onInit.emit();
         if (this.loaded) {
