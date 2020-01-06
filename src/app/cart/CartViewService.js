@@ -1,4 +1,4 @@
-import { observable, util } from "snowball";
+import { observable, util, asObservable } from "snowball";
 import { Service, autowired } from "snowball/app";
 import { toast } from "snowball/widget";
 import CartService from "../../shared/services/CartService";
@@ -100,30 +100,26 @@ export default class CartViewService extends Service {
             throw new Error('变更购物车数量参数错误!');
         }
 
-        current.withMutations((cart) => {
-            cart.set({
-                num: item.num
-            });
+        const currentObs = asObservable(current).set({
+            num: item.num
         });
 
         if (item.num) {
-            this._updateRemoteCartNum(item, current);
+            this._updateRemoteCartNum(item, currentObs);
         } else {
             this._updateRemoteCartNum.clear();
         }
     }
 
-    _updateRemoteCartNum = util.debounce(async (item, current) => {
+    _updateRemoteCartNum = util.debounce(async (item, cartObs) => {
         this.updatingNum = true;
         try {
             const res = await this.cartService.updateCartNum(item.id, item.num);
             this._syncDataFromRemoteResult(res);
         } catch (e) {
             toast.showToast(e.message);
-            current.withMutations((cart) => {
-                cart.set({
-                    num: item.oldNum
-                });
+            cartObs.set({
+                num: item.oldNum
             });
         }
         this.updatingNum = false;

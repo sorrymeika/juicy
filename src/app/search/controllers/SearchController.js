@@ -1,18 +1,19 @@
-import { controller } from "snowball/app";
+import { controller, autowired } from "snowball/app";
 import Search from "../containers/Search";
 import SearchService from "../../../shared/services/SearchService";
 import SearchResultService from "../services/SearchResultService";
+import { SearchConfiguration } from "../configuration";
 
-@controller(Search)
+@controller({
+    component: Search,
+    configuration: SearchConfiguration
+})
 class SearchController {
-    searchResultService: SearchResultService;
+    @autowired
+    searchService: SearchService;
 
-    constructor() {
-        this.searchService = new SearchService();
-        this.searchResultService = new SearchResultService(
-            this.searchService
-        );
-    }
+    @autowired
+    searchResultService: SearchResultService;
 
     onInit() {
         const { keywords, formulaId } = this.ctx.location.query;

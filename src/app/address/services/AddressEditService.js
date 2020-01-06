@@ -1,4 +1,4 @@
-import { observable, util } from "snowball";
+import { observable, util, asObservable } from "snowball";
 import { Service, autowired } from "snowball/app";
 import { toast } from "snowball/widget";
 import DistrictSelectService from "./DistrictSelectService";
@@ -16,12 +16,10 @@ export default class AddressEditService extends Service {
         super();
 
         this.districtSelectService.onSelect(([province, city, district]) => {
-            this.data.withMutations((data) => {
-                data.set({
-                    ...province,
-                    ...city,
-                    ...district
-                });
+            asObservable(this.data).set({
+                ...province,
+                ...city,
+                ...district
             });
             this.districtSelectService.hide();
         });
@@ -34,9 +32,7 @@ export default class AddressEditService extends Service {
     }
 
     updateField(field, value) {
-        this.data.withMutations((data) => {
-            data.set(field, value);
-        });
+        asObservable(this.data).set(field, value);
     }
 
     async save() {

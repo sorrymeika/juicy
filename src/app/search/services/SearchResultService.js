@@ -1,6 +1,6 @@
 import { observable } from "snowball";
-import { Service } from "snowball/app";
-import { ORDER_BY } from "../../../shared/services/SearchService";
+import { Service, autowired } from "snowball/app";
+import SearchService, { ORDER_BY } from "../../../shared/services/SearchService";
 
 export default class SearchResultService extends Service {
     @observable orderBy = ORDER_BY.DEFAULT;
@@ -24,10 +24,12 @@ export default class SearchResultService extends Service {
     onGoToSearch = this.ctx.createEmitter();
     onGotoItem = this.ctx.createEmitter();
 
+    @autowired
+    searchService: SearchService;
+
     constructor(searchService) {
         super();
 
-        this.searchService = searchService;
         this._registerListener();
     }
 
