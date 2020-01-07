@@ -1,9 +1,8 @@
 import React from "react";
 import { CheckBox, SfsImage } from "sn-app";
 import CartItem from "./CartItem";
-import { inject } from "snowball/app";
 
-function CartStore({
+export default function CartStore({
     seller,
     skus,
     onSelectSeller,
@@ -38,13 +37,3 @@ function CartStore({
         </div>
     );
 }
-
-export default inject(({ cartViewService }) => (
-    cartViewService
-        ? {
-            onSelectSku: cartViewService.onSelectSku.emit,
-            onSelectSeller: cartViewService.onSelectSeller.emit,
-            onCartNumChange: cartViewService.onCartNumChange.emit
-        }
-        : null
-))(CartStore);

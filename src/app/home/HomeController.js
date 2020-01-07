@@ -2,7 +2,7 @@ import { controller, autowired } from "snowball/app";
 
 import CategoryViewService from "../category/services/CategoryViewService";
 
-import CartViewService from "../cart/CartViewService";
+import CartViewService from "../cart/services/CartViewService";
 import UserCenterService from "../user/services/UserCenterService";
 
 import PageViewController from "../brick/PageViewController";

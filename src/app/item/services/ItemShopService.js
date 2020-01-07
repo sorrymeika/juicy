@@ -3,8 +3,11 @@ import { Service, autowired } from "snowball/app";
 import SearchService, { ORDER_BY } from "../../../shared/services/SearchService";
 
 export default class ItemShopService extends Service {
-    @observable products;
-    @observable seller;
+    @observable
+    products;
+
+    @observable
+    seller;
 
     @autowired
     searchService: SearchService;

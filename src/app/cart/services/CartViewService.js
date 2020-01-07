@@ -1,36 +1,29 @@
 import { observable, util, asObservable } from "snowball";
 import { Service, autowired } from "snowball/app";
 import { toast } from "snowball/widget";
-import CartService from "../../shared/services/CartService";
+import CartService from "../../../shared/services/CartService";
 
 export default class CartViewService extends Service {
-    @observable sellers = [];
-    @observable unavailableSkus = [];
-    @observable total = 0;
-    @observable amount = 0;
-    @observable selectedCount = 0;
+    @observable
+    sellers = [];
+
+    @observable
+    unavailableSkus = [];
+
+    @observable
+    total = 0;
+
+    @observable
+    amount = 0;
+
+    @observable
+    selectedCount = 0;
 
     @autowired
     cartService: CartService;
 
     @autowired
     cartNumService;
-
-    constructor() {
-        super();
-
-        this.onSelectSku = this.ctx.createEmitter((item) => this.selectItem(item));
-        this.onSelectSeller = this.ctx.createEmitter((sellerId) => this.selectSeller(sellerId));
-        this.onSelectAll = this.ctx.createEmitter((selected) => this.selectAll(selected));
-
-        this.onCartNumChange = this.ctx.createEmitter((item) =>
-            this.changeCartNum(item)
-        );
-
-        this.onCheckout = this.ctx.createEmitter(() =>
-            this.checkout()
-        );
-    }
 
     async loadUserCart() {
         const res = await this.cartService.listUserCart();
@@ -107,7 +100,7 @@ export default class CartViewService extends Service {
         if (item.num) {
             this._updateRemoteCartNum(item, currentObs);
         } else {
-            this._updateRemoteCartNum.clear();
+            this._updateRemoteCartNum.clearDebounce();
         }
     }
 

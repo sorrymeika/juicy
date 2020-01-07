@@ -1,6 +1,7 @@
 import React from "react";
 import { CheckBox } from "sn-app";
 import { inject } from "snowball/app";
+import CartViewService from "../services/CartViewService";
 
 function CartFooter({
     total,
@@ -30,14 +31,20 @@ function CartFooter({
     );
 }
 
-export default inject(({ cartViewService }) => (
-    cartViewService
-        ? {
-            total: cartViewService.total,
-            selectedCount: cartViewService.selectedCount,
-            amount: cartViewService.amount,
-            onSelectAll: cartViewService.onSelectAll.emit,
-            onCheckout: cartViewService.onCheckout.emit
+function mapServiceToProps(cartViewService: CartViewService) {
+    return {
+        total: cartViewService.total,
+        selectedCount: cartViewService.selectedCount,
+        amount: cartViewService.amount,
+        onSelectAll(selected) {
+            cartViewService.selectAll(selected);
+        },
+        onCheckout() {
+            cartViewService.checkout();
         }
-        : null
-))(CartFooter);
+    };
+}
+
+export default inject(['cartViewService'], ([cartViewService]) =>
+    mapServiceToProps(cartViewService)
+)(CartFooter);

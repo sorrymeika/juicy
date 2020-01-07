@@ -17,6 +17,7 @@ export default class DistrictSelectService extends Service {
 
     @observable currentTab = 0;
 
+    onInit = this.ctx.createEmitter();
     onLoad = this.ctx.createEmitter();
     onCancel = this.ctx.createEmitter();
     onTabChange = this.ctx.createEmitter();
@@ -31,7 +32,10 @@ export default class DistrictSelectService extends Service {
     constructor() {
         super();
 
-        this.onInit = this.ctx.createEmitter();
+        this._registerListeners();
+    }
+
+    _registerListeners() {
         this.onInit.once(() => this.init());
 
         this.onTabChange((tab) => {

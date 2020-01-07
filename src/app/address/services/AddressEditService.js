@@ -1,10 +1,11 @@
 import { observable, util, asObservable } from "snowball";
-import { Service, autowired } from "snowball/app";
+import { Service, autowired, emitter } from "snowball/app";
 import { toast } from "snowball/widget";
 import DistrictSelectService from "./DistrictSelectService";
 
 export default class AddressEditService extends Service {
-    @observable data = {};
+    @observable
+    data = {};
 
     @autowired
     addressService;
@@ -23,8 +24,11 @@ export default class AddressEditService extends Service {
             });
             this.districtSelectService.hide();
         });
+    }
 
-        this.onSave = this.ctx.createEmitter(() => this.save());
+    @emitter
+    onSave() {
+        this.save();
     }
 
     showDistrictSelectModal() {

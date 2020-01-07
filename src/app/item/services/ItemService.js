@@ -1,5 +1,5 @@
 import { observable } from "snowball";
-import { Service, ref, autowired } from "snowball/app";
+import { Service, ref, autowired, emitter } from "snowball/app";
 import { toast } from "snowball/widget";
 import ItemShopService from "./ItemShopService";
 import AddressSelectService from "../../address/services/AddressSelectService";
@@ -51,58 +51,64 @@ export default class ItemService extends Service {
     @autowired
     picturesService;
 
+    @emitter
+    onScroll;
+
     constructor() {
         super();
 
-        this._registerListeners();
+        this.onScroll(this.createScrollHandler());
     }
 
-    _registerListeners() {
-        this.onScroll = this.ctx.createEmitter(this.createScrollHandler());
+    @emitter
+    onPostClick() {
+        this.addressSelectService.show();
+    }
 
-        this.onPostClick = this.ctx.createEmitter(() => {
-            this.addressSelectService.show();
-        });
+    @emitter
+    onClickSpec() {
+        this.isSpecSelectModalVisible = true;
+    }
 
-        this.onClickSpec = this.ctx.createEmitter(() => {
-            this.isSpecSelectModalVisible = true;
-        });
+    @emitter
+    onBuyNumChange(num) {
+        this.buyNum = num;
+    }
 
-        this.onBuyNumChange = this.ctx.createEmitter((num) => {
-            this.buyNum = num;
-        });
+    @emitter
+    onCancelSelectSpec() {
+        this.isSpecSelectModalVisible = false;
+    }
 
-        this.onCancelSelectSpec = this.ctx.createEmitter(() => {
-            this.isSpecSelectModalVisible = false;
-        });
-
-        this.onAddToCart = this.ctx.createEmitter((sku) => {
-            if (!sku) {
-                if (this.skus.length === 1) {
-                    this.addToCart(this.currentSku);
-                } else {
-                    this.showSkuSelect(SKU_SELECT_MODE.ADD_TO_CART);
-                }
+    @emitter
+    onAddToCart(sku) {
+        if (!sku) {
+            if (this.skus.length === 1) {
+                this.addToCart(this.currentSku);
             } else {
-                this.addToCart(sku);
+                this.showSkuSelect(SKU_SELECT_MODE.ADD_TO_CART);
             }
-        });
+        } else {
+            this.addToCart(sku);
+        }
+    }
 
-        this.onBuyNow = this.ctx.createEmitter((sku) => {
-            if (!sku) {
-                if (this.skus.length === 1) {
-                    this.buyNow(this.currentSku);
-                } else {
-                    this.showSkuSelect(SKU_SELECT_MODE.BUY_NOW);
-                }
+    @emitter
+    onBuyNow(sku) {
+        if (!sku) {
+            if (this.skus.length === 1) {
+                this.buyNow(this.currentSku);
             } else {
-                this.buyNow(sku);
+                this.showSkuSelect(SKU_SELECT_MODE.BUY_NOW);
             }
-        });
+        } else {
+            this.buyNow(sku);
+        }
+    }
 
-        this.onCancelSkuSelect = this.ctx.createEmitter(() => {
-            this.skuSelectMode = SKU_SELECT_MODE.NONE;
-        });
+    @emitter
+    onCancelSkuSelect() {
+        this.skuSelectMode = SKU_SELECT_MODE.NONE;
     }
 
     async init(spuId) {

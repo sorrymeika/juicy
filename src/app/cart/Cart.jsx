@@ -1,7 +1,7 @@
 import React from "react";
+import { MainScrollView } from "snowball/components";
 import CartHeader from "./components/CartHeader";
 import CartFooter from "./components/CartFooter";
-import { MainScrollView } from "snowball/components";
 import CartList from "./components/CartList";
 import FixedStore from "./components/FixedStore";
 

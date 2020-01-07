@@ -1,6 +1,6 @@
 import { controller, autowired } from "snowball/app";
 import Cart from "./Cart";
-import CartViewService from "./CartViewService";
+import CartViewService from "./services/CartViewService";
 import { CartConfiguration } from "./CartConfiguration";
 import UserService from "../../shared/services/UserService";
 
@@ -14,7 +14,6 @@ class CartController {
 
     @autowired
     cartViewService: CartViewService;
-
 
     onInit() {
         this.load();

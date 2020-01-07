@@ -1,5 +1,5 @@
-import { Service, autowired } from "snowball/app";
-import { observable } from "snowball";
+import { Service, autowired, emitter } from "snowball/app";
+import { observable, asObservable } from "snowball";
 import GlobalAddressService from "../../../shared/services/GlobalAddressService";
 import AddressService from "../../../shared/services/AddressService";
 import DistrictSelectService from "./DistrictSelectService";
@@ -21,31 +21,12 @@ export default class AddressSelectService extends Service {
     constructor() {
         super();
 
-        this.ctx.autorun(() => {
-            this.currentAddress = this.globalAddressService.current;
-        });
+        this.currentAddress = asObservable(this.globalAddressService.current);
 
         this._initListeners();
     }
 
     _initListeners() {
-        this.onCancel = this.ctx.createEmitter(() => {
-            this.visible = false;
-            this.districtSelectService.hide();
-        });
-
-        this.onBack = this.ctx.createEmitter(() => {
-            this.districtSelectService.hide();
-        });
-
-        this.onSelectAddress = this.ctx.createEmitter((address) =>
-            this.selectAddress(address)
-        );
-
-        this.onToSelectOtherArea = this.ctx.createEmitter(() => {
-            this.districtSelectService.show();
-        });
-
         this.districtSelectService.onSelect(([province, city, district]) => {
             this.selectAddress({
                 ...province,
@@ -53,6 +34,26 @@ export default class AddressSelectService extends Service {
                 ...district
             });
         });
+    }
+
+    @emitter
+    onCancel() {
+        this.hide();
+    }
+
+    @emitter
+    onBack() {
+        this.districtSelectService.hide();
+    }
+
+    @emitter
+    onSelectAddress(address) {
+        this.selectAddress(address);
+    }
+
+    @emitter
+    onToSelectOtherArea() {
+        this.districtSelectService.show();
     }
 
     init() {
@@ -68,6 +69,11 @@ export default class AddressSelectService extends Service {
     show() {
         this.init();
         this.visible = true;
+    }
+
+    hide() {
+        this.visible = false;
+        this.districtSelectService.hide();
     }
 
     selectAddress(address) {
