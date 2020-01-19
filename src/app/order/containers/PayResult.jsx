@@ -1,5 +1,5 @@
 import React from 'react';
-import { inject } from 'snowball/app';
+import { inject, mapViewModelToProps } from 'snowball/app';
 import { Header, MainScrollView } from 'snowball/components';
 
 function PayResult({
@@ -39,8 +39,4 @@ function PayResult({
     );
 }
 
-export default inject(({ payResultService }) => ({
-    orderInfo: payResultService.orderInfo,
-    onGoToOrder: payResultService.onGoToOrder.emit,
-    onComplete: payResultService.onComplete.emit
-}))(PayResult);
+export default inject(mapViewModelToProps('payResultViewModel'))(PayResult);

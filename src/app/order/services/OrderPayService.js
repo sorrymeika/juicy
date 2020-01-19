@@ -1,4 +1,4 @@
-import { Service } from "snowball/app";
+import { Service, autowired } from "snowball/app";
 import { observable, util } from "snowball";
 import { toast } from "snowball/widget";
 
@@ -10,10 +10,12 @@ export default class OrderPayService extends Service {
     onPayTypeChange = this.ctx.createEmitter();
     onPay = this.ctx.createEmitter();
 
-    constructor(orderService) {
+    @autowired
+    _orderService;
+
+    constructor() {
         super();
 
-        this.orderService = orderService;
         this.onPayTypeChange((payType) => {
             this.currentPayType = payType;
         });
@@ -26,8 +28,8 @@ export default class OrderPayService extends Service {
         this.sellerOrderId = sellerOrderId;
 
         (sellerOrderId
-            ? this.orderService.getSellerOrderById(sellerOrderId)
-            : this.orderService.getOrderById(tradeId))
+            ? this._orderService.getSellerOrderById(sellerOrderId)
+            : this._orderService.getOrderById(tradeId))
             .then(res => {
                 util.setServerTime(res.sysTime);
                 this.orderInfo = res.data.orderInfo;
@@ -48,7 +50,7 @@ export default class OrderPayService extends Service {
         } else if (this.currentPayType == 4) {
             // 模拟支付
             const tradeCode = this.orderInfo.code + (this.sellerOrderId ? '-' + this.sellerOrderId : '');
-            this.orderService.simulatePay(tradeCode)
+            this._orderService.simulatePay(tradeCode)
                 .then(res => {
                     this.ctx.navigation.forward('/payresult/' + this.tradeId + (this.sellerOrderId ? '/' + this.sellerOrderId : ''));
                 });

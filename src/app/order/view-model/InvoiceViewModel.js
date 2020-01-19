@@ -17,8 +17,6 @@ export default class InvoiceViewModel extends Service {
     onCloseInvoiceSelector = this.ctx.createEmitter();
     onSelectInvoice = this.ctx.createEmitter();
 
-    onConfirm = this.ctx.createEmitter();
-
     @autowired
     _invoiceService: InvoiceService;
 
@@ -35,8 +33,6 @@ export default class InvoiceViewModel extends Service {
             this.data = invoice;
             this.isInvoiceSelectorVisible = false;
         });
-
-        this.onConfirm(() => this.confirm());
     }
 
     init() {
@@ -62,6 +58,7 @@ export default class InvoiceViewModel extends Service {
         });
     }
 
+    @emitter('onConfirm')
     async confirm() {
         if (!this.data.title) {
             toast.showToast('请设置抬头!');

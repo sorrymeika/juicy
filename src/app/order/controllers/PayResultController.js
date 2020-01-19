@@ -1,20 +1,21 @@
-import { controller } from "snowball/app";
-import PayResultService from "../services/PayResultService";
+import { controller, param, autowired } from "snowball/app";
+import PayResultViewModel from "../view-model/PayResultViewModel";
 import PayResult from "../containers/PayResult";
+import { OrderConfiguration } from "../configuration/OrderConfiguration";
 
-@controller(PayResult)
+@controller({
+    component: PayResult,
+    configuration: OrderConfiguration
+})
 class PayResultController {
-    payResultService;
+    @param
+    tradeId;
 
-    constructor(props) {
-        this.tradeId = Number(props.location.params.tradeId);
-        this.payResultService = new PayResultService(
-            this.ctx.service.order,
-        );
-    }
+    @autowired
+    _payResultViewModel: PayResultViewModel;
 
     onInit() {
-        this.payResultService.init(this.tradeId);
+        this._payResultViewModel.init(this.tradeId);
     }
 }
 

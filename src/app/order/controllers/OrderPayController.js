@@ -1,18 +1,21 @@
-import { controller } from "snowball/app";
+import { controller, param, autowired } from "snowball/app";
 import OrderPayService from "../services/OrderPayService";
 import OrderPay from "../containers/OrderPay";
+import { OrderConfiguration } from "../configuration/OrderConfiguration";
 
-@controller(OrderPay)
+@controller({
+    component: OrderPay,
+    configuration: OrderConfiguration
+})
 class OrderPayController {
-    orderPayService;
+    @param
+    tradeId: number;
 
-    constructor(props) {
-        this.tradeId = Number(props.location.params.tradeId);
-        this.sellerOrderId = Number(props.location.params.sellerOrderId) || 0;
-        this.orderPayService = new OrderPayService(
-            this.ctx.service.order,
-        );
-    }
+    @param
+    sellerOrderId: number;
+
+    @autowired
+    orderPayService: OrderPayService;
 
     onInit() {
         this.orderPayService.init(this.tradeId, this.sellerOrderId);
