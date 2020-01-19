@@ -1,5 +1,4 @@
 import React from "react";
-import { inject } from "snowball/app";
 import { Modal, SmallTag, ScrollView } from "snowball/components";
 
 function InvoiceListModal({
@@ -61,12 +60,4 @@ function InvoiceListModal({
     );
 }
 
-export default inject(({ invoiceViewService }) => (
-    invoiceViewService
-        ? {
-            dataSource: invoiceViewService.invoiceList,
-            onClose: invoiceViewService.onCloseInvoiceSelector.emit,
-            onSelect: invoiceViewService.onSelectInvoice.emit
-        }
-        : null
-))(InvoiceListModal);
+export default InvoiceListModal;

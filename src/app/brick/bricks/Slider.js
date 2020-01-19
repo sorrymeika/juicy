@@ -1,8 +1,4 @@
 import { BrickBase } from "../core/BrickBase";
-import { registerComponent } from "snowball";
-import { SliderComponent } from "snowball/widget";
-
-registerComponent('slider', SliderComponent);
 
 class Slider extends BrickBase {
     processData(data) {

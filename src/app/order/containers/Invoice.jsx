@@ -2,15 +2,18 @@ import React from 'react';
 import { Header, MainScrollView, Switch } from 'snowball/components';
 import { CheckBox, TagList } from 'sn-app';
 import InvoiceListModal from '../components/InvoiceListModal';
-import { inject } from 'snowball/app';
-import InvoiceViewService from '../services/InvoiceViewService';
+import { inject, mapViewModelToProps } from 'snowball/app';
 
 function Invoice({
     data = {},
     isInvoiceSelectorVisible,
     onFieldChange,
+    onConfirm,
+
+    invoiceList,
     onShowInvoiceSelector,
-    onConfirm
+    onCloseInvoiceSelector,
+    onSelectInvoice,
 }) {
     return (
         <div className="iv_wrap">
@@ -75,6 +78,9 @@ function Invoice({
                     ></button>
                 </div>
                 <InvoiceListModal
+                    dataSource={invoiceList}
+                    onClose={onCloseInvoiceSelector}
+                    onSelect={onSelectInvoice}
                     visible={isInvoiceSelectorVisible}
                 />
                 {
@@ -117,21 +123,4 @@ function Invoice({
     );
 }
 
-function mapServiceToProps(invoiceViewService: InvoiceViewService) {
-    return {
-        data: invoiceViewService.data,
-        isInvoiceSelectorVisible: invoiceViewService.isInvoiceSelectorVisible,
-        onFieldChange(name, value) {
-            invoiceViewService.onFieldChange({
-                name,
-                value
-            });
-        },
-        onShowInvoiceSelector: invoiceViewService.onShowInvoiceSelector,
-        onConfirm: invoiceViewService.onConfirm
-    };
-}
-
-export default inject(({ invoiceViewService }) =>
-    mapServiceToProps(invoiceViewService)
-)(Invoice);
+export default inject(mapViewModelToProps('invoiceViewModel'))(Invoice);

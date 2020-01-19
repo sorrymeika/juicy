@@ -1,6 +1,6 @@
 import React from 'react';
 import { Header } from 'snowball/components';
-import { inject } from 'snowball/app';
+import { inject, autowired } from 'snowball/app';
 
 function ItemHeader({
     visible,
@@ -35,10 +35,14 @@ function ItemHeader({
     );
 }
 
-export default inject(({ itemService }, props) => {
+export default inject((store, props) => {
+    const itemService = autowired('itemService');
+
     return {
         visible: itemService.headerVisible,
         currentTab: itemService.scrollPos,
-        onHeaderTabChange: itemService.onScrollToComponent,
+        onTabChange(name) {
+            itemService.scrollToComponent(name);
+        }
     };
 })(ItemHeader);

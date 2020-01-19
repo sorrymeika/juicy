@@ -1,18 +1,16 @@
 import { observable, util } from "snowball";
-import { Service, autowired, param } from "snowball/app";
+import { Service, autowired, param, emitter } from "snowball/app";
 import { toast } from "snowball/widget";
 
-import InvoiceService from "./InvoiceService";
+import InvoiceService from "../services/InvoiceService";
 import OrderService from "../../../shared/services/OrderService";
 
-export default class InvoiceViewService extends Service {
+export default class InvoiceViewModel extends Service {
     @param
     sellerId;
 
-    @observable data = {};
-
-    onFieldChange = this.ctx.createEmitter();
-    onShowInvoiceSelector = this.ctx.createEmitter();
+    @observable
+    data = {};
 
     @observable isInvoiceSelectorVisible = false;
     @observable invoiceList = [];
@@ -22,23 +20,14 @@ export default class InvoiceViewService extends Service {
     onConfirm = this.ctx.createEmitter();
 
     @autowired
-    invoiceService: InvoiceService;
+    _invoiceService: InvoiceService;
 
     @autowired
-    orderService: OrderService;
+    _orderService: OrderService;
 
     constructor() {
         super();
 
-        this.onFieldChange(({ name, value }) => {
-            this.data.withMutations((data) => {
-                data.set(name, value);
-            });
-        });
-
-        this.onShowInvoiceSelector(() => {
-            this.isInvoiceSelectorVisible = true;
-        });
         this.onCloseInvoiceSelector(() => {
             this.isInvoiceSelectorVisible = false;
         });
@@ -51,7 +40,7 @@ export default class InvoiceViewService extends Service {
     }
 
     init() {
-        this.invoiceService.listInvoice()
+        this._invoiceService.listInvoice()
             .then((res) => {
                 this.invoiceList = res.data;
                 this.data = (res.data.length && res.data.find(invoice => invoice.isDefault)) || {
@@ -60,6 +49,17 @@ export default class InvoiceViewService extends Service {
                     isDefault: false
                 };
             });
+    }
+
+    @emitter
+    onShowInvoiceSelector() {
+        this.isInvoiceSelectorVisible = true;
+    }
+
+    onFieldChange(name, value) {
+        this.data.withMutations((data) => {
+            data.set(name, value);
+        });
     }
 
     async confirm() {
@@ -93,9 +93,9 @@ export default class InvoiceViewService extends Service {
         };
 
         try {
-            await this.invoiceService.addInvoice(invoice);
+            await this._invoiceService.addInvoice(invoice);
 
-            this.orderService.onInvoiceChange({
+            this._orderService.onInvoiceChange({
                 ...invoice,
                 sellerId: this.sellerId
             });

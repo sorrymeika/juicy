@@ -48,4 +48,10 @@ export default class CartService extends Service {
             selected,
         });
     }
+
+    delByCartIds(cartIds) {
+        return this._tradeServer.post("/cart/delByCartIds", {
+            cartIds,
+        });
+    }
 }

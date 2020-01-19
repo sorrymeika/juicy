@@ -24,7 +24,7 @@ export default class CategoryViewService extends Service {
             } else if (subSubCate.linkType == 1) {
                 this.ctx.navigation.forward(subSubCate.link);
             } else if (subSubCate.linkType == 2) {
-                this.ctx.navigation.forward('/search?formulaId=' + encodeURIComponent(subSubCate.formulaId));
+                this.ctx.navigation.forward('/search?formulaId=' + subSubCate.formulaId);
             }
         });
     }

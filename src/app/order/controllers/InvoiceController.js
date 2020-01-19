@@ -1,6 +1,6 @@
 import { controller, autowired } from "snowball/app";
 import Invoice from "../containers/Invoice";
-import InvoiceViewService from "../services/InvoiceViewService";
+import InvoiceViewModel from "../view-model/InvoiceViewModel";
 import { OrderConfiguration } from "../configuration/OrderConfiguration";
 
 @controller({
@@ -9,10 +9,10 @@ import { OrderConfiguration } from "../configuration/OrderConfiguration";
 })
 class InvoiceController {
     @autowired
-    invoiceViewService: InvoiceViewService;
+    invoiceViewModel: InvoiceViewModel;
 
     onInit() {
-        this.invoiceViewService.init();
+        this.invoiceViewModel.init();
     }
 }
 

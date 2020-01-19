@@ -1,5 +1,5 @@
 import React from 'react';
-import { inject } from 'snowball/app';
+import { inject, autowired } from 'snowball/app';
 import { Header, MainScrollView, Switch } from 'snowball/components';
 
 import AddressEditService from '../services/AddressEditService';
@@ -81,8 +81,8 @@ function Address({
     );
 }
 
-export default inject(['addressEditService'], ([addressEditService]: [AddressEditService]) => {
-
+function mapAddressEditServiceToProps() {
+    const addressEditService: AddressEditService = autowired('addressEditService');
     return {
         data: addressEditService.data,
         onFieldChange(name, value) {
@@ -93,4 +93,6 @@ export default inject(['addressEditService'], ([addressEditService]: [AddressEdi
         },
         onSave: addressEditService.onSave
     };
-})(Address);
+}
+
+export default inject(mapAddressEditServiceToProps)(Address);
