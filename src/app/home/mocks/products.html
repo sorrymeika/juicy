@@ -14,10 +14,10 @@
     <div class="br_products_item" sn-repeat="item in products" app-link="/item/{item.id}">
         <img sn-src="{item.src}" />
         <div class="title to_e2">{item.title}</div>
-        <div class="sales" sn-if="{data.showSales}">已售{item.sales}</div>
+        <div class="sales" sn-if={data.showSales}>已售{item.sales}</div>
         <div class="sell flex">
             <p class="price"><span>{item.priceIntegerPart}</span><em>.{item.priceDecimalPart}</em></p>
-            <div class="discount" sn-if="{item.discount}">{item.discount}</div>
+            <div class="discount" sn-if={item.discount}>{item.discount}</div>
         </div>
     </div>
 </div>

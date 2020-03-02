@@ -8,7 +8,7 @@
 .br_images_col5 .br_images_item { width: 20%; }
 </style>
 <ul class="br_images clearfix br_images_col{cols}{(data.bottomMargin?' app_def_mb':'')}">
-    <li class="br_images_item" sn-repeat="item in images" app-link="{item.link}"><img sn-src="{item.src}" /></li>
+    <li class="br_images_item" sn-repeat="item in images" app-link={item.link}><img src={item.src} /></li>
 </ul>
 <script>
     var template = {

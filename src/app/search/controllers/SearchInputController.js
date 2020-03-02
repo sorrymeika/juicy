@@ -1,5 +1,4 @@
-import { controller, autowired } from "snowball/app";
-import SearchInputService from "../services/SearchInputService";
+import { controller } from "snowball/app";
 import SearchInput from "../containers/SearchInput";
 import { SearchConfiguration } from "../configuration";
 
@@ -8,8 +7,6 @@ import { SearchConfiguration } from "../configuration";
     configuration: SearchConfiguration
 })
 class SearchInputController {
-    @autowired
-    searchInputService: SearchInputService;
 }
 
 export default SearchInputController;

@@ -24,6 +24,10 @@ export class NavBall extends BrickBase {
         });
     }
 
+    test(element) {
+        console.log(element);
+    }
+
     onScroll(e) {
         const content = e.target;
         const leftPercent = content.scrollLeft / (content.scrollWidth - content.clientWidth);

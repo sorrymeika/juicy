@@ -1,6 +1,8 @@
 import React, { Component } from "react";
-import { ViewModel, util } from "snowball";
+import { template as createTemplate, util, Model } from "snowball";
 import { PageContext } from "snowball/app";
+
+const DEFAULT_DATA = Object.freeze({});
 
 class BrickBase extends Component {
     static contextType = PageContext;
@@ -14,23 +16,21 @@ class BrickBase extends Component {
         } = props;
 
         const template = brick.template;
-        const data = brick.data ? JSON.parse(brick.data) : {};
-        const brickProps = brick.props ? JSON.parse(brick.props) : {};
+        const data = brick.data || DEFAULT_DATA;
+        const brickProps = brick.props || DEFAULT_DATA;
 
         this._prevData = brick.data;
 
         util.style('brick_' + template.id, template.css);
 
-        this.model = new ViewModel({
-            el: template.html,
-            attributes: {
-                env: this.props.ctx.app.env,
-                pageData,
-                data,
-                props: brickProps
-            },
-            delegate: this
+        const connect = createTemplate(template.html);
+        this.model = new Model({
+            env: this.props.ctx.app.env,
+            pageData,
+            data,
+            props: brickProps
         });
+        this.component = connect(this.model, this);
         this.initialize && this.initialize(data);
         this._processData(data);
         this.model.nextTick(() => {
@@ -40,14 +40,15 @@ class BrickBase extends Component {
 
     _initRef = (ref) => {
         if (ref && !this.container) {
-            this.model.appendTo(ref);
+            this.component.appendTo(ref);
+            this.component.render();
         }
         this.container = ref;
     }
 
     shouldComponentUpdate(nextProps) {
         if (this._prevData !== nextProps.brick.data) {
-            const data = nextProps.brick.data ? JSON.parse(nextProps.brick.data) : {};
+            const data = nextProps.brick.data || DEFAULT_DATA;
             this._prevData = nextProps.brick.data;
             this.model.set({
                 data

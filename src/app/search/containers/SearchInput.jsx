@@ -1,6 +1,6 @@
 import React, { useRef, useEffect } from 'react';
 import { Header, MainScrollView } from 'snowball/components';
-import { inject } from 'snowball/app';
+import { inject, autowired } from 'snowball/app';
 
 function SearchInput({ keywords, onSubmit, onChange }) {
     const inputRef = useRef();
@@ -66,8 +66,8 @@ function SearchInput({ keywords, onSubmit, onChange }) {
     );
 }
 
-export default inject(({ searchInputService }) => {
-
+export default inject(() => {
+    const searchInputService = autowired('searchInputService');
     return {
         keywords: searchInputService.keywords,
         onChange: searchInputService.onChange.emit,

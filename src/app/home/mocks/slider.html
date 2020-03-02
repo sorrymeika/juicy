@@ -2,7 +2,7 @@
 .br_slider { position: relative; }
 .br_slider img { width: 100%; }
 </style>
-<sn-slider props="{{ containerWidth: env.IS_BG ? 375: window.innerWidth, dots: true, loop: true, autoLoop: 3000, imagelazyload: true, data:images, className: (data.bottomMargin?' app_def_mb':'') }}"></sn-slider>
+<Slider loop autoLoop={3000} className={data.bottomMargin? ' app_def_mb': ''} data={images} containerWidth={env.IS_BG ? 375: window.innerWidth} dots />
 <script>
     var template = {
         type: 2,

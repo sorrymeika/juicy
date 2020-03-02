@@ -107,11 +107,13 @@ function Shop({
     );
 }
 
-export default inject(({ ctx, shopService }: { shopService: ShopService }) => {
+export default inject(({ ctx, shopService, pageData, bricks }: { shopService: ShopService }) => {
     return {
         seller: shopService.seller,
         tabIndex: shopService.tabIndex,
         onTabChange: shopService.onTabChange.emit,
-        ctx
+        ctx,
+        pageData,
+        bricks
     };
 })(Shop);

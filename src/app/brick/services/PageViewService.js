@@ -35,7 +35,7 @@ export default class PageViewService extends Service {
         this.pageData = {
             id: page.id,
             name: page.name,
-            props: JSON.parse(page.props || '{}')
+            props: page.props || {}
         };
 
         this.bricks = page.bricks

@@ -11,10 +11,10 @@
 </style>
 <div class="br_nav_ball {(data.bottomMargin?' app_def_mb':'')}">
     <div class="br_nav_ball_rows{rows} ">
-        <div class="br_nav_ball_con J_Con" sn-scroll="delegate.onScroll()">
+        <div class="br_nav_ball_con J_Con" onscroll={delegate.onScroll($event)}>
             <ul class="clearfix" sn-style="width:{width}%">
-                <li class="br_nav_ball_item" sn-repeat="item in images" app-link="{item.link}">
-                    <img sn-src="{item.src}" />
+                <li class="br_nav_ball_item" sn-repeat="item in images" app-link="{item.link}" onclick={delegate.test($element)}>
+                    <img sn-image="{item.src}" />
                     <p>{item.text}</p>
                 </li>
             </ul>
