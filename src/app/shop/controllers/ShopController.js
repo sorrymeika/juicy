@@ -1,23 +1,27 @@
 import { controller, autowired, param } from "snowball/app";
 import { toast } from "snowball/widget";
 
-import PageViewController from "../../brick/PageViewController";
+import PageViewModel from "../../brick/view-models/PageViewModel";
+
 import ShopService from "../services/ShopService";
 import Shop from "../containers/Shop";
 import ShopSearchService from "../services/ShopSearchService";
-import { PageConfiguration } from "../../brick/PageConfiguration";
+import { PageConfiguration } from "../../brick/configuration";
 import { ShopConfiguration } from "../configuration/ShopConfiguration";
 
 @controller({
     component: Shop,
     configuration: [PageConfiguration, ShopConfiguration]
 })
-class ShopController extends PageViewController {
+class ShopController {
     @param
     _sellerId: number;
 
     @param('tab')
     _tabIndex: number;
+
+    @autowired
+    _pageViewModel: PageViewModel;
 
     @autowired
     shopService: ShopService;
@@ -30,7 +34,7 @@ class ShopController extends PageViewController {
             this.shopService.setTabIndex(this._tabIndex);
         }
 
-        this.pageViewService.initWithShop(this._sellerId)
+        this._pageViewModel.initWithShop(this._sellerId)
             .then((res) => {
                 if (!res.seller) {
                     toast.showToast('商户不存在或已注销！');

@@ -1,14 +1,14 @@
 <style>
-.br_images_item { float: left; }
-.br_images_item > img { display: block; font-size: 0; width: 100%; }
-.br_images_col1 .br_images_item { float: none; width: 100%; }
-.br_images_col2 .br_images_item { width: 50%; }
-.br_images_col3 .br_images_item { width: 33.33%; }
-.br_images_col4 .br_images_item { width: 25%; }
-.br_images_col5 .br_images_item { width: 20%; }
+.bk_images_item { float: left; }
+.bk_images_item > img { display: block; font-size: 0; width: 100%; }
+.bk_images_col1 .bk_images_item { float: none; width: 100%; }
+.bk_images_col2 .bk_images_item { width: 50%; }
+.bk_images_col3 .bk_images_item { width: 33.33%; }
+.bk_images_col4 .bk_images_item { width: 25%; }
+.bk_images_col5 .bk_images_item { width: 20%; }
 </style>
-<ul class="br_images clearfix br_images_col{cols}{(data.bottomMargin?' app_def_mb':'')}">
-    <li class="br_images_item" sn-repeat="item in images" app-link={item.link}><img src={item.src} /></li>
+<ul class="bk_images clearfix bk_images_col{cols}{(data.bottomMargin?' app_def_mb':'')}">
+    <li class="bk_images_item" sn-repeat="item in images" app-link={item.link}><img src={item.src} /></li>
 </ul>
 <script>
     var template = {

@@ -1,18 +1,17 @@
-import { BrickBase } from "../core/BrickBase";
+import { BrickBase } from "../base/BrickBase";
 
-class Products extends BrickBase {
+export default class Products extends BrickBase {
     processData(data) {
-        let search;
+        const { ctx, app } = this.context;
         const products = data.products || [];
-
+        let search;
         if (data.type == 1) {
             const formulaId = Number(data.formulaId);
             const maxNum = Number(data.maxNum);
-
-            search = this.context.searchService.searchByFormula(formulaId, 1, maxNum);
+            search = ctx.autowired('searchService').searchByFormula(formulaId, 1, maxNum);
         } else {
             const ids = products.map(prd => prd.id);
-            search = this.context.productService.getSpusByIds(ids);
+            search = ctx.autowired('productService').getSpusByIds(ids);
         }
 
         search.then((res) => {
@@ -22,7 +21,7 @@ class Products extends BrickBase {
                     const [maxPriceIntegerPart, maxPriceDecimalPart] = prd.maxPrice.toFixed(2).split('.');
                     return {
                         ...prd,
-                        src: this.props.ctx.app.sfs.completeUrl(prd.pictures.split(',')[0], '380x380', '80-2'),
+                        src: app.sfs.completeUrl(prd.pictures.split(',')[0], '380x380', '80-2'),
                         priceIntegerPart: priceInt,
                         priceDecimalPart: priceDec,
                         maxPriceIntegerPart,
@@ -38,5 +37,3 @@ class Products extends BrickBase {
         };
     }
 }
-
-export default Products;

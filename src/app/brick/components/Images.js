@@ -1,4 +1,4 @@
-import { BrickBase } from "../core/BrickBase";
+import { BrickBase } from "../base/BrickBase";
 
 class Images extends BrickBase {
     processData(data) {
@@ -6,7 +6,7 @@ class Images extends BrickBase {
             cols: data.cols,
             images: data.images.map((img) => ({
                 ...img,
-                src: this.props.ctx.app.sfs.completeUrl(img.src)
+                src: this.context.app.sfs.completeUrl(img.src)
             }))
         };
     }

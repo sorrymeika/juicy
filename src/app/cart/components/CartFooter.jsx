@@ -1,7 +1,7 @@
 import React from "react";
 import { CheckBox } from "sn-app";
 import { inject, autowired } from "snowball/app";
-import CartViewService from "../services/CartViewService";
+import CartViewModel from "../view-models/CartViewModel";
 
 function CartFooter({
     isInEditMode,
@@ -55,23 +55,23 @@ function CartFooter({
 }
 
 function mapServiceToProps() {
-    const cartViewService: CartViewService = autowired('cartViewService');
+    const cartViewModel: CartViewModel = autowired('cartViewModel');
 
     return {
-        isInEditMode: cartViewService.isInEditMode,
-        total: cartViewService.total,
-        selectedCount: cartViewService.selectedCount,
-        amount: cartViewService.amount,
+        isInEditMode: cartViewModel.isInEditMode,
+        total: cartViewModel.total,
+        selectedCount: cartViewModel.selectedCount,
+        amount: cartViewModel.amount,
         onSelectAll(selected) {
-            cartViewService.selectAll(selected);
+            cartViewModel.selectAll(selected);
         },
         onCheckout() {
-            cartViewService.checkout();
+            cartViewModel.checkout();
         },
         onMoveToFav() {
         },
         onDelete() {
-            cartViewService.delSelectedItems();
+            cartViewModel.delSelectedItems();
         }
     };
 }

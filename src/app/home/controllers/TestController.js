@@ -1,13 +1,12 @@
 import { controller } from "snowball/app";
-import Test from "./Test";
-import PageViewController from "../brick/PageViewController";
-import { PageConfiguration } from "../brick/PageConfiguration";
+import Test from "../containers/Test";
+import { PageConfiguration } from "../../brick/configuration";
 
 @controller({
     component: Test,
     configuration: PageConfiguration
 })
-class TestController extends PageViewController {
+class TestController {
     onInit() {
         // fetch remote data here!
     }

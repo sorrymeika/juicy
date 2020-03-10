@@ -1,15 +1,12 @@
 import React from "react";
 import { MainScrollView } from "snowball/components";
-import { renderBricks } from "../brick";
-import HomeFooter from "./components/HomeFooter";
-import Cart from "../cart/Cart";
-import UserCenter from "../user/containers/UserCenter";
-import Category from "../category/Category";
+import Cart from "../../cart/containers/Cart";
+import UserCenter from "../../user/containers/UserCenter";
+import Category from "../../category/containers/Category";
+import { Bricks } from "../../brick";
+import HomeFooter from "../components/HomeFooter";
 
 function Home({
-    ctx,
-    pageData,
-    bricks,
     currentTab,
     isCartLoaded,
     isCateLoaded,
@@ -29,7 +26,7 @@ function Home({
                     </button>
                 </header>
                 <MainScrollView>
-                    {renderBricks(pageData, bricks, ctx)}
+                    <Bricks />
                     <div className="pd_m ta_c fs_m">
                         <a className="cl_333" href="http://www.beian.miit.gov.cn/">沪ICP备19040998号-1</a>
                     </div>

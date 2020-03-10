@@ -15,7 +15,7 @@ import SellerService from "./services/SellerService";
 
 import { PicturesService } from "./components";
 
-const AppConfiguration = configuration({
+export const AppConfiguration = configuration({
     modules: {
         userService: singleton(UserService),
         cartService: singleton(CartService),
@@ -33,5 +33,3 @@ const AppConfiguration = configuration({
         baseServer: () => new Server({ baseUrl: API_URL + '/base_server' }),
     }
 });
-
-export { AppConfiguration };

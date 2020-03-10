@@ -1,9 +1,9 @@
 import { configuration } from "snowball/app";
 
-import CartViewService from "./services/CartViewService";
+import CartViewModel from "./view-models/CartViewModel";
 
 export const CartConfiguration = configuration({
     modules: {
-        cartViewService: CartViewService,
+        cartViewModel: CartViewModel,
     }
 });

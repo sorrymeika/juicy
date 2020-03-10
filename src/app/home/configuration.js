@@ -1,10 +1,10 @@
 import { configuration } from "snowball/app";
 
 import { UserConfiguration } from "../user/configuration/UserConfiguration";
-import { CartConfiguration } from "../cart/CartConfiguration";
-import { CategoryConfiguration } from "../category/CategoryConfiguration";
-import { PageConfiguration } from "../brick/PageConfiguration";
-import { ItemConfiguration } from "../item/ItemConfiguration";
+import { CartConfiguration } from "../cart/configuration";
+import { CategoryConfiguration } from "../category/configuration";
+import { PageConfiguration } from "../brick/configuration";
+import { ItemConfiguration } from "../item/configuration";
 
 export const HomeConfiguration = configuration({
     dependencies: [

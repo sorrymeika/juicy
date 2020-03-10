@@ -1,38 +1,51 @@
+import { observable } from "snowball";
 import { controller, autowired } from "snowball/app";
 
-import CategoryViewService from "../category/services/CategoryViewService";
+import PageViewModel from "../../brick/view-models/PageViewModel";
 
-import CartViewService from "../cart/services/CartViewService";
-import UserCenterService from "../user/services/UserCenterService";
+import CategoryViewModel from "../../category/view-models/CategoryViewModel";
 
-import PageViewController from "../brick/PageViewController";
+import CartViewModel from "../../cart/view-models/CartViewModel";
+import UserCenterService from "../../user/services/UserCenterService";
 
-import Home from "./Home";
-import { HomeConfiguration } from "./HomeConfiguration";
+import Home from "../containers/Home";
+import { HomeConfiguration } from "../configuration";
 
 @controller({
     component: Home,
     configuration: HomeConfiguration
 })
-class HomeController extends PageViewController {
-    @autowired
-    categoryViewService: CategoryViewService;
+class HomeController {
 
     @autowired
-    cartViewService: CartViewService;
+    pageViewModel: PageViewModel;
+
+    @autowired
+    categoryViewModel: CategoryViewModel;
+
+    @autowired
+    cartViewModel: CartViewModel;
 
     @autowired
     userCenterService: UserCenterService;
 
+    @observable
     currentTab = 'home';
 
+    @observable
     isCateLoaded = false;
+
+    @observable
     isFindLoaded = false;
+
+    @observable
     isCartLoaded = false;
+
+    @observable
     isUserLoaded = false;
 
     onInit() {
-        this.pageViewService.initWithKeyName('home');
+        this.pageViewModel.initWithKeyName('home');
     }
 
     onGotoSearch() {
@@ -46,7 +59,7 @@ class HomeController extends PageViewController {
             switch (type) {
                 case 'cate':
                     if (!this.isCateLoaded) {
-                        this.categoryViewService.loadCates();
+                        this.categoryViewModel.loadCates();
                         this.isCateLoaded = true;
                     }
                     break;
@@ -55,7 +68,7 @@ class HomeController extends PageViewController {
                     break;
                 case 'cart':
                     this.isCartLoaded = true;
-                    this.cartViewService.loadUserCart();
+                    this.cartViewModel.loadUserCart();
                     break;
                 case 'user':
                     this.isUserLoaded = true;

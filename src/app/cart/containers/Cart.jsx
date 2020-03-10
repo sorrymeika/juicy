@@ -1,9 +1,9 @@
 import React from "react";
 import { MainScrollView } from "snowball/components";
-import CartHeader from "./components/CartHeader";
-import CartFooter from "./components/CartFooter";
-import CartList from "./components/CartList";
-import FixedStore from "./components/FixedStore";
+import CartHeader from "../components/CartHeader";
+import CartFooter from "../components/CartFooter";
+import CartList from "../components/CartList";
+import FixedStore from "../components/FixedStore";
 
 export default function Cart({ visible = true, showBack }) {
     return (

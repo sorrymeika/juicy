@@ -1,11 +1,11 @@
 import { configuration } from "snowball/app";
 
 import CategoryService from "./services/CategoryService";
-import CategoryViewService from "./services/CategoryViewService";
+import CategoryViewModel from "./view-models/CategoryViewModel";
 
 export const CategoryConfiguration = configuration({
     modules: {
         categoryService: CategoryService,
-        categoryViewService: CategoryViewService
+        categoryViewModel: CategoryViewModel
     }
 });

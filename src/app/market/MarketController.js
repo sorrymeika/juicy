@@ -1,21 +1,22 @@
-import { controller } from "snowball/app";
+import { controller, autowired } from "snowball/app";
 import Market from "./Market";
-import PageViewController from "../brick/PageViewController";
-import { PageConfiguration } from "../brick/PageConfiguration";
+import { PageConfiguration } from "../brick/configuration";
+import PageViewModel from "../brick/view-models/PageViewModel";
 
 @controller({
     component: Market,
     configuration: PageConfiguration
 })
-class MarketController extends PageViewController {
-    constructor(props, context) {
-        super(props, context);
+class MarketController {
+    @autowired
+    _pageViewModel: PageViewModel;
 
+    constructor(props, context) {
         this.pageId = Number(props.location.params.id);
     }
 
     onInit() {
-        this.pageViewService.initWithId(this.pageId);
+        this._pageViewModel.initWithId(this.pageId);
     }
 }
 

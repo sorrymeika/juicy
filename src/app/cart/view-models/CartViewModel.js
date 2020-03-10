@@ -1,9 +1,9 @@
 import { observable, util, asObservable } from "snowball";
-import { Service, autowired } from "snowball/app";
+import { autowired, ViewModel } from "snowball/app";
 import { toast } from "snowball/widget";
 import CartService from "../../../shared/services/CartService";
 
-export default class CartViewService extends Service {
+export default class CartViewModel extends ViewModel {
     @observable
     isInEditMode = false;
 

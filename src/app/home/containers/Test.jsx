@@ -1,11 +1,11 @@
 import React from "react";
 import { MainScrollView } from "snowball/components";
 
-import imageHTML from './mocks/images.html';
-import sliderHTML from './mocks/slider.html';
-import navBallHTML from './mocks/nav-ball.html';
-import productsHTML from './mocks/products.html';
-import { createBrickFactory } from "../brick";
+import imageHTML from '../mocks/images.html';
+import sliderHTML from '../mocks/slider.html';
+import navBallHTML from '../mocks/nav-ball.html';
+import productsHTML from '../mocks/products.html';
+import { renderBricks } from "../../brick";
 
 let templateId = 0;
 let brickId = 0;
@@ -28,17 +28,15 @@ function parseTemplate(html) {
         });
 
     return data.map((item) => ({
-        brick: {
-            id: ++brickId,
-            data: item,
-            props: {},
-            template: {
-                id: ++templateId,
-                type,
-                css,
-                html
-            },
-        }
+        id: ++brickId,
+        data: item,
+        props: {},
+        template: {
+            id: ++templateId,
+            type,
+            css,
+            html
+        },
     }));
 }
 
@@ -50,13 +48,15 @@ export default function Test({ ctx }) {
     return (
         <MainScrollView>
             {
-                parseTemplates([
-                    sliderHTML,
-                    navBallHTML,
-                    imageHTML,
-                    productsHTML
-                ])
-                    .map((props) => React.createElement(createBrickFactory(props.brick.template.type), { ...props, ctx }))
+                renderBricks({
+                    pageData: {},
+                    bricks: parseTemplates([
+                        sliderHTML,
+                        navBallHTML,
+                        imageHTML,
+                        productsHTML
+                    ])
+                })
             }
         </MainScrollView>
     );

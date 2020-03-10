@@ -12,20 +12,18 @@ class BrickBase extends Component {
 
         const {
             pageData,
-            brick
+            template,
+            data = DEFAULT_DATA,
+            props: brickProps = DEFAULT_DATA
         } = props;
 
-        const template = brick.template;
-        const data = brick.data || DEFAULT_DATA;
-        const brickProps = brick.props || DEFAULT_DATA;
+        this._prevData = data;
 
-        this._prevData = brick.data;
-
-        util.style('brick_' + template.id, template.css);
+        template.css && util.style('brick_' + template.id, template.css);
 
         const connect = createTemplate(template.html);
         this.model = new Model({
-            env: this.props.ctx.app.env,
+            env: this.context.app.env,
             pageData,
             data,
             props: brickProps
@@ -47,9 +45,9 @@ class BrickBase extends Component {
     }
 
     shouldComponentUpdate(nextProps) {
-        if (this._prevData !== nextProps.brick.data) {
-            const data = nextProps.brick.data || DEFAULT_DATA;
-            this._prevData = nextProps.brick.data;
+        if (this._prevData !== nextProps.data) {
+            const data = nextProps.data || DEFAULT_DATA;
+            this._prevData = nextProps.data;
             this.model.set({
                 data
             });

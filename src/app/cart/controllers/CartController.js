@@ -1,8 +1,8 @@
 import { controller, autowired } from "snowball/app";
-import Cart from "./Cart";
-import CartViewService from "./services/CartViewService";
-import { CartConfiguration } from "./CartConfiguration";
-import UserService from "../../shared/services/UserService";
+import Cart from "../containers/Cart";
+import CartViewModel from "../view-models/CartViewModel";
+import { CartConfiguration } from "../configuration";
+import UserService from "../../../shared/services/UserService";
 
 @controller({
     component: Cart,
@@ -13,7 +13,7 @@ class CartController {
     _userService: UserService;
 
     @autowired
-    cartViewService: CartViewService;
+    cartViewModel: CartViewModel;
 
     onInit() {
         this.load();
@@ -28,7 +28,7 @@ class CartController {
     }
 
     async load() {
-        await this.cartViewService.loadUserCart();
+        await this.cartViewModel.loadUserCart();
     }
 }
 

@@ -2,8 +2,8 @@
 
 import React from 'react';
 import { inject } from 'snowball/app';
-import CategoryList from './components/CategoryList';
-import SubCateList from './components/SubCateList';
+import CategoryList from '../components/CategoryList';
+import SubCateList from '../components/SubCateList';
 import { Header } from 'snowball/components';
 
 function Category({ visible = true, showBack, cates, currentCate, onChange, onClickSubSubCate }) {
@@ -29,11 +29,11 @@ function Category({ visible = true, showBack, cates, currentCate, onChange, onCl
     );
 }
 
-export default inject(({ categoryViewService }) => {
+export default inject(({ categoryViewModel }) => {
     return {
-        cates: categoryViewService.cates,
-        currentCate: categoryViewService.currentCate,
-        onChange: categoryViewService.onCateChange.emit,
-        onClickSubSubCate: categoryViewService.onClickSubSubCate.emit
+        cates: categoryViewModel.cates,
+        currentCate: categoryViewModel.currentCate,
+        onChange: categoryViewModel.onCateChange.emit,
+        onClickSubSubCate: categoryViewModel.onClickSubSubCate.emit
     };
 })(Category);

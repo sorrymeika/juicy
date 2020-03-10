@@ -1,7 +1,7 @@
 import React from "react";
 import { Header } from "snowball/components";
 import { inject, autowired } from "snowball/app";
-import CartViewService from "../services/CartViewService";
+import CartViewModel from "../view-models/CartViewModel";
 
 function CartHeader({
     isInEditMode,
@@ -26,12 +26,12 @@ function CartHeader({
 }
 
 function mapServiceToProps() {
-    const cartViewService: CartViewService = autowired('cartViewService');
+    const cartViewModel: CartViewModel = autowired('cartViewModel');
 
     return {
-        isInEditMode: cartViewService.isInEditMode,
+        isInEditMode: cartViewModel.isInEditMode,
         onEdit() {
-            cartViewService.toggleEditMode();
+            cartViewModel.toggleEditMode();
         }
     };
 }

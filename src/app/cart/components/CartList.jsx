@@ -1,7 +1,7 @@
 import React from "react";
 import CartStore from "./CartStore";
 import { inject } from "snowball/app";
-import CartViewService from "../services/CartViewService";
+import CartViewModel from "../view-models/CartViewModel";
 
 function CartList({ sellers, onSelectSku, onSelectSeller, onCartNumChange }) {
     return (
@@ -27,21 +27,21 @@ function CartList({ sellers, onSelectSku, onSelectSeller, onCartNumChange }) {
     );
 }
 
-function mapServiceToProps(cartViewService: CartViewService) {
+function mapServiceToProps(cartViewModel: CartViewModel) {
     return {
-        sellers: cartViewService.sellers,
+        sellers: cartViewModel.sellers,
         onSelectSku(sku) {
-            cartViewService.selectItem(sku);
+            cartViewModel.selectItem(sku);
         },
         onSelectSeller(selected) {
-            cartViewService.selectSeller(selected);
+            cartViewModel.selectSeller(selected);
         },
         onCartNumChange(item) {
-            cartViewService.changeCartNum(item);
+            cartViewModel.changeCartNum(item);
         }
     };
 }
 
-export default inject(({ cartViewService }) => {
-    return mapServiceToProps(cartViewService);
+export default inject(({ cartViewModel }) => {
+    return mapServiceToProps(cartViewModel);
 })(CartList);

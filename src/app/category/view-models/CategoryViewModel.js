@@ -1,10 +1,10 @@
 import { observable } from "snowball";
 import { Service, autowired } from "snowball/app";
 
-import CategoryService from "./CategoryService";
+import CategoryService from "../services/CategoryService";
 import { toast } from "snowball/widget";
 
-export default class CategoryViewService extends Service {
+export default class CategoryViewModel extends Service {
     @observable cates;
     @observable currentCate;
 
