@@ -1,10 +1,8 @@
-import { Service, autowired } from "snowball/app";
+import { Service, autowired, emitter } from "snowball/app";
 import { toast } from "snowball/widget";
 import UserService from "../../../shared/services/UserService";
 
-export default class LoginService extends Service {
-    onSubmit = this.ctx.createEmitter();
-
+export default class LoginViewModel extends Service {
     isLogin = false;
 
     @autowired
@@ -13,15 +11,16 @@ export default class LoginService extends Service {
     constructor() {
         super();
 
-        this.onSubmit((params) => {
-            this.login(params);
-        });
-
         this.ctx.page.on('destroy', () => {
             if (!this.isLogin) {
                 this._userService.onLoginStatusChange({ status: 'cancel' });
             }
         });
+    }
+
+    @emitter
+    onSubmit(params) {
+        this.login(params);
     }
 
     async login(data) {

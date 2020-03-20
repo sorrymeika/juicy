@@ -1,5 +1,5 @@
 import React from 'react';
-import { inject } from 'snowball/app';
+import { inject, autowired } from 'snowball/app';
 import { ImageUpload } from 'snowball/components';
 import { SfsImage, CheckBox } from 'sn-app';
 
@@ -58,11 +58,10 @@ function UserEditForm({ userInfo, onFieldChange }) {
     );
 }
 
-export default inject(({ userEditService }) => {
-    return userEditService
-        ? {
-            userInfo: userEditService.userInfo,
-            onFieldChange: (name, value) => userEditService.onFieldChange.emit({ [name]: value })
-        }
-        : null;
+export default inject(() => {
+    const userEditViewModel = autowired('userEditViewModel');
+    return {
+        userInfo: userEditViewModel.userInfo,
+        onFieldChange: (name, value) => userEditViewModel.onFieldChange({ [name]: value })
+    };
 })(UserEditForm);

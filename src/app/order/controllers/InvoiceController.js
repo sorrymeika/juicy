@@ -1,6 +1,6 @@
 import { controller, autowired } from "snowball/app";
 import Invoice from "../containers/Invoice";
-import InvoiceViewModel from "../view-model/InvoiceViewModel";
+import InvoiceViewModel from "../view-models/InvoiceViewModel";
 import { OrderConfiguration } from "../configuration/OrderConfiguration";
 
 @controller({

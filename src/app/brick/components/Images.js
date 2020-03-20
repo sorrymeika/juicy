@@ -1,6 +1,6 @@
 import { BrickBase } from "../base/BrickBase";
 
-class Images extends BrickBase {
+export default class Images extends BrickBase {
     processData(data) {
         return {
             cols: data.cols,
@@ -11,5 +11,3 @@ class Images extends BrickBase {
         };
     }
 }
-
-export { Images };

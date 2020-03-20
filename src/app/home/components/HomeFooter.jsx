@@ -13,7 +13,7 @@ function HomeFooter({ currentTab, onFooterTabChange }) {
     }, {
         icon: 'icon-find',
         key: 'find',
-        text: '发现'
+        text: '好物'
     }, {
         icon: 'icon-cart',
         key: 'cart',

@@ -7,10 +7,10 @@ export default class CartNumService extends Service {
     total = 0;
 
     @autowired
-    cartService: CartService
+    _cartService: CartService
 
     pull() {
-        return this.cartService
+        return this._cartService
             .countCartTotalNum()
             .then((res) => {
                 this.total = res.total;

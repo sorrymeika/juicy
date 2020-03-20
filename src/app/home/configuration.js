@@ -1,6 +1,6 @@
 import { configuration } from "snowball/app";
 
-import { UserConfiguration } from "../user/configuration/UserConfiguration";
+import { UserConfiguration } from "../user/configuration";
 import { CartConfiguration } from "../cart/configuration";
 import { CategoryConfiguration } from "../category/configuration";
 import { PageConfiguration } from "../brick/configuration";

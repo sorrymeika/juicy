@@ -1,10 +1,10 @@
 import React from 'react';
+import { inject, mapViewModelToProps } from 'snowball/app';
 import { Header, MainScrollView } from 'snowball/components';
 import UserInfo from '../components/UserInfo';
 import MyOrder from '../components/MyOrder';
-import { inject } from 'snowball/app';
 
-function UserCenter({ visible = true, showBack, onToSetting }) {
+function UserCenter({ userInfo, visible = true, showBack, onGoToSetting }) {
     return (
         <div className="uc_wrap" style={{ display: visible ? 'block' : 'none' }}>
             <Header
@@ -14,22 +14,18 @@ function UserCenter({ visible = true, showBack, onToSetting }) {
                     <>
                         <button
                             className="iconfont icon-setting"
-                            onClick={onToSetting}
+                            onClick={onGoToSetting}
                         ></button>
                         <button className="iconfont icon-message"></button>
                     </>
                 }
             ></Header>
             <MainScrollView>
-                <UserInfo></UserInfo>
-                <MyOrder></MyOrder>
+                <UserInfo userInfo={userInfo} />
+                <MyOrder />
             </MainScrollView>
         </div>
     );
 }
 
-export default inject(({ userCenterService }) => {
-    return {
-        onToSetting: userCenterService.onToSetting.emit
-    };
-})(UserCenter);
+export default inject(mapViewModelToProps('userCenterViewModel'))(UserCenter);

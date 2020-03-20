@@ -1,7 +1,7 @@
 import { controller, autowired } from "snowball/app";
 import UserCenter from "../containers/UserCenter";
-import UserCenterService from "../services/UserCenterService";
-import { UserConfiguration } from "../configuration/UserConfiguration";
+import UserCenterViewModel from "../view-models/UserCenterViewModel";
+import { UserConfiguration } from "../configuration";
 
 @controller({
     component: UserCenter,
@@ -9,10 +9,10 @@ import { UserConfiguration } from "../configuration/UserConfiguration";
 })
 class UserCenterController {
     @autowired
-    userCenterService: UserCenterService;
+    _userCenterViewModel: UserCenterViewModel;
 
     onInit() {
-        this.userCenterService.onInit.emit();
+        this._userCenterViewModel.init();
     }
 }
 

@@ -37,7 +37,7 @@
     "jest-resolve": "24.7.1",
     "jest-watch-typeahead": "0.3.0",
     "mini-css-extract-plugin": "0.5.0",
-    "node-sass": "^4.12.0",
+    "node-sass": "^4.13.1",
     "optimize-css-assets-webpack-plugin": "5.0.1",
     "pnp-webpack-plugin": "1.2.1",
     "postcss-flexbugs-fixes": "4.1.0",
@@ -45,7 +45,7 @@
     "postcss-normalize": "7.0.1",
     "postcss-preset-env": "6.6.0",
     "postcss-safe-parser": "4.0.1",
-    "preact": "^10.0.5",
+    "preact": "^10.3.3",
     "react": "^16.8.6",
     "react-app-polyfill": "^1.0.1",
     "react-dev-utils": "^9.0.1",
@@ -81,6 +81,11 @@
     "development": [
       "android >= 2.3",
       "ios_saf > 6"
+    ],
+    "pc": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
     ]
   },
   "jest": {

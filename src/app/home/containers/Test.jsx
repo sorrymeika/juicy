@@ -1,11 +1,11 @@
 import React from "react";
 import { MainScrollView } from "snowball/components";
+import { renderBricks } from "../../brick";
 
 import imageHTML from '../mocks/images.html';
 import sliderHTML from '../mocks/slider.html';
 import navBallHTML from '../mocks/nav-ball.html';
 import productsHTML from '../mocks/products.html';
-import { renderBricks } from "../../brick";
 
 let templateId = 0;
 let brickId = 0;
@@ -45,17 +45,18 @@ function parseTemplates(htmls) {
 }
 
 export default function Test({ ctx }) {
+    const bricks = parseTemplates([
+        sliderHTML,
+        navBallHTML,
+        imageHTML,
+        productsHTML
+    ]);
     return (
         <MainScrollView>
             {
                 renderBricks({
                     pageData: {},
-                    bricks: parseTemplates([
-                        sliderHTML,
-                        navBallHTML,
-                        imageHTML,
-                        productsHTML
-                    ])
+                    bricks
                 })
             }
         </MainScrollView>

@@ -1,8 +1,8 @@
 import React from 'react';
-import { inject } from 'snowball/app';
+import { inject, autowired } from 'snowball/app';
 import { SfsImage } from 'sn-app';
 
-function UserInfoToEdit({ userInfo, onGoToEdit }) {
+function SettingUserInfo({ userInfo, onGoToEdit }) {
     return (
         <div className="us_to_edit">
             <div
@@ -33,11 +33,10 @@ function UserInfoToEdit({ userInfo, onGoToEdit }) {
     );
 }
 
-export default inject(({ settingService }) => {
-    return settingService
-        ? {
-            userInfo: settingService.userInfo,
-            onGoToEdit: settingService.onGoToEdit.emit,
-        }
-        : null;
-})(UserInfoToEdit);
+export default inject(() => {
+    const settingViewModel = autowired('settingViewModel');
+    return {
+        userInfo: settingViewModel.userInfo,
+        onGoToEdit: settingViewModel.onGoToEdit,
+    };
+})(SettingUserInfo);

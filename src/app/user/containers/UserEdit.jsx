@@ -1,7 +1,7 @@
 import React from 'react';
+import { inject, autowired } from 'snowball/app';
 import { Header, MainScrollView } from 'snowball/components';
 import UserEditForm from '../components/UserEditForm';
-import { inject } from 'snowball/app';
 
 function UserEdit({ onSave }) {
     return (
@@ -23,10 +23,9 @@ function UserEdit({ onSave }) {
     );
 }
 
-export default inject(({ userEditService }) => {
-    return userEditService
-        ? {
-            onSave: userEditService.onSave.emit
-        }
-        : null;
+export default inject(() => {
+    const userEditViewModel = autowired('userEditViewModel');
+    return {
+        onSave: userEditViewModel.onSave
+    };
 })(UserEdit);

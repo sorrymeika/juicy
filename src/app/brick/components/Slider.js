@@ -1,6 +1,6 @@
 import { BrickBase } from "../base/BrickBase";
 
-class Slider extends BrickBase {
+export default class Slider extends BrickBase {
     processData(data) {
         return {
             images: data.images && data.images.map((img) => ({
@@ -10,5 +10,3 @@ class Slider extends BrickBase {
         };
     }
 }
-
-export { Slider };

@@ -5,8 +5,6 @@ export default function renderBricks({ pageData, bricks, templates }) {
     const normalBricks = [];
     const fixedBricks = [];
 
-    console.log(bricks);
-
     bricks.forEach((brick) => {
         const itemProps = {
             ...brick,

@@ -1,7 +1,7 @@
 import { scroll } from "snowball/widget";
 import { BrickBase } from "../base/BrickBase";
 
-export class NavBall extends BrickBase {
+export default class NavBall extends BrickBase {
     processData(data) {
         const { images, rows } = data;
         return {

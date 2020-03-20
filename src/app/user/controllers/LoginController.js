@@ -1,17 +1,13 @@
 import { controller } from "snowball/app";
 import Login from "../containers/Login";
-import LoginService from "../services/LoginService";
+import { UserConfiguration } from "../configuration";
 // import { request } from "./jkGateway";
 
 @controller({
-    component: Login
+    component: Login,
+    configuration: UserConfiguration
 })
 class LoginController {
-    loginService: LoginService;
-
-    constructor() {
-        this.loginService = new LoginService();
-    }
 
     onInit() {
         // this.ctx.service.user.getUserInfo();

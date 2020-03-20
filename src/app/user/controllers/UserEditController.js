@@ -1,7 +1,7 @@
 import { controller, autowired } from "snowball/app";
 import EditUserInfo from "../containers/UserEdit";
-import UserEditService from "../services/UserEditService";
-import { UserConfiguration } from "../configuration/UserConfiguration";
+import UserEditViewModel from "../view-models/UserEditViewModel";
+import { UserConfiguration } from "../configuration";
 
 @controller({
     component: EditUserInfo,
@@ -9,10 +9,10 @@ import { UserConfiguration } from "../configuration/UserConfiguration";
 })
 class UserEditController {
     @autowired
-    userEditService: UserEditService;
+    userEditViewModel: UserEditViewModel;
 
     onInit() {
-        this.userEditService.onInit.emit();
+        this.userEditViewModel.onInit.emit();
     }
 }
 

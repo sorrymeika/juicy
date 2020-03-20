@@ -1,5 +1,4 @@
 import React from 'react';
-import { inject } from 'snowball/app';
 
 function MyOrder() {
     return (
@@ -53,9 +52,4 @@ function MyOrder() {
     );
 }
 
-export default inject(({ userCenterService }) => {
-    return userCenterService
-        ? {
-        }
-        : null;
-})(MyOrder);
+export default MyOrder;

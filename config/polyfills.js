@@ -1,2 +1,2 @@
-if (typeof String.prototype.padEnd !== 'function' || typeof Object.values !== 'function')
+if (typeof String.prototype.padEnd !== 'function' || typeof Object.values !== 'function' || typeof Promise === 'undefined' || typeof Promise.prototype.finally !== 'function')
   require('react-app-polyfill/stable');

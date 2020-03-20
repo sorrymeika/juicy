@@ -1,5 +1,5 @@
 import { controller, param, autowired } from "snowball/app";
-import PayResultViewModel from "../view-model/PayResultViewModel";
+import PayResultViewModel from "../view-models/PayResultViewModel";
 import PayResult from "../containers/PayResult";
 import { OrderConfiguration } from "../configuration/OrderConfiguration";
 

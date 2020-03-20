@@ -1,8 +1,8 @@
 import React from "react";
 import { TEMPLATE_TYPES } from "./constants/TEMPLATE_TYPES";
-import { Images } from "./components/Images";
-import { Slider } from "./components/Slider";
-import { NavBall } from "./components/NavBall";
+import Images from "./components/Images";
+import Slider from "./components/Slider";
+import NavBall from "./components/NavBall";
 import Products from "./components/Products";
 
 function createBrickFactory(type) {

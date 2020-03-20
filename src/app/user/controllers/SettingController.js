@@ -1,17 +1,17 @@
-import { controller } from "snowball/app";
+import { controller, autowired } from "snowball/app";
 import Setting from "../containers/Setting";
-import SettingService from "../services/SettingService";
+import SettingViewModel from "../view-models/SettingViewModel";
+import { SettingConfiguration } from "../configuration";
 
-@controller(Setting)
+@controller({
+    component: Setting,
+    configuration: SettingConfiguration
+})
 class SettingController {
-    settingService: SettingService;
-
-    constructor() {
-        this.settingService = new SettingService();
-    }
+    @autowired
+    settingViewModel: SettingViewModel;
 
     onInit() {
-        this.settingService.onInit.emit();
     }
 }
 

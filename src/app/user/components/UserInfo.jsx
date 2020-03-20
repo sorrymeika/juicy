@@ -1,5 +1,4 @@
 import React from 'react';
-import { inject } from 'snowball/app';
 import { SfsImage } from 'sn-app';
 
 function UserInfo({ userInfo }) {
@@ -15,10 +14,4 @@ function UserInfo({ userInfo }) {
     );
 }
 
-export default inject(({ userCenterService }) => {
-    return userCenterService
-        ? {
-            userInfo: userCenterService.userInfo
-        }
-        : null;
-})(UserInfo);
+export default UserInfo;

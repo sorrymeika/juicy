@@ -1,13 +1,13 @@
 import React from 'react';
 import { Header, MainScrollView } from 'snowball/components';
-import UserInfoToEdit from '../components/UserInfoToEdit';
+import SettingUserInfo from '../components/SettingUserInfo';
 
 export default function Setting() {
     return (
         <>
             <Header title="设置" />
             <MainScrollView>
-                <UserInfoToEdit></UserInfoToEdit>
+                <SettingUserInfo></SettingUserInfo>
             </MainScrollView>
         </>
     );

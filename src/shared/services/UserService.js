@@ -1,9 +1,11 @@
-import { observable, Emitter, util } from "snowball";
+import { observable, util } from "snowball";
 import { Service, autowired } from "snowball/app";
 
 export default class UserService extends Service {
 
-    @observable _userInfo = {};
+    @observable
+    _userInfo = {};
+
     get userInfo() {
         return this._userInfo;
     }
@@ -13,7 +15,7 @@ export default class UserService extends Service {
 
     _isLogin = false;
 
-    onLoginStatusChange = Emitter.create();
+    onLoginStatusChange = this.app.createEmitter();
 
     async isLogin() {
         if (!util.cookie('wtk')) return false;
@@ -30,38 +32,32 @@ export default class UserService extends Service {
     }
 
     loadUserInfo(options) {
-        if (!this._loadUserPromise) {
-            this._loadUserPromise = this.getUserInfo(options)
+        let loadUserPromise = this._loadUserPromise;
+        if (!loadUserPromise) {
+            this._loadUserPromise = loadUserPromise = this.getUserInfo(options)
                 .then(res => {
                     this._userInfo = res.data;
                     this._isLogin = true;
                     return res;
                 });
-
-            const clearPromise = () => {
-                this._loadUserPromise = null;
-            };
-
-            this._loadUserPromise
-                .then(clearPromise)
-                .catch(clearPromise);
+            loadUserPromise
+                .finally(() => {
+                    this._loadUserPromise = null;
+                });
         }
-        return this._loadUserPromise;
-
+        return loadUserPromise;
     }
 
     goToLogin(events) {
         if (events) {
-            const dispose = this.onLoginStatusChange(({ status }) => {
+            this.onLoginStatusChange.untilTrue(({ status }) => {
                 switch (status) {
                     case 'success':
                         events.onLogin && events.onLogin();
-                        dispose();
-                        break;
+                        return true;
                     case 'cancel':
                         events.onCancel && events.onCancel();
-                        dispose();
-                        break;
+                        return true;
                     case 'error':
                         events.onError && events.onError();
                         break;

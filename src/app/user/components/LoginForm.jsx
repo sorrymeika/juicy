@@ -43,8 +43,8 @@ function LoginForm({ onSubmit }) {
     );
 }
 
-export default inject(['loginService'], ([loginService]) => {
+export default inject(['loginViewModel'], ([loginViewModel]) => {
     return {
-        onSubmit: loginService.onSubmit.emit
+        onSubmit: loginViewModel.onSubmit
     };
 })(LoginForm);

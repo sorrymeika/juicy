@@ -6,7 +6,7 @@ import PageViewModel from "../../brick/view-models/PageViewModel";
 import CategoryViewModel from "../../category/view-models/CategoryViewModel";
 
 import CartViewModel from "../../cart/view-models/CartViewModel";
-import UserCenterService from "../../user/services/UserCenterService";
+import UserCenterViewModel from "../../user/view-models/UserCenterViewModel";
 
 import Home from "../containers/Home";
 import { HomeConfiguration } from "../configuration";
@@ -27,7 +27,7 @@ class HomeController {
     cartViewModel: CartViewModel;
 
     @autowired
-    userCenterService: UserCenterService;
+    userCenterViewModel: UserCenterViewModel;
 
     @observable
     currentTab = 'home';
@@ -72,7 +72,7 @@ class HomeController {
                     break;
                 case 'user':
                     this.isUserLoaded = true;
-                    this.userCenterService.init();
+                    this.userCenterViewModel.init();
                     break;
             }
         }
