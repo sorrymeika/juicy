@@ -1,11 +1,8 @@
 import React, { useEffect } from 'react';
-import { inject } from 'snowball/app';
+import { inject, autowired } from 'snowball/app';
 import { SfsImage } from 'sn-app';
 
-function OrderList({ orderList, type, onInit }) {
-    useEffect(() => {
-        onInit && onInit(type);
-    }, [type, onInit]);
+function OrderList({ orderList, type }) {
 
     return (
         <>
@@ -109,15 +106,14 @@ function OrderList({ orderList, type, onInit }) {
     );
 }
 
-export default inject(({ orderListServiceFactory }) => {
-    if (orderListServiceFactory) {
-        const orderListService = orderListServiceFactory();
+export default inject((store, { type }) => {
+    const orderListViewModel = autowired('orderListViewModel', { name: type + '' });
 
-        return () => {
-            return {
-                orderList: orderListService.orderList,
-                onInit: orderListService.onInit.emit,
-            };
-        };
-    }
+    useEffect(() => {
+        orderListViewModel.init(type);
+    }, [type, orderListViewModel]);
+
+    return {
+        orderList: orderListViewModel.orderList,
+    };
 })(OrderList);

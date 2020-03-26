@@ -1,9 +1,10 @@
 
 
 import { observable, util } from "snowball";
-import { Service } from "snowball/app";
+import { autowired, ViewModel } from "snowball/app";
+import OrderService from "../../../shared/services/OrderService";
 
-export default class OrderListService extends Service {
+export default class OrderListViewModel extends ViewModel {
     @observable orderList = [];
 
     type = 0;
@@ -11,14 +12,8 @@ export default class OrderListService extends Service {
     pageSize = 10;
     total = 0;
 
-    onInit = this.ctx.createEmitter();
-
-    constructor(orderService) {
-        super();
-
-        this.orderService = orderService;
-        this.onInit(type => this.init(type));
-    }
+    @autowired
+    orderService: OrderService;
 
     init(type) {
         this.type = type || 0;

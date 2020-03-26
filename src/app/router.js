@@ -17,7 +17,7 @@ import AddressEditController from "./address/controllers/AddressEditController";
 import OrderController from "./order/controllers/OrderController";
 import OrderPayController from "./order/controllers/OrderPayController";
 import OrderInfoController from "./orderinfo/OrderInfoController";
-import OrderListController from "./orderlist/OrderListController";
+import OrderListController from "./orderlist/controllers/OrderListController";
 
 import InvoiceController from "./order/controllers/InvoiceController";
 import PayResultController from "./order/controllers/PayResultController";
