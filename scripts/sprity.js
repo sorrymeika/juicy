@@ -2,94 +2,78 @@ var fs = require('fs');
 var fse = require('snowball/node-libs/fs');
 var path = require('path');
 
-var { Canvas, Image } = require('canvas');
+var sharp = require('sharp');
 
-function combineImages(out, srcs, callback) {
-  var count = 0;
-  var images = [];
-  var className = path.basename(out);
+async function combineImages(out, srcs, callback) {
+  const className = path.basename(out);
+  const metadatas = await Promise.all(srcs.map(src => sharp(src).metadata()));
 
-  srcs.forEach(function (src) {
-    count++;
+  const margin = 2;
+  const images = [];
 
-    fs.readFile(src, function (err, buffer) {
-      if (err) throw err;
-      var img = new Image();
-      img.src = buffer;
-      img.alt = src;
+  let maxWidth = 0;
+  let height = 0;
 
-      images.push(img);
+  metadatas.forEach((metadata, i) => {
+    const img = {
+      src: srcs[i]
+    };
+    img.w = metadata.width % 2 != 0 ? metadata.width + 1 : metadata.width;
+    img.h = metadata.height % 2 != 0 ? metadata.height + 1 : metadata.height;
 
-      count--;
+    img.left = margin;
+    height += margin;
 
-      if (count == 0) {
+    img.top = height;
+    height += (img.h + margin);
 
-        var maxWidth = 0;
-        var height = 0;
-        var margin = 2;
+    if (img.w > maxWidth) maxWidth = img.w;
 
-        for (let i = 0, j = images.length; i < j; i++) {
-          img = images[i];
+    images.push(img);
+  });
 
-          img.w = img.width % 2 != 0 ? img.width + 1 : img.width;
-          img.h = img.height % 2 != 0 ? img.height + 1 : img.height;
+  const styles = images.map((img) => {
+    return {
+      name: path.basename(img.src).replace(/\.(png|jpg|jpeg|gif)$/, ''),
+      x: img.left - margin,
+      y: img.top - margin,
+      width: img.w + margin * 2,
+      height: img.h + margin * 2
+    };
+  });
 
-          img.left = margin;
-          height += margin;
+  const outImageWidth = maxWidth + margin * 2;
 
-          img.top = height;
+  const outDir = path.dirname(out);
 
-          height += (img.h + margin);
+  fse.mkdirs(outDir, function () {
+    const outputSrc = path.resolve(outDir, "sprite-" + className + ".png");
 
-          if (img.w > maxWidth) maxWidth = img.w;
-        }
-
-        var outImageWidth = maxWidth + margin * 2;
-        var canvas = new Canvas(outImageWidth, height);
-        var ctx = canvas.getContext('2d');
-        var results = [];
-
-        for (let i = 0, j = images.length; i < j; i++) {
-          img = images[i];
-
-          results.push({
-            name: path.basename(img.alt).replace(/\.(png|jpg|jpeg|gif)$/, ''),
-            x: img.left - margin,
-            y: img.top - margin,
-            width: img.w + margin * 2,
-            height: img.h + margin * 2
-          });
-
-          ctx.drawImage(img, img.left, img.top, img.w, img.h);
-        }
-
-        var outDir = path.dirname(out);
-
-        fse.mkdirs(outDir, function () {
-          out = path.resolve(outDir, "sprite-" + className + ".png");
-
-          var output = fs.createWriteStream(out),
-            stream = canvas.pngStream();
-
-          stream.on('data', function (chunk) {
-            output.write(chunk);
-          });
-
-          stream.on('end', function () {
-            console.log('saved ' + out);
-
-            callback({
-              width: outImageWidth,
-              height: height,
-              name: className,
-              imageSrc: out,
-              images: results
-            });
-          });
-        });
-
+    sharp({
+      create: {
+        width: outImageWidth,
+        height: height,
+        channels: 4,
+        background: { r: 0, g: 0, b: 0, alpha: 0 }
       }
-    });
+    })
+      .composite(images.map((img) => {
+        return {
+          input: img.src,
+          top: img.top,
+          left: img.left
+        };
+      }))
+      .png()
+      .toFile(outputSrc, () => {
+        callback({
+          width: outImageWidth,
+          height: height,
+          name: className,
+          imageSrc: outputSrc,
+          images: styles
+        });
+      });
   });
 }
 

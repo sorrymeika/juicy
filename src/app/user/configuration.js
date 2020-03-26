@@ -13,6 +13,6 @@ export const UserConfiguration = configuration({
 
 export const SettingConfiguration = configuration({
     modules: {
-        settingViewModel: SettingViewModel,
+        settingViewModel: SettingViewModel
     }
 });

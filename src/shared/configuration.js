@@ -14,6 +14,7 @@ import ProductService from "./services/ProductService";
 import SellerService from "./services/SellerService";
 
 import { PicturesService } from "./components";
+import LoginViewModel from "../app/user/view-models/LoginViewModel";
 
 export const AppConfiguration = configuration({
     modules: {
@@ -31,5 +32,6 @@ export const AppConfiguration = configuration({
         marketServer: () => new Server({ baseUrl: API_URL + '/market_server' }),
         tradeServer: () => new Server({ baseUrl: API_URL + '/trade_server' }),
         baseServer: () => new Server({ baseUrl: API_URL + '/base_server' }),
+        loginViewModel: LoginViewModel
     }
 });
