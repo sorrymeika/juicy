@@ -13,7 +13,7 @@ import SearchService from "./services/SearchService";
 import ProductService from "./services/ProductService";
 import SellerService from "./services/SellerService";
 
-import { PicturesService } from "./components";
+import { PicturesViewModel } from "./components";
 import LoginViewModel from "../app/user/view-models/LoginViewModel";
 
 export const AppConfiguration = configuration({
@@ -25,13 +25,13 @@ export const AppConfiguration = configuration({
         orderService: singleton(OrderService),
         globalAddressService: singleton(GlobalAddressService),
         searchService: SearchService,
-        picturesService: PicturesService,
         productService: ProductService,
         sellerService: SellerService,
         userServer: () => new Server({ baseUrl: API_URL + '/user_server' }),
         marketServer: () => new Server({ baseUrl: API_URL + '/market_server' }),
         tradeServer: () => new Server({ baseUrl: API_URL + '/trade_server' }),
         baseServer: () => new Server({ baseUrl: API_URL + '/base_server' }),
-        loginViewModel: LoginViewModel
+        loginViewModel: LoginViewModel,
+        picturesViewModel: PicturesViewModel,
     }
 });

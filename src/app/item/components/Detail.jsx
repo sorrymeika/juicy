@@ -18,8 +18,8 @@ function Detail({ detailHtml }) {
     );
 }
 
-export default inject(({ itemService }, props) => {
+export default inject(({ itemViewModel }, props) => {
     return {
-        detailHtml: itemService.detailHtml
+        detailHtml: itemViewModel.detailHtml
     };
 })(Detail);

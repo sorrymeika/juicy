@@ -1,6 +1,6 @@
 import React from 'react';
 import { inject } from 'snowball/app';
-import ItemShopService from '../services/ItemShopService';
+import ItemShopViewModel from '../view-models/ItemShopViewModel';
 import { SfsImage } from 'sn-app';
 
 function ShopRecommends({ seller = {}, products }) {
@@ -36,7 +36,7 @@ function ShopRecommends({ seller = {}, products }) {
     );
 }
 
-export default inject(({ itemShopService }: { itemShopService: ItemShopService }) => {
+export default inject(({ itemShopService }: { itemShopService: ItemShopViewModel }) => {
     return itemShopService
         ? {
             seller: itemShopService.seller,

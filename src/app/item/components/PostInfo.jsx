@@ -1,7 +1,7 @@
 import React from 'react';
 import { inject } from 'snowball/app';
 import AddressSelect from '../../address/components/AddressSelect';
-import ItemService from '../services/ItemService';
+import ItemViewModel from '../view-models/ItemViewModel';
 
 function PostInfo({ currentAddress, onPostClick }) {
     return (
@@ -24,9 +24,9 @@ function PostInfo({ currentAddress, onPostClick }) {
     );
 }
 
-export default inject(['itemService', 'currentAddress'], ([itemService, currentAddress]: [ItemService], props) => {
+export default inject(['itemViewModel', 'currentAddress'], ([itemViewModel, currentAddress]: [ItemViewModel], props) => {
     return {
         currentAddress,
-        onPostClick: itemService.onPostClick
+        onPostClick: itemViewModel.onPostClick
     };
 })(PostInfo);

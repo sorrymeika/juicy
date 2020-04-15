@@ -1,9 +1,6 @@
 import { controller, autowired } from "snowball/app";
-import { ScrollView } from "snowball/components";
 import Item from "../containers/Item";
-import DistrictSelectService from "../../address/services/DistrictSelectService";
 import AddressSelectService from "../../address/services/AddressSelectService";
-import SearchService from "../../../shared/services/SearchService";
 import CartNumService from "../../../shared/services/CartNumService";
 import { ItemConfiguration } from "../configuration";
 
@@ -12,22 +9,11 @@ import { ItemConfiguration } from "../configuration";
     configuration: ItemConfiguration
 })
 class ItemController {
-    mainScrollViewHandler = ScrollView.createHandler();
-
     @autowired
-    itemService: ItemService;
-
-    @autowired
-    districtSelectService: DistrictSelectService;
+    itemViewModel: ItemViewModel;
 
     @autowired
     addressSelectService: AddressSelectService;
-
-    @autowired
-    itemShopService: ItemShopService;
-
-    @autowired
-    searchService: SearchService;
 
     @autowired
     cartNumService: CartNumService
@@ -45,7 +31,7 @@ class ItemController {
     }
 
     onInit() {
-        this.itemService.init(this.spuId);
+        this.itemViewModel.init(this.spuId);
         this.cartNumService.pull();
     }
 }

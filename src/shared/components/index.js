@@ -1,2 +1,2 @@
 export { default as Pictures } from './pictures/Pictures';
-export { default as PicturesService } from './pictures/PicturesService';
+export { default as PicturesViewModel } from './pictures/PicturesViewModel';

@@ -1,8 +1,8 @@
 import { observable } from "snowball";
-import { Service, autowired } from "snowball/app";
+import { ViewModel, autowired } from "snowball/app";
 import SearchService, { ORDER_BY } from "../../../shared/services/SearchService";
 
-export default class ItemShopService extends Service {
+export default class ItemShopViewModel extends ViewModel {
     @observable
     products;
 
@@ -10,14 +10,13 @@ export default class ItemShopService extends Service {
     seller;
 
     @autowired
-    searchService: SearchService;
+    _searchService: SearchService;
 
     async loadRecommends(excludeSpuIds = []) {
         if (!this.seller) {
             throw new Error('先设置`seller`!');
         }
-
-        const res = await this.searchService.searchByConditions({
+        const res = await this._searchService.searchByConditions({
             ...this.params,
             orderBy: ORDER_BY.DEFAULT,
             sellerIds: [this.seller.id],

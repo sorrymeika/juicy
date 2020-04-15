@@ -20,9 +20,9 @@ function SpuProps({ brandName, spuProps }) {
     );
 }
 
-export default inject(({ itemService }) => (
+export default inject(({ itemViewModel }) => (
     {
-        brandName: itemService.item.brandName,
-        spuProps: itemService.spuProps
+        brandName: itemViewModel.item.brandName,
+        spuProps: itemViewModel.spuProps
     }
 ))(SpuProps);

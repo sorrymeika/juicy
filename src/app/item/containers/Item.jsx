@@ -15,7 +15,7 @@ import ShopInfo from '../components/ShopInfo';
 import ShopRecommends from '../components/ShopRecommends';
 import Detail from '../components/Detail';
 import Footer from '../components/Footer';
-import { inject } from 'snowball/app';
+import { inject, autowired } from 'snowball/app';
 import ItemHeader from '../components/ItemHeader';
 
 function Item({ mainScrollViewRef, onScroll }) {
@@ -47,9 +47,10 @@ function Item({ mainScrollViewRef, onScroll }) {
     );
 }
 
-export default inject(({ itemService }) => {
+export default inject(() => {
+    const itemScrollHandler = autowired('itemScrollHandler');
     return {
-        mainScrollViewRef: itemService.mainScrollViewRef,
-        onScroll: itemService.onScroll,
+        mainScrollViewRef: itemScrollHandler.mainScrollViewRef,
+        onScroll: itemScrollHandler.onScroll,
     };
 })(Item);

@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import { $, util, ViewModel } from 'snowball';
-import { inject } from 'snowball/app';
+import { inject, mapViewModelToProps } from 'snowball/app';
 import { PhotoViewer } from "snowball/components";
-import PicturesService from './PicturesService';
 
 type PicturesProps = {
     pictures: string[],
@@ -185,9 +184,4 @@ class Pictures extends Component<PicturesProps, any> {
     }
 }
 
-export default inject(['picturesService'], ([picturesService]: [PicturesService]) => {
-    return {
-        pictures: picturesService.pictures,
-        onReleaseToSeeMore: picturesService.onReleaseToSeeMore
-    };
-})(Pictures);
+export default inject(mapViewModelToProps('picturesViewModel'))(Pictures);

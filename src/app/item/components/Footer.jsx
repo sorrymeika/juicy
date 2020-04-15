@@ -1,6 +1,6 @@
 import React from 'react';
 import { inject } from 'snowball/app';
-import ItemService from '../services/ItemService';
+import ItemViewModel from '../view-models/ItemViewModel';
 
 function Footer({
     sellerId,
@@ -46,11 +46,11 @@ function Footer({
     );
 }
 
-export default inject(({ itemService }: { itemService: ItemService }, props) => {
+export default inject(({ itemViewModel }: { itemViewModel: ItemViewModel }, props) => {
     return {
-        sellerId: itemService.seller.id,
-        cartNum: itemService.cartNum,
-        onAddToCart: itemService.onAddToCart,
-        onBuyNow: itemService.onBuyNow
+        sellerId: itemViewModel.seller.id,
+        cartNum: itemViewModel.cartNum,
+        onAddToCart: itemViewModel.onAddToCart,
+        onBuyNow: itemViewModel.onBuyNow
     };
 })(Footer);

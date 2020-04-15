@@ -13,8 +13,8 @@ function Title({ title }) {
     );
 }
 
-export default inject(({ itemService }) => (
+export default inject(({ itemViewModel }) => (
     {
-        title: itemService.item.title
+        title: itemViewModel.item.title
     }
 ))(Title);

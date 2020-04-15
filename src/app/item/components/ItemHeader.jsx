@@ -35,14 +35,14 @@ function ItemHeader({
     );
 }
 
-export default inject((store, props) => {
-    const itemService = autowired('itemService');
+export default inject(() => {
+    const itemScrollHandler = autowired('itemScrollHandler');
 
     return {
-        visible: itemService.headerVisible,
-        currentTab: itemService.scrollPos,
+        visible: itemScrollHandler.headerVisible,
+        currentTab: itemScrollHandler.scrollPos,
         onTabChange(name) {
-            itemService.scrollToComponent(name);
+            itemScrollHandler.scrollToComponent(name);
         }
     };
 })(ItemHeader);

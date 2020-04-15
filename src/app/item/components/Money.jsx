@@ -42,10 +42,10 @@ function Money({ minPrice, maxPrice, sales }) {
     );
 }
 
-export default inject(({ itemService }, props) => {
+export default inject(({ itemViewModel }, props) => {
     return {
-        minPrice: itemService.item.minPrice,
-        maxPrice: itemService.item.maxPrice,
-        sales: itemService.item.sales
+        minPrice: itemViewModel.item.minPrice,
+        maxPrice: itemViewModel.item.maxPrice,
+        sales: itemViewModel.item.sales
     };
 })(Money);

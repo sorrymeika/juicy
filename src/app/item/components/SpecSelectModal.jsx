@@ -86,15 +86,15 @@ function SpecSelectModal({
     );
 }
 
-export default inject(({ itemService }) => (
-    itemService
+export default inject(({ itemViewModel }) => (
+    itemViewModel
         ? {
-            item: itemService.item,
-            skus: itemService.skus,
-            buyNum: itemService.buyNum,
-            currentSku: itemService.currentSku,
-            onSpecChange: itemService.onBuyNumChange.emit,
-            onBuyNumChange: itemService.onBuyNumChange.emit
+            item: itemViewModel.item,
+            skus: itemViewModel.skus,
+            buyNum: itemViewModel.buyNum,
+            currentSku: itemViewModel.currentSku,
+            onSpecChange: itemViewModel.onBuyNumChange.emit,
+            onBuyNumChange: itemViewModel.onBuyNumChange.emit
         }
         : {}
 ))(SpecSelectModal);

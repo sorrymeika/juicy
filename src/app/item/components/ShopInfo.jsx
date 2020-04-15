@@ -21,10 +21,10 @@ function ShopInfo({ seller }) {
     );
 }
 
-export default inject(({ itemService }) => (
-    itemService
+export default inject(({ itemViewModel }) => (
+    itemViewModel
         ? {
-            seller: itemService.seller
+            seller: itemViewModel.seller
         }
         : null
 ))(ShopInfo);
