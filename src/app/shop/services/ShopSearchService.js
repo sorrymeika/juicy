@@ -1,8 +1,8 @@
 import { observable } from "snowball";
-import { Service, autowired, param } from "snowball/app";
+import { Service, autowired } from "snowball/app";
+import { toast } from "snowball/widget";
 import SellerService from "../../../shared/services/SellerService";
 import SearchService from "../../../shared/services/SearchService";
-import { toast } from "snowball/widget";
 
 
 export default class ShopSearchService extends Service {
