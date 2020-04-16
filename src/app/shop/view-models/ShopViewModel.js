@@ -1,7 +1,7 @@
 import { observable } from "snowball";
-import { Service, autowired, param } from "snowball/app";
+import { Service, autowired, param, emitter } from "snowball/app";
 import SellerService from "../../../shared/services/SellerService";
-import ShopSearchService from "./ShopSearchService";
+import ShopSearchService from "../services/ShopSearchService";
 
 const TABS = {
     SHOP: 'shop',
@@ -9,27 +9,14 @@ const TABS = {
     CATEGORY: 'category',
 };
 
-export default class ShopService extends Service {
+export default class ShopViewModel extends Service {
     @observable
     seller = {};
 
     @observable
     currentTab = TABS.SHOP;
 
-    @observable
-    products = [];
-
-    @observable
-    isNoMoreData = false;
-
-    @observable
-    loading = true;
-
     isProductsLoaded = false;
-
-    params = {};
-    pageIndex = 1;
-    pageSize = 20
 
     @param('tab')
     _tabIndex;
@@ -41,18 +28,19 @@ export default class ShopService extends Service {
     sellerService: SellerService;
 
     @autowired
-    shopSearchService: ShopSearchService;
+    _shopSearchService: ShopSearchService;
 
     constructor() {
         super();
 
         this.ctx.autorun(() => {
-            this.shopSearchService.seller = this.seller;
+            this._shopSearchService.seller = this.seller;
         });
+    }
 
-        this.onTabChange = this.ctx.createEmitter(((tabIndex) => {
-            this.setTabIndex(tabIndex);
-        }));
+    @emitter
+    onTabChange(tabIndex) {
+        this.setTabIndex(tabIndex);
     }
 
     setTabIndex(tabIndex) {
@@ -65,7 +53,7 @@ export default class ShopService extends Service {
             case TABS.PRODUCT:
                 if (!this.isProductsLoaded) {
                     this.isProductsLoaded = true;
-                    this.shopSearchService.search();
+                    this._shopSearchService.search();
                 }
                 break;
         }

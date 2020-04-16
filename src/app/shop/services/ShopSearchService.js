@@ -21,9 +21,6 @@ export default class ShopSearchService extends Service {
     onScrollToBottom = this.ctx.createEmitter();
     onToggleListType = this.ctx.createEmitter();
 
-    @param
-    sellerId: number;
-
     @autowired
     sellerService: SellerService;
 
@@ -68,6 +65,12 @@ export default class ShopSearchService extends Service {
         }
 
         this.pageIndex++;
+        this.loadProducts();
+    }
+
+    sort(orderBy) {
+        this.orderBy = orderBy;
+        this.pageIndex = 1;
         this.loadProducts();
     }
 

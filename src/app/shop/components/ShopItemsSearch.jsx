@@ -1,10 +1,9 @@
 import React from "react";
-import { inject } from "snowball/app";
-import ShopSearchService from "../services/ShopSearchService";
+import { inject, mapViewModelToProps } from "snowball/app";
 import SearchResult from "../../search/components/SearchResult";
 
 function ShopItemsSearch({
-    results,
+    products,
     listType,
     orderBy,
     loading,
@@ -38,7 +37,7 @@ function ShopItemsSearch({
                 </div>
             </div>
             <SearchResult
-                results={results}
+                results={products}
                 listType={listType}
                 loading={loading}
                 isNoMoreData={isNoMoreData}
@@ -49,18 +48,4 @@ function ShopItemsSearch({
     );
 }
 
-export default inject(({ shopSearchService }: { shopSearchService: ShopSearchService }) => {
-    return shopSearchService
-        ? {
-            results: shopSearchService.products,
-            loading: shopSearchService.loading,
-            listType: shopSearchService.listType,
-            orderBy: shopSearchService.orderBy,
-            isNoMoreData: shopSearchService.isNoMoreData,
-            onGotoItem: shopSearchService.onGotoItem.emit,
-            onScrollToBottom: shopSearchService.onScrollToBottom.emit,
-            onToggleListType: shopSearchService.onToggleListType.emit,
-            onSetSort: shopSearchService.onSetSort.emit,
-        }
-        : null;
-})(ShopItemsSearch);
+export default inject(mapViewModelToProps('shopSearchViewModel'))(ShopItemsSearch);

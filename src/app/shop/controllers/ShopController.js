@@ -3,11 +3,11 @@ import { toast } from "snowball/widget";
 
 import PageViewModel from "../../brick/view-models/PageViewModel";
 
-import ShopService from "../services/ShopService";
+import ShopViewModel from "../view-models/ShopViewModel";
 import Shop from "../containers/Shop";
-import ShopSearchService from "../services/ShopSearchService";
 import { PageConfiguration } from "../../brick/configuration";
-import { ShopConfiguration } from "../configuration/ShopConfiguration";
+import { ShopConfiguration } from "../configuration";
+import ShopSearchViewModel from "../view-models/ShopSearchViewModel";
 
 @controller({
     component: Shop,
@@ -24,23 +24,23 @@ class ShopController {
     _pageViewModel: PageViewModel;
 
     @autowired
-    shopService: ShopService;
+    _shopViewModel: ShopViewModel;
 
     @autowired
-    shopSearchService: ShopSearchService;
+    _shopSearchViewModel: ShopSearchViewModel;
 
     onInit() {
         if (this._tabIndex) {
-            this.shopService.setTabIndex(this._tabIndex);
+            this._shopViewModel.setTabIndex(this._tabIndex);
         }
-
+        this._shopSearchViewModel.setSellerId(this._sellerId);
         this._pageViewModel.initWithShop(this._sellerId)
             .then((res) => {
                 if (!res.seller) {
                     toast.showToast('商户不存在或已注销！');
                     return;
                 }
-                this.shopService.seller = res.seller;
+                this._shopViewModel.seller = res.seller;
             });
     }
 }

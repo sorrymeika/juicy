@@ -3,9 +3,10 @@ import React, { useState } from 'react';
 import { MainScrollView, Header, Tab } from "snowball/components";
 import { renderBricks } from "../../brick";
 import ShopItemsSearch from '../components/ShopItemsSearch';
-import { inject } from 'snowball/app';
-import ShopService from '../services/ShopService';
+import { inject, autowired } from 'snowball/app';
+import ShopViewModel from '../view-models/ShopViewModel';
 import { SfsImage } from 'sn-app';
+import PageViewModel from '../../brick/view-models/PageViewModel';
 
 function Shop({
     ctx,
@@ -17,6 +18,7 @@ function Shop({
     onTabChange
 }) {
     const [showInfo, setShowInfo] = useState(true);
+
 
     return (
         <div>
@@ -90,7 +92,7 @@ function Shop({
                         title="首页"
                     >
                         <MainScrollView>
-                            {renderBricks(pageData, bricks, ctx)}
+                            {renderBricks({ pageData, bricks })}
                         </MainScrollView>
                     </Tab.Pane>
                     <Tab.Pane
@@ -107,12 +109,15 @@ function Shop({
     );
 }
 
-export default inject(({ ctx, shopService, pageData, bricks }: { shopService: ShopService }) => {
+export default inject(() => {
+    const shopViewModel: ShopViewModel = autowired('shopViewModel');
+    const pageViewModel: PageViewModel = autowired('pageViewModel');
+    const { pageData, bricks } = pageViewModel;
+
     return {
-        seller: shopService.seller,
-        tabIndex: shopService.tabIndex,
-        onTabChange: shopService.onTabChange.emit,
-        ctx,
+        seller: shopViewModel.seller,
+        tabIndex: shopViewModel.tabIndex,
+        onTabChange: shopViewModel.onTabChange.emit,
         pageData,
         bricks
     };
