@@ -1,5 +1,5 @@
 import React from 'react';
-import { inject } from 'snowball/app';
+import { inject, autowired } from 'snowball/app';
 
 function ShopInfo({ seller }) {
     return (
@@ -21,10 +21,9 @@ function ShopInfo({ seller }) {
     );
 }
 
-export default inject(({ itemViewModel }) => (
-    itemViewModel
-        ? {
-            seller: itemViewModel.seller
-        }
-        : null
-))(ShopInfo);
+export default inject(() => {
+    const itemViewModel = autowired('itemViewModel');
+    return {
+        seller: itemViewModel.seller
+    };
+})(ShopInfo);

@@ -8,7 +8,7 @@ import ItemScrollHandler from "./view-models/ItemScrollHandler";
 export const ItemConfiguration = configuration({
     dependencies: [AddressConfiguration],
     modules: {
-        itemShopService: ItemShopViewModel,
+        itemShopViewModel: ItemShopViewModel,
         itemViewModel: ItemViewModel,
         itemScrollHandler: ItemScrollHandler
     }

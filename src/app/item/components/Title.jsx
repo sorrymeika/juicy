@@ -1,5 +1,5 @@
 import React from 'react';
-import { inject } from 'snowball/app';
+import { inject, autowired } from 'snowball/app';
 
 function Title({ title }) {
     return (
@@ -13,8 +13,9 @@ function Title({ title }) {
     );
 }
 
-export default inject(({ itemViewModel }) => (
-    {
+export default inject(() => {
+    const itemViewModel = autowired('itemViewModel');
+    return {
         title: itemViewModel.item.title
-    }
-))(Title);
+    };
+})(Title);

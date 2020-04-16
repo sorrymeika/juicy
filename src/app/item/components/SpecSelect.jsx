@@ -1,5 +1,5 @@
 import React from 'react';
-import { inject } from "snowball/app";
+import { inject, autowired } from "snowball/app";
 import SpecSelectModal from './SpecSelectModal';
 
 function SpecSelect({
@@ -43,12 +43,15 @@ function SpecSelect({
     );
 }
 
-export default inject(({ itemViewModel }) => ({
-    modalVisible: itemViewModel.isSpecSelectModalVisible,
-    sku: itemViewModel.currentSku,
-    buyNum: itemViewModel.buyNum,
-    onClickSpec: itemViewModel.onClickSpec.emit,
-    onCancelSelectSpec: itemViewModel.onCancelSelectSpec.emit,
-    onAddToCart: itemViewModel.onAddToCart.emit,
-    onBuyNow: itemViewModel.onBuyNow.emit,
-}))(SpecSelect);
+export default inject(() => {
+    const itemViewModel = autowired('itemViewModel');
+    return {
+        modalVisible: itemViewModel.isSpecSelectModalVisible,
+        sku: itemViewModel.currentSku,
+        buyNum: itemViewModel.buyNum,
+        onClickSpec: itemViewModel.onClickSpec.emit,
+        onCancelSelectSpec: itemViewModel.onCancelSelectSpec.emit,
+        onAddToCart: itemViewModel.onAddToCart.emit,
+        onBuyNow: itemViewModel.onBuyNow.emit,
+    };
+})(SpecSelect);

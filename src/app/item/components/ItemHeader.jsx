@@ -37,7 +37,6 @@ function ItemHeader({
 
 export default inject(() => {
     const itemScrollHandler = autowired('itemScrollHandler');
-
     return {
         visible: itemScrollHandler.headerVisible,
         currentTab: itemScrollHandler.scrollPos,

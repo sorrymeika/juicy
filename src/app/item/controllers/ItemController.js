@@ -10,20 +10,20 @@ import { ItemConfiguration } from "../configuration";
 })
 class ItemController {
     @autowired
-    itemViewModel: ItemViewModel;
+    _itemViewModel: ItemViewModel;
 
     @autowired
-    addressSelectService: AddressSelectService;
+    _addressSelectService: AddressSelectService;
 
     @autowired
-    cartNumService: CartNumService
+    _cartNumService: CartNumService
 
     get currentAddress() {
-        return this.addressSelectService.currentAddress;
+        return this._addressSelectService.currentAddress;
     }
 
     get cartNum() {
-        return this.cartNumService.total;
+        return this._cartNumService.total;
     }
 
     constructor(props) {
@@ -31,8 +31,8 @@ class ItemController {
     }
 
     onInit() {
-        this.itemViewModel.init(this.spuId);
-        this.cartNumService.pull();
+        this._itemViewModel.init(this.spuId);
+        this._cartNumService.pull();
     }
 }
 

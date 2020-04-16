@@ -41,7 +41,7 @@ export default class ItemViewModel extends ViewModel {
     _cartNumService;
 
     @autowired
-    itemShopService: ItemShopViewModel
+    itemShopViewModel: ItemShopViewModel
 
     @autowired
     _picturesViewModel;
@@ -62,8 +62,8 @@ export default class ItemViewModel extends ViewModel {
         this.detailHtml = detailRes.data.content;
         this.detailVideo = detailRes.data.detailVideo;
 
-        this.itemShopService.seller = data.seller;
-        this.itemShopService.loadRecommends([data.item.id]);
+        this.itemShopViewModel.seller = data.seller;
+        this.itemShopViewModel.loadRecommends([data.item.id]);
 
         this._picturesViewModel.onReleaseToSeeMore(() => {
             this._itemScrollHandler.scrollToComponent('detail');

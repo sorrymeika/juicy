@@ -1,12 +1,12 @@
 
 
 import React from 'react';
-import { inject } from 'snowball/app';
+import { inject, mapViewModelToProps } from 'snowball/app';
 import CategoryList from '../components/CategoryList';
 import SubCateList from '../components/SubCateList';
 import { Header } from 'snowball/components';
 
-function Category({ visible = true, showBack, cates, currentCate, onChange, onClickSubSubCate }) {
+function Category({ visible = true, showBack, cates, currentCate, onCateChange, onClickSubSubCate }) {
     return (
         <div className="cg_wrap" style={{ display: visible ? 'block' : 'none' }}>
             <Header
@@ -18,7 +18,7 @@ function Category({ visible = true, showBack, cates, currentCate, onChange, onCl
                 <CategoryList
                     cates={cates}
                     currentCate={currentCate}
-                    onChange={onChange}
+                    onChange={onCateChange}
                 />
                 <SubCateList
                     subCates={currentCate && currentCate.children}
@@ -29,11 +29,4 @@ function Category({ visible = true, showBack, cates, currentCate, onChange, onCl
     );
 }
 
-export default inject(({ categoryViewModel }) => {
-    return {
-        cates: categoryViewModel.cates,
-        currentCate: categoryViewModel.currentCate,
-        onChange: categoryViewModel.onCateChange.emit,
-        onClickSubSubCate: categoryViewModel.onClickSubSubCate.emit
-    };
-})(Category);
+export default inject(mapViewModelToProps('categoryViewModel'))(Category);

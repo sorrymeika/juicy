@@ -1,5 +1,5 @@
 import React from 'react';
-import { inject } from 'snowball/app';
+import { inject, autowired } from 'snowball/app';
 import ItemShopViewModel from '../view-models/ItemShopViewModel';
 import { SfsImage } from 'sn-app';
 
@@ -36,11 +36,10 @@ function ShopRecommends({ seller = {}, products }) {
     );
 }
 
-export default inject(({ itemShopService }: { itemShopService: ItemShopViewModel }) => {
-    return itemShopService
-        ? {
-            seller: itemShopService.seller,
-            products: itemShopService.products
-        }
-        : null;
+export default inject(() => {
+    const itemShopViewModel: ItemShopViewModel = autowired('itemShopViewModel');
+    return {
+        seller: itemShopViewModel.seller,
+        products: itemShopViewModel.products
+    };
 })(ShopRecommends);

@@ -1,5 +1,5 @@
 import React from 'react';
-import { inject } from "snowball/app";
+import { inject, autowired } from "snowball/app";
 
 function Money({ minPrice, maxPrice, sales }) {
     const [minPriceLeft, minPriceRight] = minPrice == null ? [] : minPrice.toFixed(2).split('.');
@@ -42,7 +42,8 @@ function Money({ minPrice, maxPrice, sales }) {
     );
 }
 
-export default inject(({ itemViewModel }, props) => {
+export default inject(() => {
+    const itemViewModel = autowired('itemViewModel');
     return {
         minPrice: itemViewModel.item.minPrice,
         maxPrice: itemViewModel.item.maxPrice,

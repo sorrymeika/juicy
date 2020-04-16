@@ -1,5 +1,5 @@
 import React from 'react';
-import { inject } from "snowball/app";
+import { inject, autowired } from "snowball/app";
 import { Modal, ScrollView } from 'snowball/components';
 import { SfsImage, InputNumber } from "sn-app";
 
@@ -86,15 +86,14 @@ function SpecSelectModal({
     );
 }
 
-export default inject(({ itemViewModel }) => (
-    itemViewModel
-        ? {
-            item: itemViewModel.item,
-            skus: itemViewModel.skus,
-            buyNum: itemViewModel.buyNum,
-            currentSku: itemViewModel.currentSku,
-            onSpecChange: itemViewModel.onBuyNumChange.emit,
-            onBuyNumChange: itemViewModel.onBuyNumChange.emit
-        }
-        : {}
-))(SpecSelectModal);
+export default inject(() => {
+    const itemViewModel = autowired('itemViewModel');
+    return {
+        item: itemViewModel.item,
+        skus: itemViewModel.skus,
+        buyNum: itemViewModel.buyNum,
+        currentSku: itemViewModel.currentSku,
+        onSpecChange: itemViewModel.onBuyNumChange.emit,
+        onBuyNumChange: itemViewModel.onBuyNumChange.emit
+    };
+})(SpecSelectModal);

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import SpuPropsModal from './SpuPropsModal';
-import { inject } from 'snowball/app';
+import { inject, autowired } from 'snowball/app';
 
 function SpuProps({ brandName, spuProps }) {
     const [modalVisible, setModalVisible] = useState(false);
@@ -20,9 +20,10 @@ function SpuProps({ brandName, spuProps }) {
     );
 }
 
-export default inject(({ itemViewModel }) => (
-    {
+export default inject(() => {
+    const itemViewModel = autowired('itemViewModel');
+    return {
         brandName: itemViewModel.item.brandName,
         spuProps: itemViewModel.spuProps
-    }
-))(SpuProps);
+    };
+})(SpuProps);

@@ -1,51 +1,27 @@
-import { observable } from "snowball";
+import { observable, asObservable } from "snowball";
 import { Service, autowired } from "snowball/app";
 import { toast } from "snowball/widget";
-import SellerService from "../../../shared/services/SellerService";
 import SearchService from "../../../shared/services/SearchService";
 
-
 export default class ShopSearchService extends Service {
-    @observable products = [];
-    @observable isNoMoreData = false;
-    @observable loading = true;
-    @observable listType = 'list';
+    @observable
+    products = [];
 
-    @observable orderBy = 0;
+    @observable
+    isNoMoreData = false;
+
+    @observable
+    loading = true;
+
+    @observable
+    orderBy = 0;
+
     params = {};
     pageIndex = 1;
     pageSize = 20
 
-    onSetSort = this.ctx.createEmitter();
-    onGotoItem = this.ctx.createEmitter();
-    onScrollToBottom = this.ctx.createEmitter();
-    onToggleListType = this.ctx.createEmitter();
-
     @autowired
-    sellerService: SellerService;
-
-    @autowired
-    searchService: SearchService;
-
-    constructor() {
-        super();
-
-        this.onSetSort((orderBy) => {
-            this.orderBy = orderBy;
-            this.pageIndex = 1;
-            this.loadProducts();
-        });
-
-        this.onToggleListType(() => {
-            this.listType = this.listType === 'list' ? 'card' : 'list';
-        });
-
-        this.onGotoItem((item) => {
-            this.ctx.navigation.forward('/item/' + item.id);
-        });
-
-        this.onScrollToBottom(() => this.loadNextPage());
-    }
+    _searchService: SearchService;
 
     setSellerId(sellerId) {
         this.sellerId = sellerId;
@@ -80,7 +56,7 @@ export default class ShopSearchService extends Service {
         let res;
 
         try {
-            res = await this.searchService.searchByConditions({
+            res = await this._searchService.searchByConditions({
                 ...this.params,
                 orderBy: this.orderBy,
                 sellerIds: [this.sellerId],
@@ -96,9 +72,7 @@ export default class ShopSearchService extends Service {
         if (this.pageIndex == 1) {
             this.products = res.data;
         } else {
-            this.products.withMutations((productList) => {
-                productList.add(res.data);
-            });
+            asObservable(this.products).add(res.data);
         }
 
         this.isNoMoreData = res.data.length < this.pageSize;
